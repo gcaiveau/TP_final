@@ -85,6 +85,22 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
     SDL_RenderFillRect(renderer, &dst);
 
+    // Barre de progression combo
+    dst = g_levelRects.progressBarCombo;
+    color = assets->colors.white;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
+    SDL_RenderFillRect(renderer, &dst);
+
+    float ComboRatio = (float)((scene->score.combo/10) / 5.f);
+    ComboRatio = Float_clamp(ComboRatio, 0.0f, 1.0f);
+    dst.x += 2; dst.y += 2;
+    dst.w -= 4; dst.h -= 4;
+    dst.w = (int)(ComboRatio * dst.w);
+
+    color = assets->colors.marron;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
+    SDL_RenderFillRect(renderer, &dst);
+
     // DEBUG
     //Gizmos du canvas en jaune
     //SDL_RenderDrawRect(renderer, &(g_levelRects.points));
@@ -104,6 +120,6 @@ void LevelCanvas_update(LevelCanvas *self)
     // Met à jour l'affichage du nombre de points du joueur
     sprintf(buffer, "%d", (int)score.points);
     Text_setString(self->textPoints, buffer);
-    sprintf(buffer, "x %d", (int)(score.combo/2));//affichage du combo
+    sprintf(buffer, "x %d", (int)(score.combo / 10));//affichage du combo
     Text_setString(self->textcombo, buffer);
 }

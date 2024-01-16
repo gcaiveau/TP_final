@@ -222,7 +222,8 @@ void Track_update(Track *self)
                 // de la note est inférieur à 0.5s
 
                 score.combo++;//ajout du combo
-                score.points = score.points + 1 * (score.combo/2);//combo/2
+                score.combo = Int_clamp(score.combo, 1, 50);
+                score.points = score.points + 1 * (score.combo/10);//combo/2
                 note->state = NOTE_PLAYED;
                 break;//break pour prendre les notes une par une
 
@@ -234,7 +235,7 @@ void Track_update(Track *self)
                 {
                     score.points--;
                 }
-                score.combo = 1;//remet le combo à un
+                score.combo -- ;//remet le combo à un
                 note->state = NOTE_FAILED;
                 break;//pour prendre les notes une par une
             }

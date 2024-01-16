@@ -74,6 +74,9 @@ void Game_initRectangles()
 
     y += 67;
     SDL_Rect_set(&(g_levelRects.combo), xUI - 140, y, trackWidth, trackHeight);  // combo
+
+    y += 67;
+    SDL_Rect_set(&(g_levelRects.progressBarCombo), xUI, y, uiWidth, barH);  // progress bas
 }
 
 void Game_init(int sdlFlags, int imgFlags)

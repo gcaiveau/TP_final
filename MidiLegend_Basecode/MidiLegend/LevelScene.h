@@ -57,6 +57,7 @@ typedef struct LevelScene
     /// @brief Score du joueur.
     /// Contient les informations essentielles de l'interface utilisateur (UI).
     LevelScore score;
+
 } LevelScene;
 
 /// @brief Crée la scène du niveau.

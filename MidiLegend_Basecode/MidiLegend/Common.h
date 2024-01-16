@@ -51,6 +51,9 @@ typedef struct LevelRects
 
     /// @brief Position et dimensions de la barre de progression de la musique.
     SDL_Rect progressBar;
+
+    SDL_Rect progressBarCombo;
+
 } LevelRects;
 
 typedef struct TitleRects
