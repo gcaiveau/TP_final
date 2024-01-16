@@ -170,7 +170,7 @@ bool TitleCanvas_update(TitleCanvas *self)
             int idx = config->leveldifficulty.difficultyLevel;
             idx += (input->rightPressed) ? 1 : -1;
             idx = 1+((idx+2)%3);
-            config->leveldifficulty.difficultyLevel = idx;
+            scene->config.leveldifficulty.difficultyLevel = idx;
         }
     }
     Text_setString(self->textMusic, g_musics[config->musicID].titleName);   // mise a jour du texte en fonction des action sutilisateurs

@@ -20,7 +20,7 @@ LevelScene *LevelScene_create(
         self->difficultyLevel.multiplicator = 0.8;
         self->difficultyLevel.NoMistakesAllowed = 0;
         self->difficultyLevel.Imprecision = 0.2;
-        self->difficultyLevel.FallingSpeed = 0.7;
+        self->difficultyLevel.FallingSpeed = 1.3;
         break;
     case 2:
         self->difficultyLevel.multiplicator = 1;
