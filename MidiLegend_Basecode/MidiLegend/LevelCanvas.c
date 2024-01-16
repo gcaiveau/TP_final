@@ -18,7 +18,7 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
 
     self->scene = scene;
     self->textPoints = Text_create(renderer, assets->fonts.big, "0", assets->colors.white);
-    self->textcombo = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.blue);
+    self->textcombo = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.white);
 
     return self;
 }
