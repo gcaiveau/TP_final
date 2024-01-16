@@ -24,22 +24,25 @@ void Game_initRectangles()
     // Menu principal
 
     int xMid = LOGICAL_WIDTH / 2;
-    y = 2 * LOGICAL_HEIGHT / 3;
+    y = LOGICAL_HEIGHT /4;
 
     //SDL_Rect_set(,position en x largeur, y hauteur , largeur du rectangle, hauteur du rectangle en longueur);
-    SDL_Rect_set(&(g_titleRects.textSelectMusic), xMid-400, 20, 400, textHeight+40);   // rectangle musique
-    SDL_Rect_set(&(g_titleRects.textMusic), xMid, 20, 350, textHeight+40);  //rectangle choix musique
+    SDL_Rect_set(&(g_titleRects.textSelectMusic), 20, y, 400, textHeight+40);   // rectangle musique
+    y += 3*textHeight;
+    SDL_Rect_set(&(g_titleRects.textMusic), 120, y, 350, textHeight+40);  //rectangle choix musique
 
-    y = textHeight + 80;
-    SDL_Rect_set(&(g_titleRects.textSelectNotes), xMid-400, y, 400, textHeight + 40);  //rectangle choix notes
-    SDL_Rect_set(&(g_titleRects.textNbNotes), xMid, y, 350, textHeight + 40);  //rectangle nombre notes
+    y += 80;
+    SDL_Rect_set(&(g_titleRects.textSelectNotes), 20, y, 400, textHeight + 40);  //rectangle choix notes
+    y += 3*textHeight;
+    SDL_Rect_set(&(g_titleRects.textNbNotes), 120, y, 350, textHeight + 40);  //rectangle nombre notes
 
     y +=80;
-    SDL_Rect_set(&(g_titleRects.textSelectDifficulty), xMid - 400, y, 400, textHeight + 40);  //rectangle choix difficulté
-    SDL_Rect_set(&(g_titleRects.textDifficultyValue), xMid, y, 350, textHeight + 40);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textSelectDifficulty), 20, y, 400, textHeight + 40);  //rectangle choix difficulté
+    y += 3*textHeight;
+    SDL_Rect_set(&(g_titleRects.textDifficultyValue), 120, y, 350, textHeight + 40);  //rectangle difficulté
 
-    y += 10*textHeight;
-    SDL_Rect_set(&(g_titleRects.textStart), xMid-400, y, 400, textHeight+40);  // rectangle commencer
+    y += 3* textHeight;
+    SDL_Rect_set(&(g_titleRects.textStart), 20, y, 400, textHeight+40);  // rectangle commencer
 
 
     //--------------------------------------------------------------------------
@@ -49,9 +52,9 @@ void Game_initRectangles()
     int trackHeight = 500;    // hauteur de la descnete des notes
     int xTrack = 50;
 
-    SDL_Rect_set(&(g_levelRects.logo), 1280-360, 720-211, 360, 211);  // logo
-    SDL_Rect_set(&(g_levelRects.trackFill), 0, 0, trackWidth, 720);  // decente de notes avec bloc de récupération
-    SDL_Rect_set(&(g_levelRects.trackMask), 0, 0, trackWidth, 100);  // bloc sombre descente des notes
+    SDL_Rect_set(&(g_levelRects.logo), 0, 0, 360, 211);  // logo
+    SDL_Rect_set(&(g_levelRects.trackFill), xMid-300, 0, trackWidth, 720);  // decente de notes avec bloc de récupération
+    SDL_Rect_set(&(g_levelRects.trackMask), xMid-300, 0, trackWidth, 100);  // bloc sombre descente des notes
 
     int barH = 10;//hauteur de la progress bar
     int uiWidth = 300;

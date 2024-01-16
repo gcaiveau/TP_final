@@ -25,7 +25,7 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textSelectNotes = Text_create(renderer, assets->fonts.normal, u8"Nombres de Notes", assets->colors.bleu_clair);
     self->textNbNotes = Text_create(renderer, assets->fonts.normal, u8"Notes", assets->colors.white);
     self->textSelectDifficulty = Text_create(renderer, assets->fonts.normal, u8"Niveau de difficulté", assets->colors.bleu_clair);
-    self->textDifficultyValue = Text_create(renderer, assets->fonts.normal, u8"Difficulté", assets->colors.bleu_clair);
+    self->textDifficultyValue = Text_create(renderer, assets->fonts.normal, u8"Difficulté", assets->colors.white);
 
     return self;
 }
