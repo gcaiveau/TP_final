@@ -7,25 +7,25 @@
 #include "LevelScene.h"
 
 LevelScene *LevelScene_create(
-    SDL_Renderer *renderer, int musicID,
-    int keyCount, bool pianoMode)
+    SDL_Renderer* renderer, LevelConfig config)
 {
     LevelScene *self = (LevelScene *)calloc(1, sizeof(LevelScene));
     AssertNew(self);
 
     self->renderer = renderer;
     self->assets = AssetManager_create(renderer);
-    self->input = Input_create(pianoMode);
-    self->track = Track_create(self, g_musics[musicID].textPath);
+    self->input = Input_create(config.piano);
+    self->track = Track_create(self, g_musics[config.musicID].textPath);
     self->trackTime = -2.0f;
-    self->music = Mix_LoadWAV(g_musics[musicID].musicPath);
+    self->music = Mix_LoadWAV(g_musics[config.musicID].musicPath);
     self->canvas = LevelCanvas_create(self);
-
     self->score.points = 0.0f;
     self->score.combo = 1;
 
+    //self->difficultyLevel = ;
+
     Track_clearChords(self->track);
-    Track_placeNotes(self->track, keyCount);
+    Track_placeNotes(self->track, config.keyCount);
 
     return self;
 }

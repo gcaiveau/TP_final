@@ -186,6 +186,7 @@ void Track_update(Track *self)
     LevelScore score = LevelScene_getScore(scene);
     float trackTime = (float)scene->trackTime;
     bool LegalKeys[5] = { 0 };
+    //scene->config.leveldifficulty.difficultyLevel = 1;
 
     // Met à jour les indices des notes visibles par le joueur
     // Cela évite de parcourir toutes les notes de la musique

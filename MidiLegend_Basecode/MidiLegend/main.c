@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
         // Niveau
 
         levelScene = LevelScene_create(
-            renderer, config.musicID, config.keyCount, config.piano
+            renderer, config
         );
 
         // Boucle de rendu du niveau

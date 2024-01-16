@@ -9,6 +9,7 @@
 
 #include "Settings.h"
 #include "Common.h"
+#include "TitleScene.h"
 
 #include "AssetManager.h"
 #include "LevelCanvas.h"
@@ -58,6 +59,8 @@ typedef struct LevelScene
     /// Contient les informations essentielles de l'interface utilisateur (UI).
     LevelScore score;
 
+    LevelDifficulty difficultyLevel;
+
 } LevelScene;
 
 /// @brief Crée la scène du niveau.
@@ -67,8 +70,7 @@ typedef struct LevelScene
 /// @param pianoMode booléen indiquant si le jeu est en mode piano (ou guitare).
 /// @return La scène créée.
 LevelScene *LevelScene_create(
-    SDL_Renderer *renderer, int musicID,
-    int keyCount, bool pianoMode);
+    SDL_Renderer *renderer, LevelConfig config);
 
 /// @brief Détruit la scène du niveau.
 /// @param self la scène.
