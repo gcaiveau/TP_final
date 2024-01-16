@@ -56,7 +56,7 @@ bool TitleScene_update(TitleScene *self)
         self->config.leveldifficulty.multiplicator = 0.8;
         self->config.leveldifficulty.NoMistakesAllowed = 0;
         self->config.leveldifficulty.Imprecision = 0.2;
-        self->config.leveldifficulty.FallingSpeed = 0.7;
+        self->config.leveldifficulty.FallingSpeed = 1.3;
         break;
     case 2:
         self->config.leveldifficulty.multiplicator = 1;
@@ -68,7 +68,7 @@ bool TitleScene_update(TitleScene *self)
         self->config.leveldifficulty.multiplicator = 1.2;
         self->config.leveldifficulty.NoMistakesAllowed = 1;
         self->config.leveldifficulty.Imprecision = 0.1;
-        self->config.leveldifficulty.FallingSpeed = 1.3;
+        self->config.leveldifficulty.FallingSpeed = 0.7;
         break;
     }
 
