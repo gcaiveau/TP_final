@@ -203,8 +203,15 @@ void Track_update(Track *self)
     }
 
     for (int j = 0; j < self->keyCount; j++)// vérification si une autre touche n'est pas appuyé en même temps
-        if (input->keyDown[j] && !LegalKeys[j])//si c'est le cas on quitte la boucle
+        if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
+            if (self->scene->difficultyLevel.NoMistakesAllowed)
+            {
+                score.points--;                                         //pour la difficulté la plus importante, l'utilisateur
+                score.points = (score.points < 0) ? 0: score.points;    //perd des points si il se trompe de touche
+                LevelScene_setScore(scene, score);        
+            }
             return;
+        }
 
     // Modifie l'état des notes visibles par le joueur
     for (int i = self->firstIdx; i <= self->lastIdx; i++)
@@ -217,7 +224,7 @@ void Track_update(Track *self)
         {
             // La note est active, elle est donc en cours de descente
             // et n'a pas encore été traitée par le joueur
-            if (fabsf(note->playingTime - trackTime) < 0.2f && input->keyHit[keyID])  // timer d'acceptation touche 0.1 qausi impossible 0.15 moyen 0.25 ez
+            if (fabsf(note->playingTime - trackTime) < self->scene->difficultyLevel.Imprecision && input->keyHit[keyID])  // timer d'acceptation touche 0.1 qausi impossible 0.15 moyen 0.25 ez
             {
                 // L'écart entre le temps courant de la musique et le début
                 // de la note est inférieur à 0.5s
@@ -225,14 +232,14 @@ void Track_update(Track *self)
                 score.combo++;//ajout du combo
                 score.combo = Int_clamp(score.combo, 1, 50);
                 if ((score.combo / 10) == 0)
-                    score.points++;
+                    self->scene->difficultyLevel.multiplicator * score.points++;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
-                    score.points = score.points + 1*(score.combo/10);//combo/2
+                    score.points = self->scene->difficultyLevel.multiplicator * (score.points + 1*(score.combo/10));//combo/2
                 note->state = NOTE_PLAYED;
                 break;//break pour prendre les notes une par une
 
             }
-            else if (note->playingTime + 0.2f < trackTime)
+            else if (note->playingTime + self->scene->difficultyLevel.Imprecision < trackTime)
             {
                 // La note devait être jouée il y a plus de 0.2s
                 if (score.points > 0)
