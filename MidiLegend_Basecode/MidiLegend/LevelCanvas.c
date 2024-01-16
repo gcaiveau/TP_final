@@ -39,14 +39,18 @@ void LevelCanvas_render(LevelCanvas *self)
     AssetManager *assets = LevelScene_getAssetManager(scene);
     SDL_Renderer *renderer = LevelScene_getRenderer(scene);
 
-    // Rectangle de fond
+    // Rectangle de score
     SDL_Color color = assets->colors.bleu_fonce;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 120);
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 150);
     SDL_RenderFillRect(renderer, &(g_levelRects.uiRect));
 
     int w, h;
     SDL_Rect dst = { 0 };
     SDL_Texture *texture = NULL;
+
+    // Rectangle de combo;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 150);
+    SDL_RenderFillRect(renderer, &(g_levelRects.comboRect));
 
     // Points
     texture = Text_getTexture(self->textPoints);
@@ -87,6 +91,7 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, 222, 138, 78, 255);
     SDL_RenderDrawRect(renderer, &(g_levelRects.uiRect));
     SDL_RenderDrawRect(renderer, &(g_levelRects.progressBar));
+    SDL_RenderDrawRect(renderer, &(g_levelRects.comboRect));
     
 }
 

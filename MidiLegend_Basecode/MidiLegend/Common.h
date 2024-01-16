@@ -41,7 +41,9 @@ typedef struct LevelRects
 
     /// @brief Position et dimensions du texte inquant le nombre de points.
     SDL_Rect points;
-    
+
+    SDL_Rect comboRect;
+
     SDL_Rect combo;
     /// @brief Position et dimensions du rectangle délimitant
     /// l'interface utilisateur (UI).
