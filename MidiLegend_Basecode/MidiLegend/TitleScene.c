@@ -49,6 +49,30 @@ bool TitleScene_update(TitleScene *self)
     Input_update(input);
     bool quit = TitleCanvas_update(canvas);
 
+
+    switch (self->config.leveldifficulty.difficultyLevel)
+    {
+    case 1:
+        self->config.leveldifficulty.multiplicator = 0.8;
+        self->config.leveldifficulty.NoMistakesAllowed = 0;
+        self->config.leveldifficulty.Imprecision = 0.2;
+        self->config.leveldifficulty.FallingSpeed = 0.7;
+        break;
+    case 2:
+        self->config.leveldifficulty.multiplicator = 1;
+        self->config.leveldifficulty.NoMistakesAllowed = 0;
+        self->config.leveldifficulty.Imprecision = 0.15;
+        self->config.leveldifficulty.FallingSpeed = 1;
+        break;
+    case 3:
+        self->config.leveldifficulty.multiplicator = 1.2;
+        self->config.leveldifficulty.NoMistakesAllowed = 1;
+        self->config.leveldifficulty.Imprecision = 0.1;
+        self->config.leveldifficulty.FallingSpeed = 1.3;
+        break;
+    }
+
+
     return quit || self->input->quitPressed;
 }
 
