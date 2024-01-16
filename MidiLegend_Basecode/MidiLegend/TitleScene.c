@@ -19,7 +19,7 @@ TitleScene *TitleScene_create(SDL_Renderer *renderer)
 
 
     self->config.keyCount = 3;
-    self->config.leveldifficulty.difficultyLevel = 3;
+    self->config.leveldifficulty.difficultyLevel = 1;
     self->config.musicID = 0;
     self->config.piano = true;
 
