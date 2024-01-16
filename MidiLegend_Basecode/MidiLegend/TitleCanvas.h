@@ -21,11 +21,17 @@ typedef struct TitleCanvas
     /// @brief Le texte indiquant de sélectionner la musique du niveau.
     Text *textSelectMusic;
 
-    /// @brief Le texte indiquant de sélectionner la musique du niveau.
-    Text* textNotes;
+    /// @brief Le texte indiquant le nombre de cordes.
+    Text* textNbNotes;
 
-    /// @brief Le texte indiquant de sélectionner la musique du niveau.
+    /// @brief Le texte indiquant de sélectionner le nombre de cordes.
     Text* textSelectNotes;
+
+    /// @brief texte indiquant de choisir le niveau de difficulté
+    Text* textSelectDifficulty;
+
+    /// @brief texte indiquant le niveau de difficulté
+    Text* textDifficultyValue;
 
     /// @brief Le texte affichant le nom de la musique sélectionnée.
     Text *textMusic;  // TODO : decommenter

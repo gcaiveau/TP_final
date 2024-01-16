@@ -27,15 +27,20 @@ void Game_initRectangles()
     y = 2 * LOGICAL_HEIGHT / 3;
 
     //SDL_Rect_set(,position en x largeur, y hauteur , largeur du rectangle, hauteur du rectangle en longueur);
-    SDL_Rect_set(&(g_titleRects.textSelectMusic), 20, 20, 400, textHeight+40);   // rectangle musique
-    SDL_Rect_set(&(g_titleRects.textMusic), 420, 20, 350, textHeight+40);  //rectangle choix musique
+    SDL_Rect_set(&(g_titleRects.textSelectMusic), xMid-400, 20, 400, textHeight+40);   // rectangle musique
+    SDL_Rect_set(&(g_titleRects.textMusic), xMid, 20, 350, textHeight+40);  //rectangle choix musique
 
     y = textHeight + 80;
-    SDL_Rect_set(&(g_titleRects.textNotes), 20, y, 400, textHeight + 40);  //rectangle choix notes
-    SDL_Rect_set(&(g_titleRects.textSelectNotes), 420, y, 350, textHeight + 40);  //rectangle choix musique
+    SDL_Rect_set(&(g_titleRects.textSelectNotes), xMid-400, y, 400, textHeight + 40);  //rectangle choix notes
+    SDL_Rect_set(&(g_titleRects.textNbNotes), xMid, y, 350, textHeight + 40);  //rectangle nombre notes
+
+    y +=80;
+    SDL_Rect_set(&(g_titleRects.textSelectDifficulty), xMid - 400, y, 400, textHeight + 40);  //rectangle choix difficulté
+    SDL_Rect_set(&(g_titleRects.textDifficultyValue), xMid, y, 350, textHeight + 40);  //rectangle difficulté
 
     y += 10*textHeight;
-    SDL_Rect_set(&(g_titleRects.textStart), 20, y, 400, textHeight+40);  // rectangle commencer
+    SDL_Rect_set(&(g_titleRects.textStart), xMid-400, y, 400, textHeight+40);  // rectangle commencer
+
 
     //--------------------------------------------------------------------------
     // Niveau
@@ -53,13 +58,13 @@ void Game_initRectangles()
     int xUI = LOGICAL_WIDTH - uiWidth - 30;
 
     y = 0;
-    SDL_Rect_set(&(g_levelRects.uiRect), 1280-400, y, 400, 200);  // fond score
+    SDL_Rect_set(&(g_levelRects.uiRect), 1280-300, y, 300, 200);  // fond vert
 
     y += 20;
-    SDL_Rect_set(&(g_levelRects.points), xUI-120, y-10, trackWidth,trackHeight);  // point
+    SDL_Rect_set(&(g_levelRects.points), xUI-120, y-10, trackWidth,trackHeight);  // rectangle jaune pour les points,
 
     y += textHeight + 30;
-    SDL_Rect_set(&(g_levelRects.progressBar), 1280-350, 100, uiWidth, barH);  // progress bas
+    SDL_Rect_set(&(g_levelRects.progressBar), 1280-300, y, uiWidth, barH);  // progress bas
 
     y += barH + 50;
     SDL_Rect_set(&(g_levelRects.combo), xUI - 120, y , trackWidth, trackHeight);  // combo
