@@ -169,7 +169,7 @@ bool TitleCanvas_update(TitleCanvas *self)
         {
             int idx = config->leveldifficulty.difficultyLevel;
             idx += (input->rightPressed) ? 1 : -1;
-            idx = 1+ (idx)%3;
+            idx =   1+(idx) %3;
             config->leveldifficulty.difficultyLevel = idx;
         }
     }

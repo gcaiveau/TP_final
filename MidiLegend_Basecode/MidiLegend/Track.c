@@ -197,10 +197,8 @@ void Track_update(Track *self)
         Note* note = self->notes + i;
         int keyID = note->keyID;
 
-
         if (fabsf(note->playingTime - trackTime) < 0.15f)//vérification si la touche correspondante à la note est touché au bon moment
             LegalKeys[keyID] = 1;
-
     }
 
     for (int j = 0; j < self->keyCount; j++)// vérification si une autre touche n'est pas appuyé en même temps
