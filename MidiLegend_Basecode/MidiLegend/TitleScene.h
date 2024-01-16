@@ -13,6 +13,15 @@
 #include "TitleCanvas.h"
 #include "Input.h"
 #include "Track.h"
+
+typedef struct LevelDiffiCulty {            //choix du niveau de difficulté
+    int difficultyLevel;
+    float multiplicator;
+    bool NoMistakesAllowed;
+    float Imprecision;
+
+}LevelDifficulty;
+
 /// @brief Structure représentant les paramètres du niveau sélectionné dans le menu principal.
 typedef struct LevelConfig
 {
@@ -24,6 +33,8 @@ typedef struct LevelConfig
 
     /// @brief Booléen indiquant si le niveau est joué en mode piano (true) ou guitare (false).
     bool piano;
+
+    LevelDifficulty leveldifficulty;
 } LevelConfig;
 
 /// @brief Structure représentant la scène principale du jeu (niveau).

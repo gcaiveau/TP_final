@@ -65,12 +65,6 @@ typedef struct AssetManager
 
         /// @brief Couleur représentant du blanc.
         SDL_Color white;
-
-        SDL_Color marron;
-
-        SDL_Color bleu_clair;
-
-        SDL_Color bleu_fonce;
     } colors;
 } AssetManager;
 

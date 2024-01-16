@@ -20,6 +20,7 @@ typedef struct MusicSpec
     int bestScore;
 } MusicSpec;
 
+
 /// @brief Temps global du jeu.
 extern Timer *g_time;
 
@@ -64,10 +65,16 @@ typedef struct TitleRects
     SDL_Rect textStart;
 
     /// @brief Position et dimensions du texte pour changer le nombre de corde.
-    SDL_Rect textNotes;
+    SDL_Rect textNbNotes;
 
-    /// @brief Position et dimensions du texte pour changer le nombre de corde.
+    /// @brief Position et dimensions du texte indiquant le nombre de corde.
     SDL_Rect textSelectNotes;
+
+    /// @brief Position et dimensions du texte indiquant de choisir le niveau de difficulté.
+    SDL_Rect textSelectDifficulty;
+
+    /// @brief Position et dimensions du texte indiquant le niveau de difficulté.
+    SDL_Rect textDifficultyValue;
 
 } TitleRects;
 
