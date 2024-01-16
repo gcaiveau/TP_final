@@ -12,6 +12,30 @@ LevelScene *LevelScene_create(
     LevelScene *self = (LevelScene *)calloc(1, sizeof(LevelScene));
     AssertNew(self);
 
+    self->difficultyLevel.difficultyLevel = config.leveldifficulty.difficultyLevel;
+
+    switch (self->difficultyLevel.difficultyLevel)
+    {
+    case 1:
+        self->difficultyLevel.multiplicator = 0.8;
+        self->difficultyLevel.NoMistakesAllowed = 0;
+        self->difficultyLevel.Imprecision = 0.2;
+        self->difficultyLevel.FallingSpeed = 0.7;
+        break;
+    case 2:
+        self->difficultyLevel.multiplicator = 1;
+        self->difficultyLevel.NoMistakesAllowed = 0;
+        self->difficultyLevel.Imprecision = 0.15;
+        self->difficultyLevel.FallingSpeed = 1;
+        break;
+    case 3:
+        self->difficultyLevel.multiplicator = 1.2;
+        self->difficultyLevel.NoMistakesAllowed = 1;
+        self->difficultyLevel.Imprecision = 0.1;
+        self->difficultyLevel.FallingSpeed = 0.7;
+        break;
+    }
+
     self->renderer = renderer;
     self->assets = AssetManager_create(renderer);
     self->input = Input_create(config.piano);
@@ -21,6 +45,10 @@ LevelScene *LevelScene_create(
     self->canvas = LevelCanvas_create(self);
     self->score.points = 0.0f;
     self->score.combo = 1;
+
+
+    
+
 
     //self->difficultyLevel = ;
 

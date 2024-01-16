@@ -87,7 +87,7 @@ Track *Track_create(LevelScene *scene, char *filename)
     self->notes = (Note *)calloc(noteCount, sizeof(Note));
     AssertNew(self->notes);
 
-    self->visibleTime = 2.0f;
+    self->visibleTime = 2.0f*self->scene->difficultyLevel.FallingSpeed;
     self->pastTime = 0.15f * self->visibleTime;
 
     for (int i = 0; i < noteCount; i++)
