@@ -19,13 +19,13 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->scene = scene;
     
     //initialise un espace emoire pour le texte (render, police, "texte", couleur)
-    self->textSelectMusic = Text_create(renderer, assets->fonts.normal, u8"Musique", assets->colors.blue);
-    self->textMusic = Text_create(renderer, assets->fonts.normal, u8"Nom de la musique", assets->colors.blue);
-    self->textStart = Text_create(renderer, assets->fonts.normal, u8"Commencer", assets->colors.blue);
-    self->textSelectNotes = Text_create(renderer, assets->fonts.normal, u8"Nombres de Notes", assets->colors.blue);
-    self->textNbNotes = Text_create(renderer, assets->fonts.normal, u8"Notes", assets->colors.blue);
-    self->textSelectDifficulty = Text_create(renderer, assets->fonts.normal, u8"Niveau de difficulté", assets->colors.blue);
-    self->textDifficultyValue = Text_create(renderer, assets->fonts.normal, u8"Difficulté", assets->colors.blue);
+    self->textSelectMusic = Text_create(renderer, assets->fonts.normal, u8"Musique", assets->colors.bleu_clair);
+    self->textMusic = Text_create(renderer, assets->fonts.normal, u8"Nom de la musique", assets->colors.white);
+    self->textStart = Text_create(renderer, assets->fonts.normal, u8"Commencer", assets->colors.bleu_clair);
+    self->textSelectNotes = Text_create(renderer, assets->fonts.normal, u8"Nombres de Notes", assets->colors.bleu_clair);
+    self->textNbNotes = Text_create(renderer, assets->fonts.normal, u8"Notes", assets->colors.white);
+    self->textSelectDifficulty = Text_create(renderer, assets->fonts.normal, u8"Niveau de difficulté", assets->colors.bleu_clair);
+    self->textDifficultyValue = Text_create(renderer, assets->fonts.normal, u8"Difficulté", assets->colors.bleu_clair);
 
     return self;
 }
@@ -190,9 +190,9 @@ bool TitleCanvas_update(TitleCanvas *self)
     for (int i = 0; i < 4; i++)
     {
         SDL_Color colors = (i == self->selection) ?
-            assets->colors.green : assets->colors.blue;
+            assets->colors.marron : assets->colors.bleu_clair;
         Text_setColor(leftTexts[i], colors);
     }
 
-    return (self->selection == 2 && input->startPressed);
+    return (self->selection == 3 && input->startPressed);
 }

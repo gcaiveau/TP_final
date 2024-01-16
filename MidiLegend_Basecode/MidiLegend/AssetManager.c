@@ -39,7 +39,7 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     TextureSpec texSpecs[] = {
         {
             .ptr = &textures->background,
-            .path = "../Assets/Images/ibijau.png"
+            .path = "../Assets/Images/fond_1.png"
         },
         {
             .ptr = &textures->logo,
@@ -91,17 +91,17 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     FontSpec fontSpecs[] = {
         {
             .ptr = &fonts->small,
-            .path = "../Assets/Font/NotoSans-ExtraBold.ttf",
+            .path = "../Assets/Font/The\ Fruit\ Star.ttf",
             .size = 18,
         },
         {
             .ptr = &fonts->normal,
-            .path = "../Assets/Font/NotoSans-ExtraBold.ttf",
+            .path = "../Assets/Font/The\ Fruit\ Star.ttf",
             .size = 36,
         },
         {
             .ptr = &fonts->big,
-            .path = "../Assets/Font/NotoSans-ExtraBold.ttf",
+            .path = "../Assets/Font/The\ Fruit\ Star.ttf",
             .size = 72,
         },
     };
@@ -130,6 +130,9 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     setColor(&(self->colors.black), 0, 0, 0);
     setColor(&(self->colors.white), 255, 255, 255);
     setColor(&(self->colors.green), 0, 255, 0);
+    setColor(&(self->colors.marron), 222, 138, 78);
+    setColor(&(self->colors.bleu_clair), 156, 209, 201);
+    setColor(&(self->colors.bleu_fonce), 13, 13, 25);
 
     return self;
 }

@@ -17,7 +17,7 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
     SDL_Renderer *renderer = LevelScene_getRenderer(scene);
 
     self->scene = scene;
-    self->textPoints = Text_create(renderer, assets->fonts.big, "0", assets->colors.blue);
+    self->textPoints = Text_create(renderer, assets->fonts.big, "0", assets->colors.white);
     self->textcombo = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.blue);
 
     return self;
@@ -40,8 +40,8 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_Renderer *renderer = LevelScene_getRenderer(scene);
 
     // Rectangle de fond
-    SDL_Color color = assets->colors.green;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 60);
+    SDL_Color color = assets->colors.bleu_fonce;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 120);
     SDL_RenderFillRect(renderer, &(g_levelRects.uiRect));
 
     int w, h;
@@ -67,8 +67,8 @@ void LevelCanvas_render(LevelCanvas *self)
 
     // Barre de progression
     dst = g_levelRects.progressBar;
-    color = assets->colors.black;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
+    color = assets->colors.white;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &dst);
 
     float trackRatio = (float)(scene->trackTime / track->duration);
@@ -77,7 +77,7 @@ void LevelCanvas_render(LevelCanvas *self)
     dst.w -= 4; dst.h -= 4;
     dst.w = (int)(trackRatio * dst.w);
 
-    color = assets->colors.white;
+    color = assets->colors.marron;
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
     SDL_RenderFillRect(renderer, &dst);
 

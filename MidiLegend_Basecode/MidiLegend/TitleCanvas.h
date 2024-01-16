@@ -33,6 +33,8 @@ typedef struct TitleCanvas
     /// @brief texte indiquant le niveau de difficulté
     Text* textDifficultyValue;
 
+    Text* textNotes;
+
     /// @brief Le texte affichant le nom de la musique sélectionnée.
     Text *textMusic;  // TODO : decommenter
 
