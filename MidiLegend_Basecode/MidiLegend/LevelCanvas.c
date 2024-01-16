@@ -81,13 +81,13 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
     SDL_RenderFillRect(renderer, &dst);
 
-    /* DEBUG
-    Gizmos du canvas en jaune
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    SDL_RenderDrawRect(renderer, &(g_levelRects.points));
+    // DEBUG
+    //Gizmos du canvas en jaune
+    //SDL_RenderDrawRect(renderer, &(g_levelRects.points));
+    SDL_SetRenderDrawColor(renderer, 222, 138, 78, 255);
     SDL_RenderDrawRect(renderer, &(g_levelRects.uiRect));
     SDL_RenderDrawRect(renderer, &(g_levelRects.progressBar));
-    */
+    
 }
 
 void LevelCanvas_update(LevelCanvas *self)

@@ -48,26 +48,26 @@ void Game_initRectangles()
     //--------------------------------------------------------------------------
     // Niveau
 
-    int trackWidth = 600;     // position de la descente des notes
+    int trackWidth = 580;     // position de la descente des notes
     int trackHeight = 500;    // hauteur de la descnete des notes
     int xTrack = 50;
 
-    SDL_Rect_set(&(g_levelRects.logo), 0, 0, 360, 211);  // logo
-    SDL_Rect_set(&(g_levelRects.trackFill), xMid-300, 0, trackWidth, 720);  // decente de notes avec bloc de récupération
-    SDL_Rect_set(&(g_levelRects.trackMask), xMid-300, 0, trackWidth, 100);  // bloc sombre descente des notes
+    //SDL_Rect_set(&(g_levelRects.logo), 0, 0, 360, 211);  // logo
+    SDL_Rect_set(&(g_levelRects.trackFill), xMid-290, 0, trackWidth, 720);  // decente de notes avec bloc de récupération
+    SDL_Rect_set(&(g_levelRects.trackMask), xMid-290, 0, trackWidth, 100);  // bloc sombre descente des notes
 
     int barH = 10;//hauteur de la progress bar
     int uiWidth = 300;
     int xUI = LOGICAL_WIDTH - uiWidth - 30;
 
     y = 0;
-    SDL_Rect_set(&(g_levelRects.uiRect), 1280-300, y, 300, 200);  // fond vert
+    SDL_Rect_set(&(g_levelRects.uiRect), 1280-350, y, 350, 200);  // box score 
 
-    y += 20;
-    SDL_Rect_set(&(g_levelRects.points), xUI-120, y-10, trackWidth,trackHeight);  // rectangle jaune pour les points,
+    y += 67;
+    SDL_Rect_set(&(g_levelRects.points), xUI-150, y, trackWidth,trackHeight);  // les points,
 
-    y += textHeight + 30;
-    SDL_Rect_set(&(g_levelRects.progressBar), 1280-300, y, uiWidth, barH);  // progress bas
+    y += textHeight + 67;
+    SDL_Rect_set(&(g_levelRects.progressBar), xUI, y, uiWidth, barH);  // progress bas
 
     y += barH + 50;
     SDL_Rect_set(&(g_levelRects.combo), xUI - 120, y , trackWidth, trackHeight);  // combo
