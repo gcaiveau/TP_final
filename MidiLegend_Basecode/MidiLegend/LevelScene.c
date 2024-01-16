@@ -17,19 +17,19 @@ LevelScene *LevelScene_create(
     switch (self->difficultyLevel.difficultyLevel)
     {
     case 1:
-        self->difficultyLevel.multiplicator = 0.8;
+        self->difficultyLevel.multiplicator = 1;
         self->difficultyLevel.NoMistakesAllowed = 0;
         self->difficultyLevel.Imprecision = 0.2;
         self->difficultyLevel.FallingSpeed = 1.3;
         break;
     case 2:
-        self->difficultyLevel.multiplicator = 1;
+        self->difficultyLevel.multiplicator = 1,2;
         self->difficultyLevel.NoMistakesAllowed = 0;
         self->difficultyLevel.Imprecision = 0.15;
         self->difficultyLevel.FallingSpeed = 1;
         break;
     case 3:
-        self->difficultyLevel.multiplicator = 1.2;
+        self->difficultyLevel.multiplicator = 1.5;
         self->difficultyLevel.NoMistakesAllowed = 1;
         self->difficultyLevel.Imprecision = 0.1;
         self->difficultyLevel.FallingSpeed = 0.7;
