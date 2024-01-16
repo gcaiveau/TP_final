@@ -1,7 +1,7 @@
-SLD2
-SLD2_image
-SDL2_mixer
-SLD2_ttf
-x64
+MidiLegend_Basecode/SLD2
+MidiLegend_Basecode/SLD2_image
+MidiLegend_Basecode/SDL2_mixer
+MidiLegend_Basecode/SLD2_ttf
+MidiLegend_Basecode/x64
 
-MidiLegend/x64
+MidiLegend_Basecode/MidiLegend/x64
