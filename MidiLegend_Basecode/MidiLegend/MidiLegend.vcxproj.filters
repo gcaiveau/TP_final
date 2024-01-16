@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources\Utils">
+      <UniqueIdentifier>{aaaf5b1f-b4fb-4923-918a-bc75b5e290cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game">
+      <UniqueIdentifier>{27f11147-e99f-426f-b87c-341605d572bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Level">
+      <UniqueIdentifier>{d960c94f-a316-4a90-9c6b-3dd1df0656c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Title">
+      <UniqueIdentifier>{ccde1a90-21af-4b3e-90c1-815365ef0acb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Common.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.c">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.c">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.c">
+      <Filter>Fichiers sources\Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelScene.c">
+      <Filter>Fichiers sources\Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.c">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelCanvas.c">
+      <Filter>Fichiers sources\Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.c">
+      <Filter>Fichiers sources\Game\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleCanvas.c">
+      <Filter>Fichiers sources\Game\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.h">
+      <Filter>Fichiers sources\Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelScene.h">
+      <Filter>Fichiers sources\Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelCanvas.h">
+      <Filter>Fichiers sources\Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Fichiers sources\Game\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleCanvas.h">
+      <Filter>Fichiers sources\Game\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
