@@ -19,6 +19,7 @@ typedef struct LevelDiffiCulty {            //choix du niveau de difficulté
     float multiplicator;
     bool NoMistakesAllowed;
     float Imprecision;
+    float FallingSpeed;
 
 }LevelDifficulty;
 
