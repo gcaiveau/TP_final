@@ -30,6 +30,9 @@ typedef struct TitleCanvas
     /// @brief texte indiquant de choisir le niveau de difficulté
     Text* textSelectDifficulty;
 
+    Text* textSettings;
+
+    Text* textMenu;
     /// @brief texte indiquant le niveau de difficulté
     Text* textDifficultyValue;
 
@@ -43,6 +46,9 @@ typedef struct TitleCanvas
 
     /// @brief Indice du paramètre sélectionné dans le menu.
     int selection;
+
+    int pageID;
+
 } TitleCanvas;
 
 /// @brief Crée le canvas du menu principal.
