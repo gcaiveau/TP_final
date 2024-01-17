@@ -253,9 +253,9 @@ void Track_update(Track *self)
                 score.combo+=1+score.PerfectCount;//ajout du combo
                 score.combo = Int_clamp(score.combo, 1, 50);
                 if ((score.combo / 5) == 0)
-                    score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points + score.PerfectCount;        //le "multiplicator" permet de valoriser une difficulté plus importante
+                    score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
-                    score.points += ((self->scene->difficultyLevel.multiplicator * 1) + score.PerfectCount) * (score.combo/5.0f);
+                    score.points += (self->scene->difficultyLevel.multiplicator * 1) * (score.combo/5.0f);
                 note->state = (note->state==NOTE_HELD) ? NOTE_HELD : NOTE_PLAYED;
                 break;//break pour prendre les notes une par une
 
@@ -281,7 +281,7 @@ void Track_update(Track *self)
             note->state = NOTE_RELEASED;
             }
             else
-                score.points += 1;
+                score.points += (trackTime == note->playingTime + 5) ? 1 : 0;
         }
     }
 
@@ -337,7 +337,7 @@ void Track_render(Track *self)
         SDL_Rect dst = { 0 };
         dst.w = 40;
         if (note->type == TYPE_LONG)
-            dst.h = 25 * 2;
+            dst.h = note->duration * 200;
         else
             dst.h = 25;
         
