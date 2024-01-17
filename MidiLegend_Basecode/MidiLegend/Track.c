@@ -232,9 +232,21 @@ void Track_update(Track *self)
                     note->state = NOTE_HELD;
 
                 if (fabsf(note->playingTime - trackTime) < 0.01)
-                    score.PerfectCount = 1;
-                else
-                    score.PerfectCount = 0;
+                {
+                    score.Type = 1;
+                    score.PerfectCount++;
+                }
+                else if (fabsf(note->playingTime - trackTime) < 0.1)
+                {
+                    score.Type = 2;
+                    score.GoodCount++;
+                }
+                else if (fabsf(note->playingTime - trackTime) < self->scene->difficultyLevel.Imprecision)
+                {
+                    score.Type = 3;
+                    score.BofCount++;
+                }
+                    
                 // L'écart entre le temps courant de la musique et le début
                 // de la note est inférieur à 0.5s
 

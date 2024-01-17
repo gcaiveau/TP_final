@@ -19,6 +19,8 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
     self->scene = scene;
     self->textPoints = Text_create(renderer, assets->fonts.big, "0", assets->colors.white);
     self->textcombo = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.white);
+    self->textPerfect = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.green);
+
 
     return self;
 }
@@ -29,6 +31,7 @@ void LevelCanvas_destroy(LevelCanvas *self)
 
     Text_destroy(self->textPoints);
     Text_destroy(self->textcombo);
+    Text_destroy(self->textPerfect);
 
     free(self);
 }
@@ -66,6 +69,14 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_levelRects.combo.x + (g_levelRects.combo.w - w) / 2;
     dst.y = g_levelRects.combo.y - 23;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textPerfect);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_levelRects.textPerfect.x + (g_levelRects.textPerfect.w - w) / 2;
+    dst.y = g_levelRects.textPerfect.y - 23;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
@@ -116,6 +127,7 @@ void LevelCanvas_update(LevelCanvas *self)
 {
     Track *track = LevelScene_getTrack(self->scene);
     LevelScore score = LevelScene_getScore(self->scene);
+    AssetManager* assets = LevelScene_getAssetManager(self->scene);
     char buffer[128] = { 0 };
     
     // Met à jour l'affichage du nombre de points du joueur
@@ -123,4 +135,24 @@ void LevelCanvas_update(LevelCanvas *self)
     Text_setString(self->textPoints, buffer);
     sprintf(buffer, "x %d", (int)(score.combo / 10));//affichage du combo
     Text_setString(self->textcombo, buffer);
+    if (score.Type == 1)
+    {
+        sprintf(buffer, "Perfect !");
+        Text_setString(self->textPerfect, buffer);
+    }
+    else if (score.Type == 2)
+    {
+        sprintf(buffer, "Good :)");
+        Text_setString(self->textPerfect, buffer);
+    }
+    else if (score.Type == 3)
+    {
+        sprintf(buffer, "Bof :(");
+        Text_setString(self->textPerfect, buffer);
+    }
+    else if (score.Type == 4)
+    {
+        sprintf(buffer, "Nope...");
+        Text_setString(self->textPerfect, buffer);
+    }
 }

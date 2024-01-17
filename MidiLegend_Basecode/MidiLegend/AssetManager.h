@@ -72,6 +72,10 @@ typedef struct AssetManager
         SDL_Color marron;
         SDL_Color bleu_clair;
         SDL_Color bleu_fonce;
+        SDL_Color cyan;
+        SDL_Color rouge;
+        SDL_Color jaune_clair;
+
     } colors;
 } AssetManager;
 

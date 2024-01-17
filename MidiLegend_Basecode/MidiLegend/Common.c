@@ -97,6 +97,8 @@ void Game_initRectangles()
 
     y += 67;
     SDL_Rect_set(&(g_levelRects.progressBarCombo), xUI, y, uiWidth, barH);  // progress bas
+
+    SDL_Rect_set(&(g_levelRects.textPerfect), xUI - 140, 720-70, trackWidth, trackHeight);  // perfect
 }
 
 void Game_init(int sdlFlags, int imgFlags)

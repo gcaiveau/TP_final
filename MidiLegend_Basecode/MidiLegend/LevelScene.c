@@ -48,10 +48,7 @@ LevelScene *LevelScene_create(
     self->canvas = LevelCanvas_create(self);
     self->score.points = 0.0f;
     self->score.combo = 1;
-
-
-    
-
+    self->score.Type = 4;
 
     //self->difficultyLevel = ;
 

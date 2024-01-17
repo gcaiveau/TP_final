@@ -46,6 +46,8 @@ typedef struct LevelRects
     SDL_Rect comboRect;
 
     SDL_Rect combo;
+
+    SDL_Rect textPerfect;
     /// @brief Position et dimensions du rectangle délimitant
     /// l'interface utilisateur (UI).
     SDL_Rect uiRect;
