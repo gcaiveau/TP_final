@@ -28,6 +28,7 @@ void LevelCanvas_destroy(LevelCanvas *self)
     if (!self) return;
 
     Text_destroy(self->textPoints);
+    Text_destroy(self->textcombo);
 
     free(self);
 }
