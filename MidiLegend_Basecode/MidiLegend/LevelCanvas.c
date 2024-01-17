@@ -56,7 +56,7 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 150);
     SDL_RenderFillRect(renderer, &(g_levelRects.comboRect));
 
-    color = assets->colors.bleu_clair;
+    color = assets->colors.violet;
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &(g_levelRects.barre));
 

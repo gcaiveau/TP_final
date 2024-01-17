@@ -66,6 +66,10 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
             .path = "../Assets/Images/key_down.png"
         },
         {
+            .ptr = &textures->keyDown1,
+            .path = "../Assets/Images/key_down1.png"
+        },
+        {
             .ptr = &textures->difficulte,
             .path = "../Assets/Images/difficulte1.png"
         },
@@ -145,6 +149,8 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     setColor(&(self->colors.cyan), 168, 220, 207);
     setColor(&(self->colors.rouge), 166, 18, 22);
     setColor(&(self->colors.jaune_clair), 255, 255, 220);
+    setColor(&(self->colors.jaune), 215, 215, 16);
+    setColor(&(self->colors.violet), 177, 16, 215);
 
     return self;
 }
@@ -166,7 +172,8 @@ void AssetManager_destroy(AssetManager *self)
         textures->keyUp,
         textures->keyDown,
         textures->difficulte,
-        textures->barre,
+
+
     };
     int texCount = sizeof(texPointers) / sizeof(SDL_Texture *);
 
