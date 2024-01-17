@@ -275,9 +275,9 @@ void Track_update(Track *self)
                 
         }
         if (note->state == NOTE_HELD) {
-            if (note->endingTime - trackTime == 0)
+            if (trackTime < note->endingTime)
                 note->state = NOTE_PLAYED;
-            if (!input->keyDown[keyID]) {
+            else if (!input->keyDown[keyID]) {
             note->state = NOTE_RELEASED;
             }
             else
