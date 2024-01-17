@@ -25,7 +25,7 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textSelectNotes = Text_create(renderer, assets->fonts.normal, u8"Nombres de Notes", assets->colors.bleu_clair);
     self->textNbNotes = Text_create(renderer, assets->fonts.normal, u8"Notes", assets->colors.white);
     self->textSelectDifficulty = Text_create(renderer, assets->fonts.normal, u8"Niveau de difficulté", assets->colors.bleu_clair);
-    self->textDifficultyValue = Text_create(renderer, assets->fonts.normal, u8"Difficulté", assets->colors.white);
+    
 
     return self;
 }
@@ -41,7 +41,7 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textSelectNotes);
     Text_destroy(self->textNbNotes);
     Text_destroy(self->textSelectDifficulty);
-    Text_destroy(self->textDifficultyValue);
+    
 
     free(self);
 }
@@ -100,14 +100,7 @@ void TitleCanvas_render(TitleCanvas *self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-    // niveau de difficulté
-    texture = Text_getTexture(self->textDifficultyValue);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textDifficultyValue.x;
-    dst.y = g_titleRects.textDifficultyValue.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
+    
     
 
     // Commencer
@@ -179,7 +172,7 @@ bool TitleCanvas_update(TitleCanvas *self)
     sprintf(nbnotes, u8"< %d >", config->keyCount);
     sprintf(difficulty, u8"< %d >", config->leveldifficulty.difficultyLevel);
     Text_setString(self->textNbNotes,nbnotes);// mise a jour du texte en fonction des action sutilisateurs
-    Text_setString(self->textDifficultyValue, difficulty);// mise a jour du texte en fonction des action sutilisateurs
+    
 
     Text *leftTexts[] = {
         self->textSelectMusic,
