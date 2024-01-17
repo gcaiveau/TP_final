@@ -228,10 +228,10 @@ void Track_update(Track *self)
             // et n'a pas encore été traitée par le joueur
             if (fabsf(note->playingTime - trackTime) < self->scene->difficultyLevel.Imprecision && input->keyHit[keyID])  // timer d'acceptation touche 0.1 qausi impossible 0.15 moyen 0.25 ez
             {
-                if (fabsf(note->playingTime - trackTime) < 0.02)
-                    score.PerfectCount = 0;
-                else
+                if (fabsf(note->playingTime - trackTime) < 0.01)
                     score.PerfectCount = 1;
+                else
+                    score.PerfectCount = 0;
                 // L'écart entre le temps courant de la musique et le début
                 // de la note est inférieur à 0.5s
 
