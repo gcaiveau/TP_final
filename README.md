@@ -19,6 +19,11 @@ Ajout : 3 niveaux de difficulté
 		Imprécision très peu tolérée (0.07)
 		Temps de chute des notes très cours (0.7*2)
 		Mode NoMistakes : si une touche est pressée alors qu'elle ne devrait pas l'être le score diminue d'un point
+
+Ajout : 
+	Note parfaite, si une note est jouée avec une imprécision inférieure à 0.01, compte double pour le score et pour le combo
+	
+
 		
 		
 		
