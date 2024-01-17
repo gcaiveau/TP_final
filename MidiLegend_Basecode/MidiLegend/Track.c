@@ -234,7 +234,7 @@ void Track_update(Track *self)
                 if ((score.combo / 5) == 0)
                     score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
-                    score.points = self->scene->difficultyLevel.multiplicator * 1 + (score.points + 1 * (score.combo/5));
+                    score.points = ((score.points + (self->scene->difficultyLevel.multiplicator * 1)) * (score.combo/5));
                 note->state = NOTE_PLAYED;
                 break;//break pour prendre les notes une par une
 
