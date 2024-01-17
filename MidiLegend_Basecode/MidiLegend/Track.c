@@ -312,7 +312,11 @@ void Track_render(Track *self)
         // On définit la position et les dimensions de la note
         SDL_Rect dst = { 0 };
         dst.w = 37;
-        dst.h = 25;
+        if (note->type == TYPE_LONG)
+            dst.h = 25 * 2;
+        else
+            dst.h = 25;
+        
         dst.x = (580 - ((self->keyCount - 1) * 50 + 37)) / 2 + trackRect.x + note->keyID * 50;//centrer la descente des notes
         dst.y = (int)(trackRect.y + noteRelPos * trackRect.h);
         dst.y -= dst.h;
