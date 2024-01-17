@@ -285,7 +285,7 @@ void Track_update(Track *self)
             }
 
             else {
-                score.points += ((int)(trackTime*1000)%200 == 0) ? 1 : 0;
+                score.points += ((int)(trackTime*1000)%100 == 0) ? 1 : 0;
             }
         }
     }
