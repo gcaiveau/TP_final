@@ -56,6 +56,10 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 150);
     SDL_RenderFillRect(renderer, &(g_levelRects.comboRect));
 
+    color = assets->colors.bleu_clair;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
+    SDL_RenderFillRect(renderer, &(g_levelRects.barre));
+
     // Points
     texture = Text_getTexture(self->textPoints);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);

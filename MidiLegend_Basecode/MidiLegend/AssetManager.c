@@ -166,6 +166,7 @@ void AssetManager_destroy(AssetManager *self)
         textures->keyUp,
         textures->keyDown,
         textures->difficulte,
+        textures->barre,
     };
     int texCount = sizeof(texPointers) / sizeof(SDL_Texture *);
 

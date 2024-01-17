@@ -51,6 +51,7 @@ typedef struct LevelRects
     /// @brief Position et dimensions du rectangle délimitant
     /// l'interface utilisateur (UI).
     SDL_Rect uiRect;
+    SDL_Rect barre;
 
     /// @brief Position et dimensions de la barre de progression de la musique.
     SDL_Rect progressBar;
@@ -89,6 +90,7 @@ typedef struct TitleRects
     SDL_Rect difficulte1;
     SDL_Rect difficulte2;
     SDL_Rect difficulte3;
+    SDL_Rect barre;
 
     /// @brief Position et dimensions du texte indiquant le niveau de difficulté.
 

@@ -338,13 +338,13 @@ void Track_render(Track *self)
 
         // On définit la position et les dimensions de la note
         SDL_Rect dst = { 0 };
-        dst.w = 37;
+        dst.w = 40;
         if (note->type == TYPE_LONG)
             dst.h = note->duration  * 200;
         else
             dst.h = 25;
         
-        dst.x = (580 - ((self->keyCount - 1) * 50 + 37)) / 2 + trackRect.x + note->keyID * 50;//centrer la descente des notes
+        dst.x = (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + note->keyID * 50;//centrer la descente des notes
         dst.y = (int)(trackRect.y + noteRelPos * trackRect.h);
         dst.y -= dst.h;
 
@@ -361,15 +361,27 @@ void Track_render(Track *self)
     // Boucle de rendu des touches du joueur
     for (int i = 0; i < self->keyCount; i++)
     {
+        Note* note = &(self->notes[i]);
+
         SDL_Rect dst = { 0 };
-        dst.w = 37;
+        dst.w = 40;
         dst.h = 25;
-        dst.x = (580 - ((self->keyCount - 1) * 50 + 37)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
+        dst.x = (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
         dst.y = (int)(trackRect.y + validationRelPos * trackRect.h);
         dst.y -= dst.h;
 
         SDL_Texture *texture = input->keyDown[i] ? assets->textures.keyDown : assets->textures.keyUp;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+        SDL_Rect barre = { 0 };
+        barre.x = 20 + (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;
+        barre.y = 0;
+        barre.w = 2;
+        barre.h = (int)(trackRect.y + validationRelPos * trackRect.h) - 25;
+        SDL_Texture* textures = input->keyDown[i] ? assets->textures.barre : assets->textures.barre;
+        SDL_Rect_set(&(g_levelRects.barre),barre.x ,barre.y ,barre.w ,barre.h );  // les points,
+        SDL_RenderCopy(renderer, NULL, NULL, &g_levelRects.barre);
+
     }
 
     // On dessine le masque en dernier (pour qu'il soit au dessus des notes)
