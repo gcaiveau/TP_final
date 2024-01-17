@@ -275,13 +275,15 @@ void Track_update(Track *self)
                 
         }
         if (note->state == NOTE_HELD) {
+            note->playingTime = trackTime;
             if (trackTime > note->endingTime)
                 note->state = NOTE_PLAYED;
             else if (!input->keyDown[keyID]) {
             note->state = NOTE_RELEASED;
             }
-            else
-                score.points += (trackTime == note->playingTime + 5) ? 1 : 0;
+            else {
+                score.points += ((int)(trackTime*1000)%200 == 0) ? 1 : 0;
+            }
         }
     }
 
@@ -337,7 +339,7 @@ void Track_render(Track *self)
         SDL_Rect dst = { 0 };
         dst.w = 40;
         if (note->type == TYPE_LONG)
-            dst.h = (note->endingTime - scene->trackTime) * 200;
+            dst.h = (note->endingTime - note->playingTime) * scene->difficultyLevel.FallingSpeed * 200;
         else
             dst.h = 25;
         
