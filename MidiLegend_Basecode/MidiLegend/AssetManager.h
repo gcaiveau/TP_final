@@ -36,6 +36,8 @@ typedef struct AssetManager
 
         /// @brief Texture d'une touche enfoncée de la piste.
         SDL_Texture *keyDown;
+
+        SDL_Texture* difficulte;
     } textures;
 
     /// @brief Ensemble des fontes de caractères du jeu.

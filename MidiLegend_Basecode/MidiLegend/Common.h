@@ -39,6 +39,7 @@ typedef struct LevelRects
     /// en haut de la piste pour l'apparition en fondu des notes.
     SDL_Rect trackMask;
 
+    SDL_Rect difficulte;
     /// @brief Position et dimensions du texte inquant le nombre de points.
     SDL_Rect points;
 

@@ -65,6 +65,10 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
             .ptr = &textures->keyDown,
             .path = "../Assets/Images/key_down.png"
         },
+        {
+            .ptr = &textures->difficulte,
+            .path = "../Assets/Images/difficulte.png"
+        },
     };
     int texSpecCount = sizeof(texSpecs) / sizeof(TextureSpec);
 
@@ -153,6 +157,7 @@ void AssetManager_destroy(AssetManager *self)
         textures->note,
         textures->keyUp,
         textures->keyDown,
+        textures->difficulte,
     };
     int texCount = sizeof(texPointers) / sizeof(SDL_Texture *);
 
