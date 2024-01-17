@@ -44,14 +44,15 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textNbNotes);
     Text_destroy(self->textSelectDifficulty);
     Text_destroy(self->textSettings);
+    Text_destroy(self->textMenu);
 
     free(self);
 }
 void TitleCanvas_render(TitleCanvas* self)
 {
     if (self->pageID == 0)
-        TitleCanvas_renderSettings(self);
-    else
+        TitleCanvas_renderMain(self);
+    else if (self->pageID==1)
         TitleCanvas_renderSettings(self);
 
 }
@@ -69,6 +70,13 @@ void TitleCanvas_renderMain(TitleCanvas *self)
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textStart.x;
     dst.y = g_titleRects.textStart.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+    texture = Text_getTexture(self->textSettings);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textSettings.x;
+    dst.y = g_titleRects.textSettings.y;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
@@ -138,6 +146,14 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    texture = Text_getTexture(self->textMenu);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textMenu.x;
+    dst.y = g_titleRects.textMenu.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
     /* DEBUG
     // Gizmos du canvas en jaune
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
@@ -155,7 +171,7 @@ bool TitleCanvas_update(TitleCanvas *self)
 {
     if (self->pageID == 0)
         return TitleCanvas_updateMain(self);
-    else
+    else if (self->pageID == 1)
         return TitleCanvas_updateSettings(self);
 }
 bool TitleCanvas_updateMain(TitleCanvas* self)
@@ -165,6 +181,12 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
 
+
+    if (input->startPressed && self->selection==0)
+    {
+        self->pageID = 1;
+        return false;
+    }
 
     if (input->downPressed || input->upPressed)
     {
@@ -185,8 +207,7 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
             assets->colors.marron : assets->colors.bleu_clair;
         Text_setColor(leftTexts[i], colors);
     }
-    if ((self->selection == 0 && input->startPressed))
-        self->pageID=1;
+
     return (self->selection == 1 && input->startPressed);
 }
 bool TitleCanvas_updateSettings(TitleCanvas* self)
@@ -196,6 +217,11 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
 
+    if (input->startPressed && self->selection == 3)
+    {
+        self->pageID = 0;
+        return false;
+    }
 
     if (input->downPressed || input->upPressed)
     {
@@ -251,7 +277,5 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             assets->colors.marron : assets->colors.bleu_clair;
         Text_setColor(leftTexts[i], colors);
     }
-
-    if (self->selection == 3 && input->startPressed)
-        self->pageID = 0;
+    return false;
 }

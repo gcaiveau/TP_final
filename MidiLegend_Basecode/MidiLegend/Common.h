@@ -69,6 +69,8 @@ typedef struct TitleRects
 
     /// @brief Position et dimensions du texte pour commencer le niveau.
     SDL_Rect textStart;
+    SDL_Rect textSettings;
+    SDL_Rect textMenu;
 
     /// @brief Position et dimensions du texte pour changer le nombre de corde.
     SDL_Rect textNbNotes;

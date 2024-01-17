@@ -21,7 +21,7 @@ void Game_initRectangles()
     int y;
 
     //--------------------------------------------------------------------------
-    // Menu principal
+    // Settings
 
     int xMid = LOGICAL_WIDTH / 2;
     y = LOGICAL_HEIGHT /4;
@@ -43,8 +43,14 @@ void Game_initRectangles()
     SDL_Rect_set(&(g_titleRects.difficulte2), 200, y - 10, 60, 60);  //rectangle difficulté
     SDL_Rect_set(&(g_titleRects.difficulte3), 280, y - 10, 60, 60);  //rectangle difficulté
 
+
+    //--------------------------------------------------------------------------
+    // Menu
+    y = 100 + LOGICAL_HEIGHT / 4;
+    SDL_Rect_set(&(g_titleRects.textSettings), 50, y, 400, textHeight + 40);
+
     y += 3* textHeight;
-    SDL_Rect_set(&(g_titleRects.textStart), 20, y, 400, textHeight+40);  // rectangle commencer
+    SDL_Rect_set(&(g_titleRects.textStart), 50, y, 400, textHeight+40);  // rectangle commencer
 
 
     //--------------------------------------------------------------------------
