@@ -243,7 +243,8 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
         self->selection = idx;
     }
 
-    Text* leftTexts[] = {
+    Text* leftTexts[] = 
+    {
         self->textSettings,
         self->textStart,
         self->textQuit,

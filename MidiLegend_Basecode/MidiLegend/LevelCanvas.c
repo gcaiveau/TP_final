@@ -142,21 +142,25 @@ void LevelCanvas_update(LevelCanvas *self)
     if (score.Type == 1)
     {
         sprintf(buffer, "Perfect !");
+        Text_setColor(self->textPerfect, assets->colors.green);
         Text_setString(self->textPerfect, buffer);
     }
     else if (score.Type == 2)
     {
         sprintf(buffer, "Good :)");
+        Text_setColor(self->textPerfect, assets->colors.jaune_clair);
         Text_setString(self->textPerfect, buffer);
     }
     else if (score.Type == 3)
     {
         sprintf(buffer, "Bof :(");
+        Text_setColor(self->textPerfect, assets->colors.rouge);
         Text_setString(self->textPerfect, buffer);
     }
     else if (score.Type == 4)
     {
         sprintf(buffer, "Nope...");
+        Text_setColor(self->textPerfect, assets->colors.violet);
         Text_setString(self->textPerfect, buffer);
     }
 }
