@@ -137,7 +137,7 @@ void Track_clearChords(Track *self)
     int noteIdx = 1;
     for (int i = 1; i < noteCount; i++)
     {
-        if (notes[i].playingTime - notes[i - 1].playingTime >= 0.05)
+        if (notes[i].playingTime - notes[i - 1].playingTime >= 0.05 + self->scene->difficultyLevel.EasyPeasy * 0.1)   //si le niveau de difficulté est 1 alors les notes sont simplifiées
         {
             notes[noteIdx++] = notes[i];
         }

@@ -21,7 +21,7 @@ LevelScene *LevelScene_create(
         self->difficultyLevel.NoMistakesAllowed = 0;    
         self->difficultyLevel.Imprecision = 0.2;         //imprecision autorisée entre le moment ou la note doit etre jouee et celui ou le joueur appuie sur la touche
         self->difficultyLevel.FallingSpeed = 1.3;        //la vitesse de chute des notes dépend de la difficulté
-        self->difficultyLevel.EasyPeasy = 1;             //
+        self->difficultyLevel.EasyPeasy = 1;             //simplifie le niveau en supprimant des notes trop proche
         break;
     case 2:
         self->difficultyLevel.multiplicator = 1.2;
