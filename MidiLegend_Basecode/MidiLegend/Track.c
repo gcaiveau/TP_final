@@ -210,9 +210,9 @@ void Track_update(Track *self)
             LevelScene_setScore(scene, score);
         }
 
-        if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
-            return;
-        }
+        //if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
+        //    return;
+        //}
     }
 
     // Modifie l'état des notes visibles par le joueur
@@ -228,6 +228,9 @@ void Track_update(Track *self)
             // et n'a pas encore été traitée par le joueur
             if (fabsf(note->playingTime - trackTime) < self->scene->difficultyLevel.Imprecision && input->keyHit[keyID])  // timer d'acceptation touche 0.1 qausi impossible 0.15 moyen 0.25 ez
             {
+                if (note->type == TYPE_LONG)
+                    note->state = NOTE_HELD;
+
                 if (fabsf(note->playingTime - trackTime) < 0.01)
                     score.PerfectCount = 1;
                 else
@@ -241,23 +244,32 @@ void Track_update(Track *self)
                     score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points + score.PerfectCount;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
                     score.points += ((self->scene->difficultyLevel.multiplicator * 1) + score.PerfectCount) * (score.combo/5.0f);
-                note->state = NOTE_PLAYED;
+                note->state = (note->state==NOTE_HELD) ? NOTE_HELD : NOTE_PLAYED;
                 break;//break pour prendre les notes une par une
 
             }
             else if (note->playingTime + self->scene->difficultyLevel.Imprecision < trackTime)
             {
                 // La note devait être jouée il y a plus de 0.2s
-                if (score.points > 0)
+                /*if (score.points > 0)
                 {
                     score.points--;
-                }
+                }*/
                 score.combo -= 5 ;
                 score.combo = Int_clamp(score.combo, 0, 50);
                 note->state = NOTE_FAILED;
                 break;//pour prendre les notes une par une
             }
                 
+        }
+        if (note->state == NOTE_HELD) {
+            /*if (note->endingTime - trackTime == 0)
+                note->state = NOTE_PLAYED;*/
+            if (!input->keyDown[keyID]) {
+            note->state = NOTE_RELEASED;
+            }
+            else
+                score.points += 1;
         }
     }
 
