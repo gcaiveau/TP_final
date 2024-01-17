@@ -61,9 +61,25 @@ void TitleScene_render(TitleScene *self)
     // Affichage du fond
     SDL_RenderCopy(renderer, assets->textures.background, NULL, NULL);
 
-    SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte1));
-    SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte2));
-    SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte3));
+
+    if (self->config.leveldifficulty.difficultyLevel == 1)
+    {
+        SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
+        SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte2));
+        SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte3));
+    }
+    else if (self->config.leveldifficulty.difficultyLevel == 2)
+    {
+        SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
+        SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte2));
+        SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte3));
+    }
+    else
+    {
+        SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
+        SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte2));
+        SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte3));
+    }
 
     // Affichage du canvas
     TitleCanvas_render(self->canvas);

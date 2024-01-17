@@ -38,6 +38,8 @@ typedef struct AssetManager
         SDL_Texture *keyDown;
 
         SDL_Texture* difficulte;
+
+        SDL_Texture* difficulte1;
     } textures;
 
     /// @brief Ensemble des fontes de caractères du jeu.
