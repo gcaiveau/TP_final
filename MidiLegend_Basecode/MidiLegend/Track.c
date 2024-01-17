@@ -204,12 +204,12 @@ void Track_update(Track *self)
 
     for (int j = 0; j < self->keyCount; j++)// vérification si une autre touche n'est pas appuyé en même temps
         if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
-            if (self->scene->difficultyLevel.NoMistakesAllowed)
+            /*if (self->scene->difficultyLevel.NoMistakesAllowed)
             {
                 score.points--;                                         //pour la difficulté la plus importante, l'utilisateur
                 score.points = (score.points < 0) ? 0: score.points;    //perd des points si il se trompe de touche
                 LevelScene_setScore(scene, score);        
-            }
+            }*/
             return;
         }
 
@@ -231,10 +231,10 @@ void Track_update(Track *self)
 
                 score.combo++;//ajout du combo
                 score.combo = Int_clamp(score.combo, 1, 50);
-                if ((score.combo / 10) == 0)
-                    self->scene->difficultyLevel.multiplicator * score.points++;        //le "multiplicator" permet de valoriser une difficulté plus importante
+                if ((score.combo / 5) == 0)
+                    score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
-                    score.points = self->scene->difficultyLevel.multiplicator * (score.points + 1*(score.combo/10));//combo/2
+                    score.points = self->scene->difficultyLevel.multiplicator * 1 + (score.points + 1 * (score.combo/5));
                 note->state = NOTE_PLAYED;
                 break;//break pour prendre les notes une par une
 
@@ -246,7 +246,8 @@ void Track_update(Track *self)
                 {
                     score.points--;
                 }
-                score.combo -= 5 ;//remet le combo à un
+                score.combo -= 5 ;
+                score.combo = Int_clamp(score.combo, 0, 5);
                 note->state = NOTE_FAILED;
                 break;//pour prendre les notes une par une
             }

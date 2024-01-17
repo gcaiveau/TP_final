@@ -120,6 +120,6 @@ void LevelCanvas_update(LevelCanvas *self)
     // Met à jour l'affichage du nombre de points du joueur
     sprintf(buffer, "%d", (int)score.points);
     Text_setString(self->textPoints, buffer);
-    sprintf(buffer, "x %d", (int)(score.combo / 10));//affichage du combo
+    sprintf(buffer, "x %d", (int)(score.combo / 5));//affichage du combo
     Text_setString(self->textcombo, buffer);
 }
