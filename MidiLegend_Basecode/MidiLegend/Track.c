@@ -210,9 +210,9 @@ void Track_update(Track *self)
             LevelScene_setScore(scene, score);
         }
 
-        //if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
-        //    return;
-        //}
+        if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
+            return;
+        }
     }
 
     // Modifie l'état des notes visibles par le joueur
@@ -274,14 +274,17 @@ void Track_update(Track *self)
             }
                 
         }
+        
         if (note->state == NOTE_HELD) {
-            /*if (note->endingTime - trackTime == 0)
-                note->state = NOTE_PLAYED;*/
-            if (!input->keyDown[keyID]) {
+            if ( trackTime == note->playingTime + note->duration )
+                note->state = NOTE_PLAYED;
+            else if (!input->keyDown[keyID]) {
             note->state = NOTE_RELEASED;
+            
             }
             else
-                score.points += 1;
+                
+                score.points += (trackTime == note->playingTime+5) ? 1 : 0;
         }
     }
 
@@ -337,7 +340,7 @@ void Track_render(Track *self)
         SDL_Rect dst = { 0 };
         dst.w = 37;
         if (note->type == TYPE_LONG)
-            dst.h = 25 * 2;
+            dst.h = note->duration  * 200;
         else
             dst.h = 25;
         
