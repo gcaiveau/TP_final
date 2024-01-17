@@ -210,9 +210,9 @@ void Track_update(Track *self)
             LevelScene_setScore(scene, score);
         }
 
-        //if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
-        //    return;
-        //}
+        if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
+            return;
+        }
     }
 
     // Modifie l'état des notes visibles par le joueur
@@ -275,8 +275,8 @@ void Track_update(Track *self)
                 
         }
         if (note->state == NOTE_HELD) {
-            /*if (note->endingTime - trackTime == 0)
-                note->state = NOTE_PLAYED;*/
+            if (note->endingTime - trackTime == 0)
+                note->state = NOTE_PLAYED;
             if (!input->keyDown[keyID]) {
             note->state = NOTE_RELEASED;
             }
