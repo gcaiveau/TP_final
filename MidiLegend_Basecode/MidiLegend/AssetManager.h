@@ -37,11 +37,13 @@ typedef struct AssetManager
         /// @brief Texture d'une touche enfoncée de la piste.
         SDL_Texture *keyDown;
 
+        SDL_Texture* keyDown1;
+
         SDL_Texture* difficulte;
 
         SDL_Texture* difficulte1;
 
-        SDL_Texture* barre;
+
 
     } textures;
 
@@ -78,6 +80,8 @@ typedef struct AssetManager
         SDL_Color cyan;
         SDL_Color rouge;
         SDL_Color jaune_clair;
+        SDL_Color jaune;
+        SDL_Color violet;
 
     } colors;
 } AssetManager;

@@ -369,10 +369,24 @@ void Track_render(Track *self)
         dst.y = (int)(trackRect.y + validationRelPos * trackRect.h);
         dst.y -= dst.h;
 
-
         SDL_Texture* texture = input->keyDown[i] ? assets->textures.keyDown : assets->textures.keyUp;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
     }
+    for (int i = 0; i < self->keyCount ; i++)
+    {
+        Note* note = &(self->notes[i]);
+        SDL_Rect barre = { 0 };
+
+        barre.w = 2;
+        barre.h = (int)(trackRect.y + validationRelPos * trackRect.h)-25;
+        barre.x = 20+(580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
+        barre.y = 0;
+
+        SDL_Texture* texture = input->keyDown[i] ? assets->textures.note : assets->textures.keyDown1;
+        SDL_RenderCopy(renderer, texture, NULL, &barre);
+    }
+
+    
 
     // On dessine le masque en dernier (pour qu'il soit au dessus des notes)
     SDL_RenderCopy(renderer, assets->textures.trackMask, NULL, &(g_levelRects.trackMask));

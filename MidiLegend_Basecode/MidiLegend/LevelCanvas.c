@@ -19,7 +19,7 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
     self->scene = scene;
     self->textPoints = Text_create(renderer, assets->fonts.big, "0", assets->colors.white);
     self->textcombo = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.white);
-    self->textPerfect = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.green);
+    self->textPerfect = Text_create(renderer, assets->fonts.big, u8"0", assets->colors.green);
 
 
     return self;
@@ -56,7 +56,7 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 150);
     SDL_RenderFillRect(renderer, &(g_levelRects.comboRect));
 
-    color = assets->colors.bleu_clair;
+    color = assets->colors.violet;
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &(g_levelRects.barre));
 
@@ -142,21 +142,25 @@ void LevelCanvas_update(LevelCanvas *self)
     if (score.Type == 1)
     {
         sprintf(buffer, "Perfect !");
+        Text_setColor(self->textPerfect, assets->colors.green);
         Text_setString(self->textPerfect, buffer);
     }
     else if (score.Type == 2)
     {
         sprintf(buffer, "Good :)");
+        Text_setColor(self->textPerfect, assets->colors.jaune_clair);
         Text_setString(self->textPerfect, buffer);
     }
     else if (score.Type == 3)
     {
         sprintf(buffer, "Bof :(");
+        Text_setColor(self->textPerfect, assets->colors.rouge);
         Text_setString(self->textPerfect, buffer);
     }
     else if (score.Type == 4)
     {
         sprintf(buffer, "Nope...");
+        Text_setColor(self->textPerfect, assets->colors.violet);
         Text_setString(self->textPerfect, buffer);
     }
 }
