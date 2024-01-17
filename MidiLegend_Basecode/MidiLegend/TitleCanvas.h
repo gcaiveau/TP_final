@@ -34,6 +34,7 @@ typedef struct TitleCanvas
 
     Text* textMenu;
     Text* textTitre;
+    Text* textQuit;
     /// @brief texte indiquant le niveau de difficulté
     Text* textDifficultyValue;
 
@@ -44,6 +45,8 @@ typedef struct TitleCanvas
 
     /// @brief Le texte de début du niveau.
     Text *textStart;
+
+    Text* textStart1;
 
     /// @brief Indice du paramètre sélectionné dans le menu.
     int selection;

@@ -22,12 +22,14 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textSelectMusic = Text_create(renderer, assets->fonts.normal, u8"Musique", assets->colors.bleu_clair);
     self->textMusic = Text_create(renderer, assets->fonts.normal, u8"Nom de la musique", assets->colors.white);
     self->textStart = Text_create(renderer, assets->fonts.normal, u8"Commencer", assets->colors.bleu_clair);
+    self->textStart1 = Text_create(renderer, assets->fonts.normal, u8"Commencer", assets->colors.bleu_clair);
     self->textSelectNotes = Text_create(renderer, assets->fonts.normal, u8"Nombres de Notes", assets->colors.bleu_clair);
     self->textNbNotes = Text_create(renderer, assets->fonts.normal, u8"Notes", assets->colors.white);
     self->textSelectDifficulty = Text_create(renderer, assets->fonts.normal, u8"Niveau de difficulté", assets->colors.bleu_clair);
     self->textSettings = Text_create(renderer, assets->fonts.normal, u8"Settings", assets->colors.bleu_clair);
     self->textMenu = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
     self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
+    self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
     
 
     return self;
@@ -47,6 +49,8 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textSettings);
     Text_destroy(self->textMenu);
     Text_destroy(self->textTitre);
+    Text_destroy(self->textStart1);
+    Text_destroy(self->textQuit);
 
     free(self);
 }
@@ -88,6 +92,14 @@ void TitleCanvas_renderMain(TitleCanvas *self)
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textTitre.x;
     dst.y = g_titleRects.textTitre.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textQuit);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textQuit.x;
+    dst.y = g_titleRects.textQuit.y;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
@@ -173,6 +185,15 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    // Commencer
+    texture = Text_getTexture(self->textStart1);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textStart1.x;
+    dst.y = g_titleRects.textStart1.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
     /* DEBUG
     // Gizmos du canvas en jaune
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
@@ -208,11 +229,16 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
         return false;
     }
 
+    if (input->startPressed && self->selection == 2)
+    {
+        input->quitPressed = true;
+    }
+
     if (input->downPressed || input->upPressed)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 1);
+        idx = Int_clamp(idx, 0, 2);
 
         self->selection = idx;
     }
@@ -220,8 +246,9 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
     Text* leftTexts[] = {
         self->textSettings,
         self->textStart,
+        self->textQuit,
     };
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;
@@ -248,7 +275,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 3);
+        idx = Int_clamp(idx, 0, 4);
 
         self->selection = idx;
     }
@@ -291,12 +318,13 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textSelectNotes,
         self->textSelectDifficulty,
         self->textMenu,
+        self->textStart1,
     };
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 5; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;
         Text_setColor(leftTexts[i], colors);
     }
-    return false;
+    return (self->selection == 4 && input->startPressed);
 }

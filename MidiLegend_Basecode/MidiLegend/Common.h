@@ -63,12 +63,14 @@ typedef struct TitleRects
     /// à sélectionner.
     SDL_Rect textSelectMusic;
 
+    SDL_Rect textQuit;
     /// @brief Position et dimensions du texte inquant le nom de la musique
     /// sélectionnée.
     SDL_Rect textMusic;
 
     /// @brief Position et dimensions du texte pour commencer le niveau.
     SDL_Rect textStart;
+    SDL_Rect textStart1;
     SDL_Rect textSettings;
     SDL_Rect textMenu;
     SDL_Rect textTitre;
