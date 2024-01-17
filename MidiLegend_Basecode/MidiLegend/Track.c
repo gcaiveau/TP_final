@@ -275,7 +275,7 @@ void Track_update(Track *self)
                 
         }
         if (note->state == NOTE_HELD) {
-            if (trackTime < note->endingTime)
+            if (trackTime > note->endingTime)
                 note->state = NOTE_PLAYED;
             else if (!input->keyDown[keyID]) {
             note->state = NOTE_RELEASED;
@@ -337,7 +337,7 @@ void Track_render(Track *self)
         SDL_Rect dst = { 0 };
         dst.w = 40;
         if (note->type == TYPE_LONG)
-            dst.h = note->duration * 200;
+            dst.h = (note->endingTime - scene->trackTime) * 200;
         else
             dst.h = 25;
         
