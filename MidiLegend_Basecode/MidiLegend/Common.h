@@ -79,8 +79,11 @@ typedef struct TitleRects
     /// @brief Position et dimensions du texte indiquant de choisir le niveau de difficulté.
     SDL_Rect textSelectDifficulty;
 
+    SDL_Rect difficulte1;
+    SDL_Rect difficulte2;
+    SDL_Rect difficulte3;
+
     /// @brief Position et dimensions du texte indiquant le niveau de difficulté.
-    SDL_Rect textDifficultyValue;
 
 } TitleRects;
 
