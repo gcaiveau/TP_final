@@ -55,7 +55,7 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
         },
         {
             .ptr = &textures->note,
-            .path = "../Assets/Images/note.png"
+            .path = "../Assets/Images/notes.png"
         },
         {
             .ptr = &textures->keyUp,

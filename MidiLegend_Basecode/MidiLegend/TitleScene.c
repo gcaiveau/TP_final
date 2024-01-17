@@ -62,19 +62,19 @@ void TitleScene_render(TitleScene *self)
     SDL_RenderCopy(renderer, assets->textures.background, NULL, NULL);
 
 
-    if (self->config.leveldifficulty.difficultyLevel == 1)
+    if (self->config.leveldifficulty.difficultyLevel == 1 && self->canvas->pageID==1)
     {
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
         SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte2));
         SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte3));
     }
-    else if (self->config.leveldifficulty.difficultyLevel == 2)
+    else if (self->config.leveldifficulty.difficultyLevel == 2 && self->canvas->pageID == 1)
     {
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte2));
         SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte3));
     }
-    else
+    else if (self->config.leveldifficulty.difficultyLevel == 3 && self->canvas->pageID == 1)
     {
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte2));
