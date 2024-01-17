@@ -20,6 +20,7 @@ typedef struct LevelDiffiCulty {            //choix du niveau de difficulté
     bool NoMistakesAllowed;
     float Imprecision;
     float FallingSpeed;
+    bool EasyPeasy;
 
 }LevelDifficulty;
 
