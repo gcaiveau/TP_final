@@ -67,7 +67,7 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
         },
         {
             .ptr = &textures->difficulte,
-            .path = "../Assets/Images/difficulte.png"
+            .path = "../Assets/Images/difficulte1.png"
         },
     };
     int texSpecCount = sizeof(texSpecs) / sizeof(TextureSpec);
