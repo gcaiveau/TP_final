@@ -24,6 +24,8 @@ typedef struct LevelScore
     float points;
 
     int combo;
+
+    int PerfectCount;
 } LevelScore;
 
 /// @brief Structure représentant la scène principale du jeu (niveau).
