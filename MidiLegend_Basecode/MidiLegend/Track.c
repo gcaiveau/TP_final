@@ -210,9 +210,9 @@ void Track_update(Track *self)
             LevelScene_setScore(scene, score);
         }
 
-        if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
-            return;
-        }
+        //if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
+        //    return;
+        //}
     }
 
     // Modifie l'état des notes visibles par le joueur
@@ -274,17 +274,14 @@ void Track_update(Track *self)
             }
                 
         }
-        
         if (note->state == NOTE_HELD) {
-            if ( trackTime == note->playingTime + note->duration )
-                note->state = NOTE_PLAYED;
-            else if (!input->keyDown[keyID]) {
+            /*if (note->endingTime - trackTime == 0)
+                note->state = NOTE_PLAYED;*/
+            if (!input->keyDown[keyID]) {
             note->state = NOTE_RELEASED;
-            
             }
             else
-                
-                score.points += (trackTime == note->playingTime+5) ? 1 : 0;
+                score.points += 1;
         }
     }
 
@@ -340,7 +337,7 @@ void Track_render(Track *self)
         SDL_Rect dst = { 0 };
         dst.w = 40;
         if (note->type == TYPE_LONG)
-            dst.h = note->duration  * 200;
+            dst.h = 25 * 2;
         else
             dst.h = 25;
         
@@ -370,18 +367,9 @@ void Track_render(Track *self)
         dst.y = (int)(trackRect.y + validationRelPos * trackRect.h);
         dst.y -= dst.h;
 
-        SDL_Texture *texture = input->keyDown[i] ? assets->textures.keyDown : assets->textures.keyUp;
+
+        SDL_Texture* texture = input->keyDown[i] ? assets->textures.keyDown : assets->textures.keyUp;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-        SDL_Rect barre = { 0 };
-        barre.x = 20 + (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;
-        barre.y = 0;
-        barre.w = 2;
-        barre.h = (int)(trackRect.y + validationRelPos * trackRect.h) - 25;
-        SDL_Texture* textures = input->keyDown[i] ? assets->textures.barre : assets->textures.barre;
-        SDL_Rect_set(&(g_levelRects.barre),barre.x ,barre.y ,barre.w ,barre.h );  // les points,
-        SDL_RenderCopy(renderer, NULL, NULL, &g_levelRects.barre);
-
     }
 
     // On dessine le masque en dernier (pour qu'il soit au dessus des notes)
