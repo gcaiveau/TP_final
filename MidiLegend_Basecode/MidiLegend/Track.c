@@ -322,31 +322,8 @@ void Track_render(Track *self)
         dst.y -= dst.h;
 
         // On dessine la note
-        if (note->keyID == 0)
-        {
-            SDL_Rect src = { 0,0,37,25 };
-            SDL_RenderCopy(renderer, texture, &src, &dst);
-        }
-        else if (note->keyID == 1)
-        {
-            SDL_Rect src = { 37,0,37,25 };
-            SDL_RenderCopy(renderer, texture, &src, &dst);
-        }
-        else if (note->keyID == 2)
-        {
-            SDL_Rect src = { 74,0,37,25 };
-            SDL_RenderCopy(renderer, texture, &src, &dst);
-        }
-        else if (note->keyID == 3)
-        {
-            SDL_Rect src = { 111,0,37,25 };
-            SDL_RenderCopy(renderer, texture, &src, &dst);
-        }
-        else if (note->keyID == 4)
-        {
-            SDL_Rect src = { 148,0,37,25 };
-            SDL_RenderCopy(renderer, texture, &src, &dst);
-        }
+        SDL_Rect src = { note->keyID * 37,0,37,25 };
+        SDL_RenderCopy(renderer, texture, &src, &dst);
         
     }
 

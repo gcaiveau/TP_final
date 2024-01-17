@@ -50,9 +50,9 @@ void TitleCanvas_destroy(TitleCanvas *self)
 void TitleCanvas_render(TitleCanvas* self)
 {
     if (self->pageID == 0)
-        TitleCanvas_renderSettings;
+        TitleCanvas_renderSettings(self);
     else
-        TitleCanvas_renderSettings;
+        TitleCanvas_renderSettings(self);
 
 }
 void TitleCanvas_renderMain(TitleCanvas *self)
