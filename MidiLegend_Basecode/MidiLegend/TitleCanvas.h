@@ -63,7 +63,11 @@ void TitleCanvas_destroy(TitleCanvas *self);
 /// @brief Met à jour le canvas du menu principal.
 /// @param self le canvas.
 bool TitleCanvas_update(TitleCanvas *self);
+bool TitleCanvas_updateMain(TitleCanvas* self);
+bool TitleCanvas_updateSettings(TitleCanvas* self);
 
 /// @brief Dessine le canvas du menu principal dans le moteur de rendu.
 /// @param self le canvas.
 void TitleCanvas_render(TitleCanvas *self);
+void TitleCanvas_renderMain(TitleCanvas* self);
+void TitleCanvas_renderSettings(TitleCanvas* self);

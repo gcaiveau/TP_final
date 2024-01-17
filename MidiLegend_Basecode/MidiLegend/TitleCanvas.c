@@ -154,9 +154,9 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
 bool TitleCanvas_update(TitleCanvas *self)
 {
     if (self->pageID == 0)
-        TitleCanvas_updateMain;
+        return TitleCanvas_updateMain(self);
     else
-        TitleCanvas_updateSettings;
+        return TitleCanvas_updateSettings(self);
 }
 bool TitleCanvas_updateMain(TitleCanvas* self)
 {
