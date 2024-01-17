@@ -202,16 +202,18 @@ void Track_update(Track *self)
             LegalKeys[keyID] = 1;
     }
 
-    for (int j = 0; j < self->keyCount; j++)// vérification si une autre touche n'est pas appuyé en même temps
+    for (int j = 0; j < self->keyCount; j++) {// vérification si une autre touche n'est pas appuyé en même temps
+        if (self->scene->difficultyLevel.NoMistakesAllowed && input->keyHit[j] && !LegalKeys[j])
+        {
+            score.points--;                                         //pour la difficulté la plus importante, l'utilisateur
+            score.points = (score.points < 0) ? 0 : score.points;    //perd des points si il se trompe de touche
+            LevelScene_setScore(scene, score);
+        }
+
         if (input->keyDown[j] && !LegalKeys[j]) {    //si c'est le cas on quitte la fonction
-            /*if (self->scene->difficultyLevel.NoMistakesAllowed)
-            {
-                score.points--;                                         //pour la difficulté la plus importante, l'utilisateur
-                score.points = (score.points < 0) ? 0: score.points;    //perd des points si il se trompe de touche
-                LevelScene_setScore(scene, score);        
-            }*/
             return;
         }
+    }
 
     // Modifie l'état des notes visibles par le joueur
     for (int i = self->firstIdx; i <= self->lastIdx; i++)
