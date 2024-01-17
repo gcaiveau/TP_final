@@ -253,7 +253,7 @@ void Track_update(Track *self)
                     score.points--;
                 }
                 score.combo -= 5 ;
-                score.combo = Int_clamp(score.combo, 0, 5);
+                score.combo = Int_clamp(score.combo, 0, 50);
                 note->state = NOTE_FAILED;
                 break;//pour prendre les notes une par une
             }
