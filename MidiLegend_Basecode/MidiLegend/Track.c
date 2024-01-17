@@ -236,7 +236,7 @@ void Track_update(Track *self)
                 // de la note est inférieur à 0.5s
 
                 score.combo+=1+score.PerfectCount;//ajout du combo
-                score.combo = Int_clamp(score.combo, 1, 25);
+                score.combo = Int_clamp(score.combo, 1, 50);
                 if ((score.combo / 5) == 0)
                     score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points + score.PerfectCount;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
@@ -253,7 +253,7 @@ void Track_update(Track *self)
                     score.points--;
                 }
                 score.combo -= 5 ;
-                score.combo = Int_clamp(score.combo, 0, 25);
+                score.combo = Int_clamp(score.combo, 0, 5);
                 note->state = NOTE_FAILED;
                 break;//pour prendre les notes une par une
             }
