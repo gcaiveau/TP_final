@@ -276,11 +276,14 @@ void Track_update(Track *self)
         }
         if (note->state == NOTE_HELD) {
             note->playingTime = trackTime;
+
             if (trackTime > note->endingTime)
                 note->state = NOTE_PLAYED;
+
             else if (!input->keyDown[keyID]) {
-            note->state = NOTE_RELEASED;
+                note->state = NOTE_RELEASED;
             }
+
             else {
                 score.points += ((int)(trackTime*1000)%200 == 0) ? 1 : 0;
             }
