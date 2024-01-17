@@ -228,15 +228,19 @@ void Track_update(Track *self)
             // et n'a pas encore été traitée par le joueur
             if (fabsf(note->playingTime - trackTime) < self->scene->difficultyLevel.Imprecision && input->keyHit[keyID])  // timer d'acceptation touche 0.1 qausi impossible 0.15 moyen 0.25 ez
             {
+                if (fabsf(note->playingTime - trackTime) < 0.02)
+                    score.PerfectCount = 0;
+                else
+                    score.PerfectCount = 1;
                 // L'écart entre le temps courant de la musique et le début
                 // de la note est inférieur à 0.5s
 
                 score.combo++;//ajout du combo
                 score.combo = Int_clamp(score.combo, 1, 50);
                 if ((score.combo / 5) == 0)
-                    score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points;        //le "multiplicator" permet de valoriser une difficulté plus importante
+                    score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points + score.PerfectCount;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
-                    score.points = ((score.points + (self->scene->difficultyLevel.multiplicator * 1)) * (score.combo/5));
+                    score.points += ((self->scene->difficultyLevel.multiplicator * 1) + score.PerfectCount) * (score.combo/5.0f);
                 note->state = NOTE_PLAYED;
                 break;//break pour prendre les notes une par une
 
