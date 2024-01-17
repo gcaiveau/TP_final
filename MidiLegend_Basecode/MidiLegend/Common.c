@@ -24,7 +24,10 @@ void Game_initRectangles()
     // Settings
 
     int xMid = LOGICAL_WIDTH / 2;
-    y = LOGICAL_HEIGHT /4;
+
+    SDL_Rect_set(&(g_titleRects.textTitre), 1280/2-200, 20, 400, textHeight + 40);  //rectangle choix difficulté
+
+    y = LOGICAL_HEIGHT/6;
 
     //SDL_Rect_set(,position en x largeur, y hauteur , largeur du rectangle, hauteur du rectangle en longueur);
     SDL_Rect_set(&(g_titleRects.textSelectMusic), 20, y, 400, textHeight+40);   // rectangle musique
@@ -42,6 +45,9 @@ void Game_initRectangles()
     SDL_Rect_set(&(g_titleRects.difficulte1), 120, y - 10, 60, 60);  //rectangle difficulté
     SDL_Rect_set(&(g_titleRects.difficulte2), 200, y - 10, 60, 60);  //rectangle difficulté
     SDL_Rect_set(&(g_titleRects.difficulte3), 280, y - 10, 60, 60);  //rectangle difficulté
+
+    y += 80;
+    SDL_Rect_set(&(g_titleRects.textMenu), 20, y, 400, textHeight + 40);  //rectangle choix difficulté
 
 
     //--------------------------------------------------------------------------

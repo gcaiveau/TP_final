@@ -27,6 +27,7 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textSelectDifficulty = Text_create(renderer, assets->fonts.normal, u8"Niveau de difficulté", assets->colors.bleu_clair);
     self->textSettings = Text_create(renderer, assets->fonts.normal, u8"Settings", assets->colors.bleu_clair);
     self->textMenu = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
+    self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
     
 
     return self;
@@ -45,6 +46,7 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textSelectDifficulty);
     Text_destroy(self->textSettings);
     Text_destroy(self->textMenu);
+    Text_destroy(self->textTitre);
 
     free(self);
 }
@@ -73,10 +75,19 @@ void TitleCanvas_renderMain(TitleCanvas *self)
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
+
     texture = Text_getTexture(self->textSettings);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textSettings.x;
     dst.y = g_titleRects.textSettings.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textTitre);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textTitre.x;
+    dst.y = g_titleRects.textTitre.y;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
@@ -154,6 +165,14 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    texture = Text_getTexture(self->textTitre);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textTitre.x;
+    dst.y = g_titleRects.textTitre.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
     /* DEBUG
     // Gizmos du canvas en jaune
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
@@ -185,6 +204,7 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
     if (input->startPressed && self->selection==0)
     {
         self->pageID = 1;
+        self->selection = 0;
         return false;
     }
 
@@ -192,7 +212,7 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 3);
+        idx = Int_clamp(idx, 0, 1);
 
         self->selection = idx;
     }
@@ -220,6 +240,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     if (input->startPressed && self->selection == 3)
     {
         self->pageID = 0;
+        self->selection = 0;
         return false;
     }
 
