@@ -284,8 +284,9 @@ void Track_update(Track *self)
             // et n'a pas encore été traitée par le joueur
             if (fabsf(note->playingTime - trackTime) < self->scene->difficultyLevel.Imprecision && input->keyHit[keyID])  // timer d'acceptation touche 0.1 qausi impossible 0.15 moyen 0.25 ez
             {
-                if (note->type == TYPE_LONG)
+                if (note->type == TYPE_LONG) 
                     note->state = NOTE_HELD;
+                    
 
                 if (fabsf(note->playingTime - trackTime) < 0.01)
                 {
@@ -332,6 +333,7 @@ void Track_update(Track *self)
                 
         }
         if (note->state == NOTE_HELD) {
+
             note->playingTime = scene->trackTime;
 
             if (trackTime > note->endingTime)
@@ -342,7 +344,7 @@ void Track_update(Track *self)
             }
 
             else {
-                score.points += ((int)(trackTime*1000)%100 == 0) ? 1 : 0;
+                score.points += 0.05;
             }
         }
     }
