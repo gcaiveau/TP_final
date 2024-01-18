@@ -207,8 +207,8 @@ void render_particle(Track* self)
     for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
     {
         SDL_Rect dst2 = { 0 };
-        dst2.w = 8;
-        dst2.h = 8;
+        dst2.w = (2+rand()%6);
+        dst2.h = dst2.w;
         dst2.x = self->particule[i].xposition;
         dst2.y = self->particule[i].yposition;
         if (self->particule[i].duration > 0)
@@ -234,8 +234,8 @@ void create_particle(Track *self, int keyID)
             self->particule[i].duration = 1.5;
             self->particule[i].xposition = 10 + (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + 360 + keyID * 50;
             self->particule[i].yposition = (int)(validationRelPos * 685)+25;
-            self->particule[i].yspeed = (rand() % 151) - 100;
-            self->particule[i].xspeed = (rand()%151)-75;
+            self->particule[i].yspeed = (rand() % 150) - 125;
+            self->particule[i].xspeed = (rand() % 100) - 50;
             self->particule[i].textureID = keyID;
             break;
         }
@@ -325,7 +325,7 @@ void Track_update(Track *self)
                 else
                     score.points += (self->scene->difficultyLevel.multiplicator * 1) * (score.combo/5.0f);
                 note->state = (note->state==NOTE_HELD) ? NOTE_HELD : NOTE_PLAYED;
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 2*(1+(score.combo/10)); j++)
                     create_particle(self, note->keyID);
                 break;//break pour prendre les notes une par une
 
