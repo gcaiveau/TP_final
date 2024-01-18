@@ -47,7 +47,16 @@ void Game_initRectangles()
     SDL_Rect_set(&(g_titleRects.difficulte3), 280, y - 10, 60, 60);  //rectangle difficulté
 
     y += 80;
-    SDL_Rect_set(&(g_titleRects.textMenu), 20, y, 400, textHeight + 40);  //rectangle choix difficulté
+    SDL_Rect_set(&(g_titleRects.textSelectBiding), 20, y, 400, textHeight + 40);  //rectangle choix touches jouables
+    y += 2 * textHeight;
+    SDL_Rect_set(&(g_titleRects.textBiding1), 120, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBiding2), 200, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBiding3), 280, y - 10, 60, 60);  //rectangle difficulté
+
+    y += 80;
+    SDL_Rect_set(&(g_titleRects.textMenu), 1280 - 250, 720 - 3*textHeight - 40, 400, textHeight + 40);;  //rectangle choix difficulté
+   
+
 
     y += 100;
     SDL_Rect_set(&(g_titleRects.textStart1), 1280-250, 720- textHeight - 40, 400, textHeight + 40);  // rectangle commencer
