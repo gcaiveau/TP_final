@@ -31,9 +31,9 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
     self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
     self->textSelectBiding = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
-    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
-    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
-    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
+    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"Touche 1", assets->colors.bleu_clair);
+    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"Touche 2", assets->colors.bleu_clair);
+    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"Touche 3", assets->colors.bleu_clair);
     
 
     return self;
@@ -279,7 +279,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
 
-    if (input->startPressed && self->selection == 3)
+    if (input->startPressed && self->selection == 4)
     {
         self->pageID = 0;
         self->selection = 0;
@@ -290,7 +290,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 4);
+        idx = Int_clamp(idx, 0, 5);
 
         self->selection = idx;
     }
@@ -336,11 +336,11 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textMenu,
         self->textStart1,
     };
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;
         Text_setColor(leftTexts[i], colors);
     }
-    return (self->selection == 4 && input->startPressed);
+    return (self->selection == 5 && input->startPressed);
 }
