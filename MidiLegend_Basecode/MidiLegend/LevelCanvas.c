@@ -170,14 +170,14 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_RenderDrawRect(renderer, &(g_levelRects.comboRect));
     
 }
-void LevelCanvas_update(LevelCanvas *self)
+void LevelCanvas_update(LevelCanvas* self)
 {
-    Track *track = LevelScene_getTrack(self->scene);
+    Track* track = LevelScene_getTrack(self->scene);
     LevelScore score = LevelScene_getScore(self->scene);
     AssetManager* assets = LevelScene_getAssetManager(self->scene);
     Input* input = LevelScene_getInput(self->scene);
     char buffer[128] = { 0 };
-    
+
     if (input->pressf)
     {
         playSwitchSound();
@@ -192,6 +192,8 @@ void LevelCanvas_update(LevelCanvas *self)
     Text_setString(self->textPoints, buffer);
     sprintf(buffer, "x %d", (int)(score.combo / 10));//affichage du combo
     Text_setString(self->textcombo, buffer);
+    sprintf(buffer, "%d", (int)score.BestScore[0][0]);
+    Text_setString(self->textRecord, buffer);
     if (score.Type == 1)
     {
         sprintf(buffer, "Perfect !");

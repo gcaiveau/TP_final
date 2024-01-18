@@ -31,6 +31,8 @@ typedef struct LevelScore
 
     int Type;
 
+    float BestScore[3][3];
+
 } LevelScore;
 
 /// @brief Structure représentant la scène principale du jeu (niveau).

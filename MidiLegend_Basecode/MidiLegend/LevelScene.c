@@ -38,6 +38,22 @@ LevelScene *LevelScene_create(
         self->difficultyLevel.EasyPeasy = 0;
         break;
     }
+ 
+    FILE* file = NULL;
+    file = fopen("../BestScore.txt", "r+");
+    if (file != NULL) {
+       /* for (int i = 0; i < 3; i++) {
+            for (int j = 0; i < 3; j++) {*/
+            fscanf(file, " %f\n%f\n%f\n%f\n%f\n%f\n%f\n%f\n%f\n", &self->score.BestScore[0][0], & self->score.BestScore[0][1], & self->score.BestScore[0][2], & self->score.BestScore[1][0], & self->score.BestScore[1][1], & self->score.BestScore[1][2], & self->score.BestScore[2][0], & self->score.BestScore[2][1], & self->score.BestScore[2][2]);
+                /*fscanf(file, "%f\n", &self->score.BestScore[i][j]);
+                fseek(file, 1, SEEK_CUR);
+            }
+        }*/
+        fclose(file);
+    }
+    
+    
+
 
     self->renderer = renderer;
     self->assets = AssetManager_create(renderer);
