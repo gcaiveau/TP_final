@@ -31,9 +31,9 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
     self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
     self->textSelectBiding = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
-    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"Touche 1", assets->colors.bleu_clair);
-    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"Touche 2", assets->colors.bleu_clair);
-    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"Touche 3", assets->colors.bleu_clair);
+    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"1", assets->colors.bleu_clair);
+    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"2", assets->colors.bleu_clair);
+    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.bleu_clair);
     
 
     return self;
@@ -195,6 +195,33 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textSelectBiding.x;
     dst.y = g_titleRects.textSelectBiding.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    // Sélection des touches
+    texture = Text_getTexture(self->textBiding1);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textBiding1.x;
+    dst.y = g_titleRects.textBiding1.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    // Sélection des touches
+    texture = Text_getTexture(self->textBiding2);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textBiding2.x;
+    dst.y = g_titleRects.textBiding2.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    // Sélection des touches
+    texture = Text_getTexture(self->textBiding3);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textBiding3.x;
+    dst.y = g_titleRects.textBiding3.y;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);

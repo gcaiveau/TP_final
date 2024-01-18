@@ -48,7 +48,7 @@ void Game_initRectangles()
 
     y += 80;
     SDL_Rect_set(&(g_titleRects.textSelectBiding), 20, y, 400, textHeight + 40);  //rectangle choix touches jouables
-    y += 2 * textHeight;
+    y += 3 * textHeight;
     SDL_Rect_set(&(g_titleRects.textBiding1), 120, y - 10, 60, 60);  //rectangle difficulté
     SDL_Rect_set(&(g_titleRects.textBiding2), 200, y - 10, 60, 60);  //rectangle difficulté
     SDL_Rect_set(&(g_titleRects.textBiding3), 280, y - 10, 60, 60);  //rectangle difficulté
