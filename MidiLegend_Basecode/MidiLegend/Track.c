@@ -429,9 +429,9 @@ void Track_render(Track *self)
         dst.w = 40;
         if (note->type == TYPE_LONG) {
             if (note->playingTime > scene->trackTime)
-                dst.h = (noteRelPos - noteRelPosEnd) * 500 / scene->difficultyLevel.FallingSpeed;
+                dst.h = (noteRelPos - noteRelPosEnd) * 720;
             else {
-                dst.h = (noteRelPos - noteRelPosEnd) * 500 / scene->difficultyLevel.FallingSpeed;
+                dst.h = (noteRelPos - noteRelPosEnd) * 720;
             }
         }
         else
