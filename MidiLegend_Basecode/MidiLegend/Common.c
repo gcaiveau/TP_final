@@ -8,12 +8,13 @@
 #include "AssetManager.h"
 #include "TitleScene.h"
 #include "LevelScene.h"
+#include "LevelCanvas.h"
 #include "Math.h"
 
 Timer *g_time = NULL;
 TitleRects g_titleRects = { 0 };
 LevelRects g_levelRects = { 0 };
-MusicSpec g_musics[MUSIC_COUNT] = { 0 };
+MusicSpec g_musics[MUSIC_COUNT] = { 0 }; 
 
 void Game_initRectangles()
 {
@@ -28,7 +29,6 @@ void Game_initRectangles()
     SDL_Rect_set(&(g_titleRects.textTitre), (1280/2)-250, 20, 400, textHeight + 40);  //rectangle choix difficulté
 
     y = LOGICAL_HEIGHT/6;
-
     //SDL_Rect_set(,position en x largeur, y hauteur , largeur du rectangle, hauteur du rectangle en longueur);
     SDL_Rect_set(&(g_titleRects.textSelectMusic), 20, y, 400, textHeight+40);   // rectangle musique
     y += 3*textHeight;
@@ -49,9 +49,11 @@ void Game_initRectangles()
     y += 80;
     SDL_Rect_set(&(g_titleRects.textSelectBiding), 20, y, 400, textHeight + 40);  //rectangle choix touches jouables
     y += 3 * textHeight;
-    SDL_Rect_set(&(g_titleRects.textBiding1), 120, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.textBiding2), 200, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.textBiding3), 280, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBiding1), 40, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBiding2), 120, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBiding3), 200, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBiding4), 280, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBiding5), 360, y - 10, 60, 60);  //rectangle difficulté
 
     y += 80;
     SDL_Rect_set(&(g_titleRects.textMenu), 1280 - 250, 720 - 3*textHeight - 40, 400, textHeight + 40);;  //rectangle choix difficulté
@@ -60,7 +62,6 @@ void Game_initRectangles()
 
     y += 100;
     SDL_Rect_set(&(g_titleRects.textStart1), 1280-250, 720- textHeight - 40, 400, textHeight + 40);  // rectangle commencer
-
 
     //--------------------------------------------------------------------------
     // Menu

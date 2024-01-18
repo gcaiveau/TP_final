@@ -32,9 +32,11 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
     self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
     self->textSelectBiding = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
-    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"1", assets->colors.bleu_clair);
-    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"2", assets->colors.bleu_clair);
-    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.bleu_clair);
+    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"1", assets->colors.white);
+    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"2", assets->colors.white);
+    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.white);
+    self->textBiding4 = Text_create(renderer, assets->fonts.normal, u8"4", assets->colors.white);
+    self->textBiding5 = Text_create(renderer, assets->fonts.normal, u8"5", assets->colors.white);
     playMainAudio();
     
 
@@ -57,6 +59,11 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textTitre);
     Text_destroy(self->textStart1);
     Text_destroy(self->textQuit);
+    Text_destroy(self->textBiding1);
+    Text_destroy(self->textBiding2);
+    Text_destroy(self->textBiding3);
+    Text_destroy(self->textBiding4);
+    Text_destroy(self->textBiding5);
 
     Mix_HaltMusic();
     free(self);
@@ -126,6 +133,7 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
 {
     TitleScene* scene = self->scene;
     SDL_Renderer* renderer = TitleScene_getRenderer(scene);
+    LevelConfig* config = TitleScene_getLevelConfig(scene);
 
     int w, h;
     SDL_Rect dst = { 0 };
@@ -202,31 +210,114 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
     // Sélection des touches
-    texture = Text_getTexture(self->textBiding1);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textBiding1.x;
-    dst.y = g_titleRects.textBiding1.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-    // Sélection des touches
-    texture = Text_getTexture(self->textBiding2);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textBiding2.x;
-    dst.y = g_titleRects.textBiding2.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
+    if (config->keyCount == 3)
+    {
+        texture = Text_getTexture(self->textBiding1);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding1.x;
+        dst.y = g_titleRects.textBiding1.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+        // Sélection des touches
+        texture = Text_getTexture(self->textBiding2);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding2.x;
+        dst.y = g_titleRects.textBiding2.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-    // Sélection des touches
-    texture = Text_getTexture(self->textBiding3);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textBiding3.x;
-    dst.y = g_titleRects.textBiding3.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
+        // Sélection des touches
+        texture = Text_getTexture(self->textBiding3);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding3.x;
+        dst.y = g_titleRects.textBiding3.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+    }
+
+    else if (config->keyCount == 4)
+    {
+        texture = Text_getTexture(self->textBiding1);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding1.x;
+        dst.y = g_titleRects.textBiding1.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+        // Sélection des touches
+        texture = Text_getTexture(self->textBiding2);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding2.x;
+        dst.y = g_titleRects.textBiding2.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+        // Sélection des touches
+        texture = Text_getTexture(self->textBiding3);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding3.x;
+        dst.y = g_titleRects.textBiding3.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+         texture = Text_getTexture(self->textBiding4);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding4.x;
+        dst.y = g_titleRects.textBiding4.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+    }
+
+    else if (config->keyCount == 5)
+    {
+        texture = Text_getTexture(self->textBiding1);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding1.x;
+        dst.y = g_titleRects.textBiding1.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+        // Sélection des touches
+        texture = Text_getTexture(self->textBiding2);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding2.x;
+        dst.y = g_titleRects.textBiding2.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+        // Sélection des touches
+        texture = Text_getTexture(self->textBiding3);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding3.x;
+        dst.y = g_titleRects.textBiding3.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+        texture = Text_getTexture(self->textBiding4);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding4.x;
+        dst.y = g_titleRects.textBiding4.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+        texture = Text_getTexture(self->textBiding5);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBiding5.x;
+        dst.y = g_titleRects.textBiding5.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+    }
 
     // Commencer
     texture = Text_getTexture(self->textStart1);
@@ -311,7 +402,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
 
-    if (input->startPressed && self->selection == 3)
+    if (input->startPressed && self->selection == 4)
     {
         self->pageID = 0;
         self->selection = 0;
@@ -323,7 +414,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 4);
+        idx = Int_clamp(idx, 0, 5);
         playSwitchSound();
         self->selection = idx;
     }
@@ -366,14 +457,15 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textSelectMusic,
         self->textSelectNotes,
         self->textSelectDifficulty,
+        self->textSelectBiding,
         self->textMenu,
         self->textStart1,
     };
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;
         Text_setColor(leftTexts[i], colors);
     }
-    return (self->selection == 4 && input->startPressed);
+    return (self->selection == 5 && input->startPressed);
 }

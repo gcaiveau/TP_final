@@ -69,6 +69,8 @@ typedef struct TitleRects
     SDL_Rect textBiding1;
     SDL_Rect textBiding2;
     SDL_Rect textBiding3;
+    SDL_Rect textBiding4;
+    SDL_Rect textBiding5;
 
     /// @brief Position et dimensions du texte inquant la musique
     /// à sélectionner.
@@ -116,5 +118,3 @@ extern TitleRects g_titleRects;
 void Game_init(int sdlFlags, int imgFlags);
 
 /// @brief Quitte les librairies utilisées par le jeu.
-void Game_quit();
-
