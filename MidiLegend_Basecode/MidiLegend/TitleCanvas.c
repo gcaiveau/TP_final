@@ -35,6 +35,7 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"1", assets->colors.bleu_clair);
     self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"2", assets->colors.bleu_clair);
     self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.bleu_clair);
+    playMainAudio();
     
 
     return self;
