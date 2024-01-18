@@ -42,10 +42,12 @@ typedef struct LevelRects
     SDL_Rect difficulte;
     /// @brief Position et dimensions du texte inquant le nombre de points.
     SDL_Rect points;
+    SDL_Rect pointsA;
 
     SDL_Rect comboRect;
 
     SDL_Rect combo;
+    SDL_Rect comboA;
 
     SDL_Rect textPerfect;
     /// @brief Position et dimensions du rectangle délimitant

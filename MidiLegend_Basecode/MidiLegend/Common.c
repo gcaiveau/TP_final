@@ -83,8 +83,10 @@ void Game_initRectangles()
     y = 0;
     SDL_Rect_set(&(g_levelRects.uiRect), 1280-350, y, 350, 200);  // box score 
 
+    SDL_Rect_set(&(g_levelRects.pointsA), xUI - 140, y + 30, trackWidth, trackHeight);
+
     y += 67;
-    SDL_Rect_set(&(g_levelRects.points), xUI-140, y, trackWidth,trackHeight);  // les points,
+    SDL_Rect_set(&(g_levelRects.points), xUI-140, y, trackWidth,trackHeight);  // les points
 
     y += textHeight + 67;
     SDL_Rect_set(&(g_levelRects.progressBar), xUI, y, uiWidth, barH);  // progress bas
@@ -92,8 +94,9 @@ void Game_initRectangles()
     y += 45;
     SDL_Rect_set(&(g_levelRects.comboRect), 1280 - 350, y, 350, 200);  // box score
 
+    SDL_Rect_set(&(g_levelRects.comboA), xUI - 140, y+30, trackWidth, trackHeight);  // combo
     y += 67;
-    SDL_Rect_set(&(g_levelRects.combo), xUI - 140, y, trackWidth, trackHeight);  // combo
+    SDL_Rect_set(&(g_levelRects.combo), xUI - 140, y,trackWidth, trackHeight);  // combo
 
     y += 67;
     SDL_Rect_set(&(g_levelRects.progressBarCombo), xUI, y, uiWidth, barH);  // progress bas

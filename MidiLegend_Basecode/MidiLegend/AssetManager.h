@@ -58,6 +58,8 @@ typedef struct AssetManager
 
         /// @brief Fonte pour un texte de petite taille.
         TTF_Font *small;
+
+        TTF_Font* perfect;
     } fonts;
 
     /// @brief Ensemble des couleurs du jeu.

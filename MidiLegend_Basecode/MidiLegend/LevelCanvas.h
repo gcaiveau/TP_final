@@ -20,7 +20,9 @@ typedef struct LevelCanvas
 
     /// @brief Texte affichant le nombre de points du joueur.
     Text *textPoints;
+    Text* textPointsA;
     Text* textcombo;
+    Text* textcomboA;
     Text* textPerfect;
 
 } LevelCanvas;

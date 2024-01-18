@@ -116,6 +116,11 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
             .path = "../Assets/Font/The\ Fruit\ Star.ttf",
             .size = 72,
         },
+        {
+            .ptr = &fonts->perfect,
+            .path = "../Assets/Font/321Perfect.ttf",
+            .size = 50,
+        },
     };
     int fontSpecCount = sizeof(fontSpecs) / sizeof(FontSpec);
 
@@ -138,19 +143,19 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     // -------------------------------------------------------------------------
     // Chargement des couleurs
 
-    setColor(&(self->colors.blue), 0, 0, 255);
+    setColor(&(self->colors.blue), 72, 128, 245);
     setColor(&(self->colors.black), 0, 0, 0);
     setColor(&(self->colors.white), 255, 255, 255);
-    setColor(&(self->colors.green), 40, 106, 32);
+    setColor(&(self->colors.green), 111, 195, 77);
     setColor(&(self->colors.marron), 222, 138, 78);
     setColor(&(self->colors.bleu_clair), 156, 209, 201);
     setColor(&(self->colors.bleu_fonce), 13, 13, 25);
 
-    setColor(&(self->colors.cyan), 168, 220, 207);
+    setColor(&(self->colors.cyan), 11, 190, 213);
     setColor(&(self->colors.rouge), 166, 18, 22);
     setColor(&(self->colors.jaune_clair), 255, 255, 220);
-    setColor(&(self->colors.jaune), 215, 215, 16);
-    setColor(&(self->colors.violet), 177, 16, 215);
+    setColor(&(self->colors.jaune), 200, 222, 64, 255);
+    setColor(&(self->colors.violet), 145, 73, 195);
 
     return self;
 }
