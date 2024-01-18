@@ -65,12 +65,12 @@ typedef struct LevelRects
 typedef struct TitleRects
 {
     //@brief Position et dimensions du texte indiquant de sélectionner les touches jouables
-    SDL_Rect textSelectBiding;
-    SDL_Rect textBiding1;
-    SDL_Rect textBiding2;
-    SDL_Rect textBiding3;
-    SDL_Rect textBiding4;
-    SDL_Rect textBiding5;
+    SDL_Rect textSelectBinding;
+    SDL_Rect textBinding1;
+    SDL_Rect textBinding2;
+    SDL_Rect textBinding3;
+    SDL_Rect textBinding4;
+    SDL_Rect textBinding5;
 
     /// @brief Position et dimensions du texte inquant la musique
     /// à sélectionner.

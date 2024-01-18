@@ -31,12 +31,12 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textMenu = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
     self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
     self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
-    self->textSelectBiding = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
-    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"1", assets->colors.white);
-    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"2", assets->colors.white);
-    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.white);
-    self->textBiding4 = Text_create(renderer, assets->fonts.normal, u8"4", assets->colors.white);
-    self->textBiding5 = Text_create(renderer, assets->fonts.normal, u8"5", assets->colors.white);
+    self->textSelectBinding = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
+    self->textBinding1 = Text_create(renderer, assets->fonts.normal, u8"1", assets->colors.white);
+    self->textBinding2 = Text_create(renderer, assets->fonts.normal, u8"2", assets->colors.white);
+    self->textBinding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.white);
+    self->textBinding4 = Text_create(renderer, assets->fonts.normal, u8"4", assets->colors.white);
+    self->textBinding5 = Text_create(renderer, assets->fonts.normal, u8"5", assets->colors.white);
     playMainAudio();
     
 
@@ -59,11 +59,12 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textTitre);
     Text_destroy(self->textStart1);
     Text_destroy(self->textQuit);
-    Text_destroy(self->textBiding1);
-    Text_destroy(self->textBiding2);
-    Text_destroy(self->textBiding3);
-    Text_destroy(self->textBiding4);
-    Text_destroy(self->textBiding5);
+    Text_destroy(self->textBinding1);
+    Text_destroy(self->textBinding2);
+    Text_destroy(self->textBinding3);
+    Text_destroy(self->textBinding4);
+    Text_destroy(self->textBinding5);
+    Text_destroy(self->textSelectBinding);
 
     Mix_HaltMusic();
     free(self);
@@ -201,119 +202,68 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
     // Sélection des touches
-    texture = Text_getTexture(self->textSelectBiding);
+    texture = Text_getTexture(self->textSelectBinding);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textSelectBiding.x;
-    dst.y = g_titleRects.textSelectBiding.y;
+    dst.x = g_titleRects.textSelectBinding.x;
+    dst.y = g_titleRects.textSelectBinding.y;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
     // Sélection des touches
 
-    if (config->keyCount == 3)
-    {
-        texture = Text_getTexture(self->textBiding1);
+    
+        texture = Text_getTexture(self->textBinding1);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding1.x;
-        dst.y = g_titleRects.textBiding1.y;
+        dst.x = g_titleRects.textBinding1.x;
+        dst.y = g_titleRects.textBinding1.y;
         dst.w = w;
         dst.h = h;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
         // Sélection des touches
-        texture = Text_getTexture(self->textBiding2);
+        texture = Text_getTexture(self->textBinding2);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding2.x;
-        dst.y = g_titleRects.textBiding2.y;
+        dst.x = g_titleRects.textBinding2.x;
+        dst.y = g_titleRects.textBinding2.y;
         dst.w = w;
         dst.h = h;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
 
         // Sélection des touches
-        texture = Text_getTexture(self->textBiding3);
+        texture = Text_getTexture(self->textBinding3);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding3.x;
-        dst.y = g_titleRects.textBiding3.y;
+        dst.x = g_titleRects.textBinding3.x;
+        dst.y = g_titleRects.textBinding3.y;
+        dst.w = w;
+        dst.h = h;
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
+    
+
+    if (config->keyCount == 4)
+    {
+         texture = Text_getTexture(self->textBinding4);
+        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+        dst.x = g_titleRects.textBinding4.x;
+        dst.y = g_titleRects.textBinding4.y;
         dst.w = w;
         dst.h = h;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
     }
 
-    else if (config->keyCount == 4)
+    if (config->keyCount == 5)
     {
-        texture = Text_getTexture(self->textBiding1);
+        texture = Text_getTexture(self->textBinding4);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding1.x;
-        dst.y = g_titleRects.textBiding1.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-        // Sélection des touches
-        texture = Text_getTexture(self->textBiding2);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding2.x;
-        dst.y = g_titleRects.textBiding2.y;
+        dst.x = g_titleRects.textBinding4.x;
+        dst.y = g_titleRects.textBinding4.y;
         dst.w = w;
         dst.h = h;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-        // Sélection des touches
-        texture = Text_getTexture(self->textBiding3);
+        texture = Text_getTexture(self->textBinding5);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding3.x;
-        dst.y = g_titleRects.textBiding3.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-         texture = Text_getTexture(self->textBiding4);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding4.x;
-        dst.y = g_titleRects.textBiding4.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-    }
-
-    else if (config->keyCount == 5)
-    {
-        texture = Text_getTexture(self->textBiding1);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding1.x;
-        dst.y = g_titleRects.textBiding1.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-        // Sélection des touches
-        texture = Text_getTexture(self->textBiding2);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding2.x;
-        dst.y = g_titleRects.textBiding2.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-        // Sélection des touches
-        texture = Text_getTexture(self->textBiding3);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding3.x;
-        dst.y = g_titleRects.textBiding3.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-        texture = Text_getTexture(self->textBiding4);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding4.x;
-        dst.y = g_titleRects.textBiding4.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-        texture = Text_getTexture(self->textBiding5);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBiding5.x;
-        dst.y = g_titleRects.textBiding5.y;
+        dst.x = g_titleRects.textBinding5.x;
+        dst.y = g_titleRects.textBinding5.y;
         dst.w = w;
         dst.h = h;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
@@ -444,6 +394,14 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             idx = 1 + ((idx + 2) % 3);
             scene->config.leveldifficulty.difficultyLevel = idx;
         }
+
+        if (self->selection == 2)                       //Key binding
+        {
+            int idx = config->leveldifficulty.difficultyLevel;
+            idx += (input->rightPressed) ? 1 : -1;
+            idx = 1 + ((idx + 2) % 3);
+            scene->config.leveldifficulty.difficultyLevel = idx;
+        }
     }
     Text_setString(self->textMusic, g_musics[config->musicID].titleName);   // mise a jour du texte en fonction des action sutilisateurs
     char nbnotes[6];
@@ -457,7 +415,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textSelectMusic,
         self->textSelectNotes,
         self->textSelectDifficulty,
-        self->textSelectBiding,
+        self->textSelectBinding,
         self->textMenu,
         self->textStart1,
     };
