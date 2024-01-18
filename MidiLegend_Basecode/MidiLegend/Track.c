@@ -254,7 +254,7 @@ void Track_update(Track *self)
     update_particle(self);
 
 
-    //scene->config.leveldifficulty.difficultyLevel = 1;
+    
 
     // Met à jour les indices des notes visibles par le joueur
     // Cela évite de parcourir toutes les notes de la musique
@@ -333,10 +333,10 @@ void Track_update(Track *self)
             else if (note->playingTime + self->scene->difficultyLevel.Imprecision < trackTime)
             {
                 // La note devait être jouée il y a plus de 0.2s
-                /*if (score.points > 0)
+                if (score.points > 0)
                 {
                     score.points--;
-                }*/
+                }
                 score.combo -= 5 ;
                 score.combo = Int_clamp(score.combo, 0, 50);
                 note->state = NOTE_FAILED;
