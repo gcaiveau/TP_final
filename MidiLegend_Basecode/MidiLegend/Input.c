@@ -60,6 +60,7 @@ void Input_update(Input *self)
     self->downPressed = false;
     self->leftPressed = false;
     self->rightPressed = false;
+    self->pressf = false;
 
     for (int i = 0; i < MAX_KEY_COUNT; i++)
     {
@@ -105,6 +106,11 @@ void Input_update(Input *self)
             case SDL_SCANCODE_DOWN:
                 // Deplacement en bas
                 self->downPressed = true;
+                break;
+
+            case SDL_SCANCODE_F:
+                // Deplacement en bas
+                self->pressf = true;
                 break;
 
             case SDL_SCANCODE_RETURN:

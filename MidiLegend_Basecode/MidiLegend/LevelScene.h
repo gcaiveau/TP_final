@@ -92,7 +92,6 @@ void LevelScene_start(LevelScene *self);
 /// @param self la scène.
 /// @return true s'il faut quitter la boucle de rendu, false sinon.
 bool LevelScene_update(LevelScene *self);
-
 /// @brief Dessine la scène dans le moteur de rendu.
 /// @param self la scène.
 void LevelScene_render(LevelScene *self);

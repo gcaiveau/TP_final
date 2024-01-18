@@ -78,8 +78,6 @@ void LevelScene_start(LevelScene *self)
     self->trackTime = -2.0f;
     self->playing = false;
 }
-
-
 bool LevelScene_update(LevelScene *self)
 {
     // Met à jour les entrées utilisateur
@@ -105,26 +103,15 @@ bool LevelScene_update(LevelScene *self)
 
     bool quit = self->input->quitPressed || self->input->menuPressed;
     quit = quit || (self->trackTime > self->track->duration + 2.0f);
-
     return quit;
-}
 
-void LevelScene_render(LevelScene *self)
+}
+void LevelScene_render(LevelScene* self)
 {
-    // Affichage du fond
-    SDL_Renderer *renderer = LevelScene_getRenderer(self);
-    AssetManager *assets = LevelScene_getAssetManager(self);
+    SDL_Renderer* renderer = LevelScene_getRenderer(self);
+    AssetManager* assets = LevelScene_getAssetManager(self);
     SDL_RenderCopy(renderer, assets->textures.background, NULL, NULL);
 
     Track_render(self->track);
-
-    SDL_RenderCopy(renderer, assets->textures.logo, NULL, &(g_levelRects.logo));
-
-    /* DEBUG
-    // Gizmos de la scène en cyan
-    SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
-    SDL_RenderDrawRect(renderer, &(g_levelRects.logo));
-    */
-
     LevelCanvas_render(self->canvas);
 }

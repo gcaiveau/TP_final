@@ -43,6 +43,7 @@ typedef struct LevelRects
     /// @brief Position et dimensions du texte inquant le nombre de points.
     SDL_Rect points;
     SDL_Rect pointsA;
+    SDL_Rect points1;
 
     SDL_Rect comboRect;
 

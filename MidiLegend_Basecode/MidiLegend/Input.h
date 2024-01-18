@@ -55,6 +55,8 @@ typedef struct Input
     /// vient d'être pressée (menu principal).
     bool downPressed;
 
+    bool pressf;
+
     /// @brief Booléen indiquant si la flèche directionnelle "gauche"
     /// vient d'être pressée (menu principal).
     bool leftPressed;
