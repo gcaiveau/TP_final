@@ -361,8 +361,12 @@ void Track_render(Track *self)
         // On définit la position et les dimensions de la note
         SDL_Rect dst = { 0 };
         dst.w = 40;
-        if (note->type == TYPE_LONG)
-            dst.h = (note->endingTime - note->playingTime) * scene->difficultyLevel.FallingSpeed * 200;
+        if (note->type == TYPE_LONG) {
+            if (note->playingTime > scene->trackTime)
+                dst.h = (note->endingTime - note->playingTime) * scene->difficultyLevel.FallingSpeed *(500- (int)(trackRect.y + noteRelPos * trackRect.h));
+            else
+                dst.h = (note->endingTime - scene->trackTime) * scene->difficultyLevel.FallingSpeed *200;
+        }
         else
             dst.h = 25;
         
