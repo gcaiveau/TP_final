@@ -403,7 +403,7 @@ void Track_render(Track *self)
 
         barre.w = 2;
         barre.h = (int)(trackRect.y + validationRelPos * trackRect.h) - 25;
-        barre.x = 20 + (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
+        barre.x = 20 + (580 - ((self->keyCount - 1) * 100 + 40)) / 2 + trackRect.x + i * 100;//centrer la descente des notes
         barre.y = 0;
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 100);
         SDL_RenderDrawRect(renderer, &barre);
@@ -441,14 +441,11 @@ void Track_render(Track *self)
         if (note->type == TYPE_LONG) {
             if (note->playingTime > scene->trackTime)
                 dst.h = (noteRelPos - noteRelPosEnd) * 720;
-            else {
-                dst.h = (noteRelPos - noteRelPosEnd) * 720;
-            }
         }
         else
             dst.h = 25;
         
-        dst.x = (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + note->keyID * 50;//centrer la descente des notes
+        dst.x = (580 - ((self->keyCount - 1) * 100 + 40)) / 2 + trackRect.x + note->keyID * 100;//centrer la descente des notes
         dst.y = (int)(trackRect.y + noteRelPos * trackRect.h);
         dst.y -= dst.h;
 
@@ -468,7 +465,7 @@ void Track_render(Track *self)
         SDL_Rect dst = { 0 };
         dst.w = 40;
         dst.h = 25;
-        dst.x = (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
+        dst.x = (580 - ((self->keyCount - 1) * 100 + 40)) / 2 + trackRect.x + i * 100;//centrer la descente des notes
         dst.y = (int)(trackRect.y + validationRelPos * trackRect.h);
         dst.y -= dst.h;
         //SDL_Texture* texture = input->keyDown[i] ? assets->textures.keyDown : assets->textures.keyUp;
