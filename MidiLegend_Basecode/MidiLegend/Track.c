@@ -300,11 +300,17 @@ void Track_update(Track *self)
 /// @param self la piste.
 /// @param note la note.
 /// @return La position relative de la note dans la zone visible par le joueur.
-float Track_getNoteRelativePosition(Track *self, Note *note)
+float Track_getNoteRelativePosition(Track* self, Note* note)
 {
     float trackTime = (float)self->scene->trackTime;
     float relativeNotePos = 1.0f - (note->playingTime - trackTime + self->pastTime) / self->visibleTime;
     return Float_clamp(relativeNotePos, -0.05f, 1.05f);
+}
+float Track_getNoteRelativePositionEnd(Track* self, Note* note)
+{
+    float trackTime = (float)self->scene->trackTime;
+    float relativeNotePosEnd = 1.0f - (note->endingTime - trackTime + self->pastTime) / self->visibleTime;
+    return Float_clamp(relativeNotePosEnd, -0.05f, 1.05f);
 }
 
 void Track_render(Track *self)
@@ -357,15 +363,17 @@ void Track_render(Track *self)
 
         // On calcule la position relative de la note dans la piste.
         float noteRelPos = Track_getNoteRelativePosition(self, note);
+        float noteRelPosEnd = Track_getNoteRelativePositionEnd(self, note);
 
         // On définit la position et les dimensions de la note
         SDL_Rect dst = { 0 };
         dst.w = 40;
         if (note->type == TYPE_LONG) {
             if (note->playingTime > scene->trackTime)
-                dst.h = (note->endingTime - note->playingTime) * scene->difficultyLevel.FallingSpeed *(500- (int)(trackRect.y + noteRelPos * trackRect.h));
-            else
-                dst.h = (note->endingTime - scene->trackTime) * scene->difficultyLevel.FallingSpeed *200;
+                dst.h = (noteRelPos - noteRelPosEnd) * 500 / scene->difficultyLevel.FallingSpeed;
+            else {
+                dst.h = (noteRelPos - noteRelPosEnd) * 500 / scene->difficultyLevel.FallingSpeed;
+            }
         }
         else
             dst.h = 25;
