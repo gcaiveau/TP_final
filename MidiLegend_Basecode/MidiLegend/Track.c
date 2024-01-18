@@ -275,7 +275,7 @@ void Track_update(Track *self)
                 
         }
         if (note->state == NOTE_HELD) {
-            note->playingTime = trackTime;
+            note->playingTime = scene->trackTime;
 
             if (trackTime > note->endingTime)
                 note->state = NOTE_PLAYED;
@@ -331,7 +331,7 @@ void Track_render(Track *self)
 
         // On modifie son opacité en fonction de l'état de la note
         // 0 = complètement transparent, 255 = complètement opaque
-        Uint8 alpha = (note->state == NOTE_FAILED) ? 100 : 255;
+        Uint8 alpha = (note->state == NOTE_FAILED || note->state == NOTE_RELEASED) ? 100 : 255;
         SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
         SDL_SetTextureAlphaMod(texture, alpha);
 
