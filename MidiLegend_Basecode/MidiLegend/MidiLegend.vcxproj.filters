@@ -59,6 +59,9 @@
     <ClCompile Include="AssetManager.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Audio.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -96,6 +99,9 @@
     </ClInclude>
     <ClInclude Include="AssetManager.h">
       <Filter>Fichiers sources\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Fichiers sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

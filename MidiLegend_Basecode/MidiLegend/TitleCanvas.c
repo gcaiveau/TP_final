@@ -7,6 +7,7 @@
 #include "TitleCanvas.h"
 #include "TitleScene.h"
 #include "Math.h"
+#include "Audio.h"
 
 TitleCanvas *TitleCanvas_create(TitleScene *scene)
 {
@@ -30,7 +31,7 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textMenu = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
     self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
     self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
-    
+    playMainAudio();
 
     return self;
 }
@@ -52,6 +53,7 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textStart1);
     Text_destroy(self->textQuit);
 
+    Mix_HaltMusic();
     free(self);
 }
 void TitleCanvas_render(TitleCanvas* self)
@@ -224,6 +226,7 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
 
     if (input->startPressed && self->selection==0)
     {
+        playSwitchSound();
         self->pageID = 1;
         self->selection = 0;
         return false;
@@ -231,11 +234,13 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
 
     if (input->startPressed && self->selection == 2)
     {
+        playSwitchSound();
         input->quitPressed = true;
     }
 
     if (input->downPressed || input->upPressed)
     {
+        playSwitchSound();
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
         idx = Int_clamp(idx, 0, 2);
@@ -269,6 +274,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     {
         self->pageID = 0;
         self->selection = 0;
+        playSwitchSound();
         return false;
     }
 
@@ -277,12 +283,13 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
         idx = Int_clamp(idx, 0, 4);
-
+        playSwitchSound();
         self->selection = idx;
     }
 
     if (input->leftPressed || input->rightPressed)
     {
+        playSwitchSound();
         if (self->selection == 0)                       //choix musique
         {
             int idx = config->musicID;
