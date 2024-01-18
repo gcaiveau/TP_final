@@ -182,14 +182,18 @@ void Track_placeNotes(Track *self, int keyCount)
 void update_particle(Track *self)
 {
     LevelScene* scene = self->scene;
-
     for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
     {
         if (self->particule[i].duration > 0)
         {
             self->particule[i].duration -= Timer_getDelta(g_time);
-            self->particule[i].yposition += Timer_getDelta(g_time) * (10+rand()%50) * ((rand()%2)-1);
-            self->particule[i].xposition += Timer_getDelta(g_time) * (10+rand()%50) * ((rand()%2)-1);
+            self->particule[i].yposition += Timer_getDelta(g_time) * self->particule[i].yspeed;
+            self->particule[i].xposition += Timer_getDelta(g_time) * self->particule[i].xspeed;
+            self->particule[i].yspeed += Timer_getDelta(g_time) * 100;
+            if (self->particule[i].xspeed<0)
+                self->particule[i].xspeed += Timer_getDelta(g_time) * (-10);
+            else
+                self->particule[i].xspeed += Timer_getDelta(g_time) * 10;
         }
     }
 }
@@ -209,25 +213,30 @@ void render_particle(Track* self)
         dst2.y = self->particule[i].yposition;
         if (self->particule[i].duration > 0)
         {
-            SDL_Rect src = { 0, 0, 8, 8 };
+            SDL_Rect src = { 8*self->particule[i].textureID, 0, 8, 8};
             SDL_RenderCopy(renderer, assets->textures.particules, &src, &dst2);
 
         }
     }
 }
 
-void create_particle(Track *self)
+void create_particle(Track *self, int keyID)
 {
     LevelScene* scene = self->scene;
+    Note* note = self->notes;
     Input* input = LevelScene_getInput(scene);
+    float validationRelPos = 1.0f - self->pastTime / self->visibleTime;
 
     for (int i=0; i<MAX_PARTICLE_COUNT; i++)
     {
         if (self->particule[i].duration<=0)
         {
-            self->particule[i].duration = 5;
-            self->particule[i].xposition = (1280 - ((self->keyCount - 1) * 50 + 40)) / 2 ;
-            self->particule[i].yposition = 600;
+            self->particule[i].duration = 1.5;
+            self->particule[i].xposition = 10 + (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + 360 + keyID * 50;
+            self->particule[i].yposition = (int)(validationRelPos * 685)+25;
+            self->particule[i].yspeed = (rand() % 151) - 100;
+            self->particule[i].xspeed = (rand()%151)-75;
+            self->particule[i].textureID = keyID;
             break;
         }
     }
@@ -240,6 +249,9 @@ void Track_update(Track *self)
     LevelScore score = LevelScene_getScore(scene);
     float trackTime = (float)scene->trackTime;
     bool LegalKeys[5] = { 0 };
+    srand(time(NULL));
+
+    update_particle(self);
 
 
     //scene->config.leveldifficulty.difficultyLevel = 1;
@@ -292,8 +304,6 @@ void Track_update(Track *self)
                 {
                     score.Type = 1;
                     score.PerfectCount++;
-                    for (int j=0; j<5; j++)
-                        create_particle(self);
                 }
                 else if (fabsf(note->playingTime - trackTime) < 0.1)
                 {
@@ -315,6 +325,8 @@ void Track_update(Track *self)
                 else
                     score.points += (self->scene->difficultyLevel.multiplicator * 1) * (score.combo/5.0f);
                 note->state = (note->state==NOTE_HELD) ? NOTE_HELD : NOTE_PLAYED;
+                for (int j = 0; j < 3; j++)
+                    create_particle(self, note->keyID);
                 break;//break pour prendre les notes une par une
 
             }
@@ -351,7 +363,6 @@ void Track_update(Track *self)
 
     // Met à jour le score du joueur
     LevelScene_setScore(scene, score);  // TODO : decommenter
-    update_particle(self);
 }
 
 /// @brief Calcule la position relative d'une note dans la zone visible par le joueur.
@@ -382,8 +393,6 @@ void Track_render(Track *self)
     // Dessine le fond de la piste
     SDL_Rect trackRect = g_levelRects.trackFill;
     SDL_RenderCopy(renderer, assets->textures.trackFill, NULL, &trackRect); // TODO : decommenter
-
-    render_particle(self);
 
     float validationRelPos = 1.0f - self->pastTime / self->visibleTime;
     SDL_Color colortab[5] = {assets->colors.violet, assets->colors.blue, assets->colors.cyan, assets->colors.green, assets->colors.jaune};
@@ -448,10 +457,9 @@ void Track_render(Track *self)
         SDL_RenderCopy(renderer, texture, &src, &dst);
         
     }
-
+    render_particle(self);
     // Calcule la position relative de la ligne de validation du joueur
     // dans la piste.
-
     // Boucle de rendu des touches du joueur
     for (int i = 0; i < self->keyCount; i++)
     {
@@ -463,7 +471,6 @@ void Track_render(Track *self)
         dst.x = (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
         dst.y = (int)(trackRect.y + validationRelPos * trackRect.h);
         dst.y -= dst.h;
-
         //SDL_Texture* texture = input->keyDown[i] ? assets->textures.keyDown : assets->textures.keyUp;
         SDL_RenderCopy(renderer, assets->textures.keyUp, NULL, &dst);
         if (input->keyDown[i] == true)
@@ -478,7 +485,6 @@ void Track_render(Track *self)
 
     // On dessine le masque en dernier (pour qu'il soit au dessus des notes)
     SDL_RenderCopy(renderer, assets->textures.trackMask, NULL, &(g_levelRects.trackMask));
-
 
     /* DEBUG
     // Gizmos de la piste en magenta
