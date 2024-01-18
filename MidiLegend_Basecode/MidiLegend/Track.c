@@ -232,7 +232,7 @@ void create_particle(Track *self, int keyID)
         if (self->particule[i].duration<=0)
         {
             self->particule[i].duration = 1.5;
-            self->particule[i].xposition = 10 + (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + 360 + keyID * 50;
+            self->particule[i].xposition = 10 + (580 - ((self->keyCount - 1) * 100 + 40)) / 2 + 360 + keyID * 100;
             self->particule[i].yposition = (int)(validationRelPos * 685)+25;
             self->particule[i].yspeed = (rand() % 150) - 125;
             self->particule[i].xspeed = (rand() % 100) - 50;
