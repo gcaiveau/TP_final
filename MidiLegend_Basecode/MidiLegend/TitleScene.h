@@ -37,6 +37,8 @@ typedef struct LevelConfig
     bool piano;
 
     LevelDifficulty leveldifficulty;
+
+    int bindselected;
 } LevelConfig;
 
 /// @brief Structure représentant la scène principale du jeu (niveau).

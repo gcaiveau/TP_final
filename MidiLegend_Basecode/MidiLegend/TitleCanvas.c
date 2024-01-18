@@ -351,7 +351,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     AssetManager* assets = TitleScene_getAssetManager(scene);
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
-    int bindselected = 0;
+    
 
     if (input->startPressed && self->selection == 4)
     {
@@ -398,10 +398,10 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
 
         if (self->selection == 3)                       //Key binding
         {
-            int idx = bindselected;
+            int idx = config->bindselected;
             idx += (input->rightPressed) ? 1 : -1;
-            idx = Int_clamp(idx, 0, 4);
-            bindselected = idx;
+            idx = Int_clamp(idx, 0, config->keyCount-1);
+            config->bindselected = idx;
             
         }
     }
@@ -412,9 +412,9 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     
     sprintf(nbnotes, u8"< %d >", config->keyCount);
     sprintf(difficulty, u8"< %d >", config->leveldifficulty.difficultyLevel);
-    sprintf(key1, u8"< %d >", scene->input->config.keyCodes[0]);
+    //sprintf(key1, u8"< %d >", scene->input->config.keyCodes[0]);
     Text_setString(self->textNbNotes, nbnotes);// mise a jour du texte en fonction des action sutilisateurs
-    Text_setString(self->textBinding1, key1);
+   // Text_setString(self->textBinding1, key1);
 
 
     Text* leftTexts[] = {
@@ -435,7 +435,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
 
     if (self->selection == 3) {
         for (int i = 0; i < 5; i++) {
-            SDL_Color colors = (i == bindselected) ?
+            SDL_Color colors = (i == config->bindselected) ?
                 assets->colors.marron : assets->colors.bleu_clair;
             Text_setColor(bidings[i], colors);
         }
