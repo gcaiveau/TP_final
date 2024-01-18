@@ -24,6 +24,9 @@ typedef struct LevelCanvas
     Text* textcombo;
     Text* textcomboA;
     Text* textPerfect;
+    
+    int pageID;
+    int selection;
 
 } LevelCanvas;
 
@@ -39,7 +42,6 @@ void LevelCanvas_destroy(LevelCanvas *self);
 /// @brief Met à jour le canvas du niveau.
 /// @param self le canvas.
 void LevelCanvas_update(LevelCanvas *self);
-
 /// @brief Dessine le canvas du niveau dans le moteur de rendu.
 /// @param self le canvas.
 void LevelCanvas_render(LevelCanvas *self);

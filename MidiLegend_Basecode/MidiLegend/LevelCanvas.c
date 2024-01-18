@@ -39,7 +39,6 @@ void LevelCanvas_destroy(LevelCanvas *self)
 
     free(self);
 }
-
 void LevelCanvas_render(LevelCanvas *self)
 {
     LevelScene *scene = self->scene;
@@ -146,14 +145,21 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_RenderDrawRect(renderer, &(g_levelRects.comboRect));
     
 }
-
 void LevelCanvas_update(LevelCanvas *self)
 {
     Track *track = LevelScene_getTrack(self->scene);
     LevelScore score = LevelScene_getScore(self->scene);
     AssetManager* assets = LevelScene_getAssetManager(self->scene);
+    Input* input = LevelScene_getInput(self->scene);
     char buffer[128] = { 0 };
     
+    if (input->pressf)
+    {
+        playSwitchSound();
+        self->pageID = 1;
+        return false;
+    }
+
     // Met à jour l'affichage du nombre de points du joueur
     sprintf(buffer, "%d", (int)score.points);
     Text_setString(self->textPoints, buffer);
