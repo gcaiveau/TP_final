@@ -7,6 +7,7 @@
 #include "TitleCanvas.h"
 #include "TitleScene.h"
 #include "Math.h"
+#include "Audio.h"
 
 TitleCanvas *TitleCanvas_create(TitleScene *scene)
 {
@@ -55,8 +56,8 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textTitre);
     Text_destroy(self->textStart1);
     Text_destroy(self->textQuit);
-    Text_destroy(self->textSelectBiding);
 
+    Mix_HaltMusic();
     free(self);
 }
 void TitleCanvas_render(TitleCanvas* self)
@@ -265,6 +266,7 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
 
     if (input->startPressed && self->selection==0)
     {
+        playSwitchSound();
         self->pageID = 1;
         self->selection = 0;
         return false;
@@ -272,11 +274,13 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
 
     if (input->startPressed && self->selection == 2)
     {
+        playSwitchSound();
         input->quitPressed = true;
     }
 
     if (input->downPressed || input->upPressed)
     {
+        playSwitchSound();
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
         idx = Int_clamp(idx, 0, 2);
@@ -306,10 +310,11 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
 
-    if (input->startPressed && self->selection == 4)
+    if (input->startPressed && self->selection == 3)
     {
         self->pageID = 0;
         self->selection = 0;
+        playSwitchSound();
         return false;
     }
 
@@ -317,13 +322,14 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 5);
-
+        idx = Int_clamp(idx, 0, 4);
+        playSwitchSound();
         self->selection = idx;
     }
 
     if (input->leftPressed || input->rightPressed)
     {
+        playSwitchSound();
         if (self->selection == 0)                       //choix musique
         {
             int idx = config->musicID;
@@ -359,15 +365,14 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textSelectMusic,
         self->textSelectNotes,
         self->textSelectDifficulty,
-        self->textSelectBiding,
         self->textMenu,
         self->textStart1,
     };
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 5; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;
         Text_setColor(leftTexts[i], colors);
     }
-    return (self->selection == 5 && input->startPressed);
+    return (self->selection == 4 && input->startPressed);
 }
