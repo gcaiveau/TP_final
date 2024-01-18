@@ -440,6 +440,12 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             Text_setColor(bidings[i], colors);
         }
     }
+    else {
+        int i = config->bindselected;
+        SDL_Color colors =  assets->colors.bleu_clair;
+        Text_setColor(bidings[i], colors);
+        config->bindselected = 0;
+    }
     for (int i = 0; i < 6; i++)
     {
         SDL_Color colors = (i == self->selection) ?
