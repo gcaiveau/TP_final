@@ -30,6 +30,10 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textMenu = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
     self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
     self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
+    self->textSelectBiding = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
+    self->textBiding1 = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
+    self->textBiding2 = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
+    self->textBiding3 = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
     
 
     return self;
@@ -51,6 +55,7 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textTitre);
     Text_destroy(self->textStart1);
     Text_destroy(self->textQuit);
+    Text_destroy(self->textSelectBiding);
 
     free(self);
 }
@@ -181,6 +186,15 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textTitre.x;
     dst.y = g_titleRects.textTitre.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    // Sélection des touches
+    texture = Text_getTexture(self->textSelectBiding);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textSelectBiding.x;
+    dst.y = g_titleRects.textSelectBiding.y;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
@@ -318,6 +332,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textSelectMusic,
         self->textSelectNotes,
         self->textSelectDifficulty,
+        self->textSelectBiding,
         self->textMenu,
         self->textStart1,
     };

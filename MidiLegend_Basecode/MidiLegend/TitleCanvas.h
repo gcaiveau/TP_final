@@ -35,6 +35,10 @@ typedef struct TitleCanvas
     Text* textMenu;
     Text* textTitre;
     Text* textQuit;
+    Text* textSelectBiding;
+    Text* textBiding1;
+    Text* textBiding2;
+    Text* textBiding3;
     /// @brief texte indiquant le niveau de difficulté
     Text* textDifficultyValue;
 
