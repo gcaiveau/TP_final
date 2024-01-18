@@ -251,7 +251,7 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     }
 
     if (config->keyCount == 5)
-    {
+    {   
         texture = Text_getTexture(self->textBinding4);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
         dst.x = g_titleRects.textBinding4.x;
@@ -395,7 +395,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             scene->config.leveldifficulty.difficultyLevel = idx;
         }
 
-        if (self->selection == 2)                       //Key binding
+        if (self->selection == 3)                       //Key binding
         {
             int idx = config->leveldifficulty.difficultyLevel;
             idx += (input->rightPressed) ? 1 : -1;
@@ -404,11 +404,14 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         }
     }
     Text_setString(self->textMusic, g_musics[config->musicID].titleName);   // mise a jour du texte en fonction des action sutilisateurs
-    char nbnotes[6];
+    char nbnotes[16];
     char difficulty[16];
+    char key1[16];
     sprintf(nbnotes, u8"< %d >", config->keyCount);
     sprintf(difficulty, u8"< %d >", config->leveldifficulty.difficultyLevel);
+    sprintf(key1, u8"< %d >", scene->input->config.keyCodes[0]);
     Text_setString(self->textNbNotes, nbnotes);// mise a jour du texte en fonction des action sutilisateurs
+    Text_setString(self->textBinding1, key1);
 
 
     Text* leftTexts[] = {

@@ -439,7 +439,6 @@ void Track_render(Track *self)
         SDL_Rect dst = { 0 };
         dst.w = 40;
         if (note->type == TYPE_LONG) {
-            if (note->playingTime > scene->trackTime)
                 dst.h = (noteRelPos - noteRelPosEnd) * 720;
         }
         else
