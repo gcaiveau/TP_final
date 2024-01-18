@@ -394,14 +394,6 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             idx = 1 + ((idx + 2) % 3);
             scene->config.leveldifficulty.difficultyLevel = idx;
         }
-
-        if (self->selection == 3)                       //Key binding
-        {
-            int idx = config->leveldifficulty.difficultyLevel;
-            idx += (input->rightPressed) ? 1 : -1;
-            idx = 1 + ((idx + 2) % 3);
-            scene->config.leveldifficulty.difficultyLevel = idx;
-        }
     }
     Text_setString(self->textMusic, g_musics[config->musicID].titleName);   // mise a jour du texte en fonction des action sutilisateurs
     char nbnotes[16];

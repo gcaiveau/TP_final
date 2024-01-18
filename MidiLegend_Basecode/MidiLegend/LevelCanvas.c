@@ -22,6 +22,7 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
     self->textcomboA = Text_create(renderer, assets->fonts.normal, u8"Combo", assets->colors.white);
     self->textPointsA = Text_create(renderer, assets->fonts.normal, u8"Points", assets->colors.white);
     self->textPerfect = Text_create(renderer, assets->fonts.perfect, u8"0", assets->colors.green);
+    self->textRecord = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.white);
 
 
     return self;
@@ -36,6 +37,7 @@ void LevelCanvas_destroy(LevelCanvas *self)
     Text_destroy(self->textPointsA);
     Text_destroy(self->textcomboA);
     Text_destroy(self->textPerfect);
+    Text_destroy(self->textRecord);
 
     free(self);
 }
@@ -68,6 +70,14 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_levelRects.points.x + (g_levelRects.points.w - w) / 2;
     dst.y = g_levelRects.points.y - 23;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textRecord);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = 150;
+    dst.y = g_levelRects.textRecord.y - 23;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
@@ -126,16 +136,31 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &dst);
 
-    float ComboRatio = (float)((scene->score.combo/10) / 5.f);
-    ComboRatio = Float_clamp(ComboRatio, 0.0f, 1.0f);
+    float ProgressRatio = (float)((scene->score.combo)/5);
+    ProgressRatio = Float_clamp(ProgressRatio, 0.0f, 1.0f);
     dst.x += 2; dst.y += 2;
     dst.w -= 4; dst.h -= 4;
-    dst.w = (int)(ComboRatio * dst.w);
+    dst.w = (int)(ProgressRatio * dst.w);
 
     color = assets->colors.marron;
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
     SDL_RenderFillRect(renderer, &dst);
 
+    //progrees record
+    dst = g_levelRects.recordBar;
+    color = assets->colors.white;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
+    SDL_RenderFillRect(renderer, &dst);
+
+    float RecordRatio = (float)(scene->score.points / 10);
+    RecordRatio = Float_clamp(RecordRatio, 0.0f, 1.0f);
+    dst.x += 2; dst.y += 2;
+    dst.w -= 4; dst.h -= 4;
+    dst.w = (int)(RecordRatio * dst.w);
+
+    color = assets->colors.marron;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
+    SDL_RenderFillRect(renderer, &dst);
     // DEBUG
     //Gizmos du canvas en jaune
     //SDL_RenderDrawRect(renderer, &(g_levelRects.points));
@@ -161,6 +186,8 @@ void LevelCanvas_update(LevelCanvas *self)
     }
 
     // Met à jour l'affichage du nombre de points du joueur
+    sprintf(buffer, "%d", (int)score.points);
+    Text_setString(self->textPoints, buffer);
     sprintf(buffer, "%d", (int)score.points);
     Text_setString(self->textPoints, buffer);
     sprintf(buffer, "x %d", (int)(score.combo / 10));//affichage du combo

@@ -24,7 +24,8 @@ typedef struct LevelCanvas
     Text* textcombo;
     Text* textcomboA;
     Text* textPerfect;
-    
+    Text* textRecord;
+
     int pageID;
     int selection;
 
