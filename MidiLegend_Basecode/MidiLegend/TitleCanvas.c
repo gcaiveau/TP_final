@@ -351,6 +351,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     AssetManager* assets = TitleScene_getAssetManager(scene);
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
+    int bindselected = 0;
 
     if (input->startPressed && self->selection == 4)
     {
@@ -397,16 +398,18 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
 
         if (self->selection == 3)                       //Key binding
         {
-            int idx = config->leveldifficulty.difficultyLevel;
+            int idx = bindselected;
             idx += (input->rightPressed) ? 1 : -1;
-            idx = 1 + ((idx + 2) % 3);
-            scene->config.leveldifficulty.difficultyLevel = idx;
+            idx = Int_clamp(idx, 0, 4);
+            bindselected = idx;
+            
         }
     }
     Text_setString(self->textMusic, g_musics[config->musicID].titleName);   // mise a jour du texte en fonction des action sutilisateurs
     char nbnotes[16];
     char difficulty[16];
     char key1[16];
+    
     sprintf(nbnotes, u8"< %d >", config->keyCount);
     sprintf(difficulty, u8"< %d >", config->leveldifficulty.difficultyLevel);
     sprintf(key1, u8"< %d >", scene->input->config.keyCodes[0]);
@@ -422,10 +425,26 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textMenu,
         self->textStart1,
     };
+    Text* bidings[] = {
+        self->textBinding1,
+        self->textBinding2,
+        self->textBinding3,
+        self->textBinding4,
+        self->textBinding5 
+    }; 
+
+    if (self->selection == 3) {
+        for (int i = 0; i < 5; i++) {
+            SDL_Color colors = (i == bindselected) ?
+                assets->colors.marron : assets->colors.bleu_clair;
+            Text_setColor(bidings[i], colors);
+        }
+    }
     for (int i = 0; i < 6; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;
+        
         Text_setColor(leftTexts[i], colors);
     }
     return (self->selection == 5 && input->startPressed);
