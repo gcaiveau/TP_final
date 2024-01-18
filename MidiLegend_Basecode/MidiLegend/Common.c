@@ -97,6 +97,8 @@ void Game_initRectangles()
 
     y += 67;
     SDL_Rect_set(&(g_levelRects.points), xUI-140, y, trackWidth,trackHeight);  // les points
+    SDL_Rect_set(&(g_levelRects.textRecord), 0, y, trackWidth, trackHeight);  // les points
+    SDL_Rect_set(&(g_levelRects.recordBar), 25, y+10, uiWidth, barH);  // progress bas
 
     y += textHeight + 67;
     SDL_Rect_set(&(g_levelRects.progressBar), xUI, y, uiWidth, barH);  // progress bas
