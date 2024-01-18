@@ -179,6 +179,60 @@ void Track_placeNotes(Track *self, int keyCount)
     
 }
 
+void update_particle(Track *self)
+{
+    LevelScene* scene = self->scene;
+
+    for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
+    {
+        if (self->particule[i].duration > 0)
+        {
+            self->particule[i].duration -= Timer_getDelta(g_time);
+            self->particule[i].yposition += Timer_getDelta(g_time) * (10+rand()%50) * ((rand()%2)-1);
+            self->particule[i].xposition += Timer_getDelta(g_time) * (10+rand()%50) * ((rand()%2)-1);
+        }
+    }
+}
+void render_particle(Track* self)
+{
+
+    LevelScene* scene = self->scene;
+    AssetManager* assets = LevelScene_getAssetManager(scene);
+    Input* input = LevelScene_getInput(scene);
+    SDL_Renderer* renderer = LevelScene_getRenderer(scene);
+    for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
+    {
+        SDL_Rect dst2 = { 0 };
+        dst2.w = 8;
+        dst2.h = 8;
+        dst2.x = self->particule[i].xposition;
+        dst2.y = self->particule[i].yposition;
+        if (self->particule[i].duration > 0)
+        {
+            SDL_Rect src = { 0, 0, 8, 8 };
+            SDL_RenderCopy(renderer, assets->textures.particules, &src, &dst2);
+
+        }
+    }
+}
+
+void create_particle(Track *self)
+{
+    LevelScene* scene = self->scene;
+    Input* input = LevelScene_getInput(scene);
+
+    for (int i=0; i<MAX_PARTICLE_COUNT; i++)
+    {
+        if (self->particule[i].duration<=0)
+        {
+            self->particule[i].duration = 5;
+            self->particule[i].xposition = (1280 - ((self->keyCount - 1) * 50 + 40)) / 2 ;
+            self->particule[i].yposition = 600;
+            break;
+        }
+    }
+}
+
 void Track_update(Track *self)
 {
     LevelScene *scene = self->scene;
@@ -186,6 +240,8 @@ void Track_update(Track *self)
     LevelScore score = LevelScene_getScore(scene);
     float trackTime = (float)scene->trackTime;
     bool LegalKeys[5] = { 0 };
+
+
     //scene->config.leveldifficulty.difficultyLevel = 1;
 
     // Met à jour les indices des notes visibles par le joueur
@@ -235,6 +291,8 @@ void Track_update(Track *self)
                 {
                     score.Type = 1;
                     score.PerfectCount++;
+                    for (int j=0; j<5; j++)
+                        create_particle(self);
                 }
                 else if (fabsf(note->playingTime - trackTime) < 0.1)
                 {
@@ -246,7 +304,6 @@ void Track_update(Track *self)
                     score.Type = 3;
                     score.BofCount++;
                 }
-                    
                 // L'écart entre le temps courant de la musique et le début
                 // de la note est inférieur à 0.5s
 
@@ -292,6 +349,7 @@ void Track_update(Track *self)
 
     // Met à jour le score du joueur
     LevelScene_setScore(scene, score);  // TODO : decommenter
+    update_particle(self);
 }
 
 /// @brief Calcule la position relative d'une note dans la zone visible par le joueur.
@@ -313,10 +371,11 @@ void Track_render(Track *self)
     AssetManager *assets = LevelScene_getAssetManager(scene);
     Input *input = LevelScene_getInput(scene);
     SDL_Renderer *renderer = LevelScene_getRenderer(scene);
-
     // Dessine le fond de la piste
     SDL_Rect trackRect = g_levelRects.trackFill;
     SDL_RenderCopy(renderer, assets->textures.trackFill, NULL, &trackRect); // TODO : decommenter
+
+    render_particle(self);
 
     float validationRelPos = 1.0f - self->pastTime / self->visibleTime;
     SDL_Color colortab[5] = {assets->colors.violet, assets->colors.blue, assets->colors.cyan, assets->colors.green, assets->colors.jaune};

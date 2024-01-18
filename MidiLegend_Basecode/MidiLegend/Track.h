@@ -66,7 +66,19 @@ typedef struct Note
 
     /// @brief Durée de la note (= endingTime - playingTime).
     float duration;
+
 } Note;
+
+typedef struct Particules
+{
+    float xposition;
+    float yposition;
+    float xspeed;
+    float yspeed;
+    float duration;
+} Particules;
+
+#define MAX_PARTICLE_COUNT 128
 
 /// @brief Structure représentant la piste du jeu.
 /// Il s'agit de la structure principale du jeu.
@@ -103,6 +115,8 @@ typedef struct Track
 
     /// @brief Indice de la dernière note visible dans le tableau des notes.
     int lastIdx;
+
+    Particules particule[MAX_PARTICLE_COUNT];
 } Track;
 
 /// @brief Crée la piste du niveau.
@@ -136,3 +150,7 @@ void Track_update(Track *self);
 /// @brief Dessine la piste dans le moteur de rendu.
 /// @param self la piste.
 void Track_render(Track *self);
+
+void update_particle(Track* self);
+void render_particle(Track* self);
+void create_particle(Track* self);

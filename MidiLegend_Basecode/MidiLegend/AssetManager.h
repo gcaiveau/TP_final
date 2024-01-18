@@ -43,6 +43,8 @@ typedef struct AssetManager
 
         SDL_Texture* difficulte1;
 
+        SDL_Texture* particules;
+
 
 
     } textures;
