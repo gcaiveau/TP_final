@@ -318,6 +318,51 @@ void Track_render(Track *self)
     SDL_Rect trackRect = g_levelRects.trackFill;
     SDL_RenderCopy(renderer, assets->textures.trackFill, NULL, &trackRect); // TODO : decommenter
 
+    float validationRelPos = 1.0f - self->pastTime / self->visibleTime;
+
+    for (int i = 0; i < self->keyCount; i++)
+    {
+        Note* note = &(self->notes[i]);
+        SDL_Rect barre = { 0 };
+
+        barre.w = 2;
+        barre.h = (int)(trackRect.y + validationRelPos * trackRect.h) - 25;
+        barre.x = 20 + (580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
+        barre.y = 0;
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 100);
+        SDL_RenderDrawRect(renderer, &barre);
+        if (input->keyDown[i] == false)
+        {
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 100);
+            SDL_RenderDrawRect(renderer, &barre);
+        }
+        if (input->keyDown[0] == true)
+        {
+            SDL_SetRenderDrawColor(renderer, 96, 13, 121, 255);
+            SDL_RenderDrawRect(renderer, &barre);
+        }
+        else if (input->keyDown[1] == true)
+        {
+            SDL_SetRenderDrawColor(renderer, 48, 70, 156, 255);
+            SDL_RenderDrawRect(renderer, &barre);
+        }
+        else if (input->keyDown[2] == true)
+        {
+            SDL_SetRenderDrawColor(renderer, 92, 195, 186, 255);
+            SDL_RenderDrawRect(renderer, &barre);
+        }
+        else if (input->keyDown[3] == true)
+        {
+            SDL_SetRenderDrawColor(renderer, 40, 106, 32, 255);
+            SDL_RenderDrawRect(renderer, &barre);
+        }
+        else if (input->keyDown[4] == true)
+        {
+            SDL_SetRenderDrawColor(renderer, 215, 215, 16, 255);
+            SDL_RenderDrawRect(renderer, &barre);
+        }
+    }
+
     // Boucle de rendu des notes
     for (int i = self->firstIdx; i <= self->lastIdx; i++)
     {
@@ -358,7 +403,6 @@ void Track_render(Track *self)
 
     // Calcule la position relative de la ligne de validation du joueur
     // dans la piste.
-    float validationRelPos = 1.0f - self->pastTime / self->visibleTime;
 
     // Boucle de rendu des touches du joueur
     for (int i = 0; i < self->keyCount; i++)
@@ -374,19 +418,6 @@ void Track_render(Track *self)
 
         SDL_Texture* texture = input->keyDown[i] ? assets->textures.keyDown : assets->textures.keyUp;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
-    }
-    for (int i = 0; i < self->keyCount ; i++)
-    {
-        Note* note = &(self->notes[i]);
-        SDL_Rect barre = { 0 };
-
-        barre.w = 2;
-        barre.h = (int)(trackRect.y + validationRelPos * trackRect.h)-25;
-        barre.x = 20+(580 - ((self->keyCount - 1) * 50 + 40)) / 2 + trackRect.x + i * 50;//centrer la descente des notes
-        barre.y = 0;
-
-        SDL_Texture* texture = input->keyDown[i] ? assets->textures.note : assets->textures.keyDown1;
-        SDL_RenderCopy(renderer, texture, NULL, &barre);
     }
 
     
