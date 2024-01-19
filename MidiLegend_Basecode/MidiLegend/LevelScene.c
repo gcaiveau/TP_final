@@ -42,7 +42,7 @@ LevelScene *LevelScene_create(
     int BestScore = self->musicID * 3 + self->difficultyLevel.difficultyLevel -1 ;
  
     FILE* file = NULL;
-    file = fopen("../BestScore", "r");
+    file = fopen("../BestScore.txt", "r");
     if (file != NULL) {
         fseek(file, BestScore, SEEK_SET);
         fscanf(file, "%d", &self->score.BestScore);
