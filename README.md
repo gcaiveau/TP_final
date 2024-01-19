@@ -46,6 +46,20 @@ Ajout :
 
 Ajout :
 	police, couleur, image
+
+Ajout : 
+	lecture du meilleur score (en cours)
+
+Ajout :
+	mode guitare
+
+Ajout :
+	ui pour le key binging
+
+Ajout : 
+	notes longues
+
+
 		
 		
 		
