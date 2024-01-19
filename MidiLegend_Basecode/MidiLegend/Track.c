@@ -320,7 +320,7 @@ void Track_update(Track *self)
 
                 score.combo+=1+score.PerfectCount;//ajout du combo
                 score.combo = Int_clamp(score.combo, 1, 50);
-                if ((score.combo / 5) == 0)
+                if ((score.combo / 10) == 0)
                     score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
                     score.points += (self->scene->difficultyLevel.multiplicator * 1) * (score.combo/5.0f);

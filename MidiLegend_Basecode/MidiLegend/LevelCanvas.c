@@ -22,7 +22,7 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
     self->textcomboA = Text_create(renderer, assets->fonts.normal, u8"Combo", assets->colors.white);
     self->textPointsA = Text_create(renderer, assets->fonts.normal, u8"Points", assets->colors.white);
     self->textPerfect = Text_create(renderer, assets->fonts.perfect, u8"0", assets->colors.green);
-    self->textRecord = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.white);
+    self->textRecord = Text_create(renderer, assets->fonts.big, u8"0", assets->colors.white);
 
 
     return self;
@@ -136,7 +136,7 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &dst);
 
-    float ProgressRatio = (float)((scene->score.combo)/5);
+    float ProgressRatio = (float)((scene->score.combo)/50.f);
     ProgressRatio = Float_clamp(ProgressRatio, 0.0f, 1.0f);
     dst.x += 2; dst.y += 2;
     dst.w -= 4; dst.h -= 4;
@@ -152,7 +152,7 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &dst);
 
-    float RecordRatio = (float)(scene->score.points / 10);
+    float RecordRatio = (float)(scene->score.points/ scene->score.BestScore);
     RecordRatio = Float_clamp(RecordRatio, 0.0f, 1.0f);
     dst.x += 2; dst.y += 2;
     dst.w -= 4; dst.h -= 4;
