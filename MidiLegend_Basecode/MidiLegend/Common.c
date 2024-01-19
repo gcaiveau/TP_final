@@ -26,50 +26,37 @@ void Game_initRectangles()
 
     int xMid = LOGICAL_WIDTH / 2;
 
-    SDL_Rect_set(&(g_titleRects.textTitre), (1280/2)-250, 20, 400, textHeight + 40);  //rectangle choix difficulté
+    SDL_Rect_set(&(g_titleRects.textTitre), (1280/2)-250, 20, 400, textHeight + 40);  //rectangle de titre
 
     y = LOGICAL_HEIGHT/6;
-    //SDL_Rect_set(,position en x largeur, y hauteur , largeur du rectangle, hauteur du rectangle en longueur);
-    SDL_Rect_set(&(g_titleRects.textSelectMusic), 20, y, 400, textHeight+40);   // rectangle musique
+   
+    SDL_Rect_set(&(g_titleRects.textSelectMusic), 20, y, 400, textHeight+40);   // rectangle de musique
     y += 3*textHeight;
-    SDL_Rect_set(&(g_titleRects.textMusic), 120, y, 350, textHeight+40);  //rectangle choix musique
-    SDL_Rect_set(&(g_titleRects.textSelectMode), 1280 - 250, y, 350, textHeight + 40);  //rectangle choix mode de jeu
+    SDL_Rect_set(&(g_titleRects.textMusic), 120, y, 350, textHeight+40);  //rectangle du choix de musique
+    y += 60;
+    SDL_Rect_set(&(g_titleRects.textSelectNotes), 20, y, 400, textHeight + 40);  //rectangle de notes
+    y += 3*textHeight;
+    SDL_Rect_set(&(g_titleRects.textNbNotes), 120, y, 350, textHeight + 40);  //rectangle du nombre de notes
+    y += 60;
+    SDL_Rect_set(&(g_titleRects.textSelectMode), 20, y, 350, textHeight + 40);  //rectangle choix mode de jeu
     y += 3 * textHeight;
-    SDL_Rect_set(&(g_titleRects.textMode), 1280 - 200, y, 350, textHeight + 40);  //rectangle mode de jeu sélectioné
-
-    y += 80;
-    SDL_Rect_set(&(g_titleRects.textSelectNotes), 20, y, 400, textHeight + 40);  //rectangle choix notes
-    y += 3*textHeight;
-    SDL_Rect_set(&(g_titleRects.textNbNotes), 120, y, 350, textHeight + 40);  //rectangle nombre notes
-
-    y +=80;
+    SDL_Rect_set(&(g_titleRects.textMode),120, y, 350, textHeight + 40);  //rectangle mode de jeu sélection
+    y +=60;
     SDL_Rect_set(&(g_titleRects.textSelectDifficulty), 20, y, 400, textHeight + 40);  //rectangle choix difficulté
     y += 3*textHeight;
-    SDL_Rect_set(&(g_titleRects.difficulte1), 120, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.difficulte2), 200, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.difficulte3), 280, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.difficulte1), 120, y - 10, 60, 60);  //rectangle difficulté 1
+    SDL_Rect_set(&(g_titleRects.difficulte2), 200, y - 10, 60, 60);  //rectangle difficulté 2
+    SDL_Rect_set(&(g_titleRects.difficulte3), 280, y - 10, 60, 60);  //rectangle difficulté 3
 
     y += 80;
-    SDL_Rect_set(&(g_titleRects.textSelectBinding), 20, y, 400, textHeight + 40);  //rectangle choix touches jouables
     y += 3 * textHeight;
-    SDL_Rect_set(&(g_titleRects.textBinding1), 40, y - 10, 60, 60);  //rectangle Binding1
-    SDL_Rect_set(&(g_titleRects.textBinding2), 120, y - 10, 60, 60);  //rectangle Binding2
-    SDL_Rect_set(&(g_titleRects.textBinding3), 200, y - 10, 60, 60);  //rectangle Binding3
-    SDL_Rect_set(&(g_titleRects.textBinding4), 280, y - 10, 60, 60);  //rectangle Binding4
-    SDL_Rect_set(&(g_titleRects.textBinding5), 360, y - 10, 60, 60);  //rectangle Binding5
-
-    y += 80;
     SDL_Rect_set(&(g_titleRects.textMenu), 1280 - 250, 720 - 3*textHeight - 40, 400, textHeight + 40);;  //rectangle menu
-   
-
-
-    y += 100;
     SDL_Rect_set(&(g_titleRects.textStart1), 1280-250, 720- textHeight - 40, 400, textHeight + 40);  // rectangle commencer
 
     //--------------------------------------------------------------------------
     // Menu
     y = 100 + LOGICAL_HEIGHT / 4;
-    SDL_Rect_set(&(g_titleRects.textSettings), 50, y, 400, textHeight + 40);
+    SDL_Rect_set(&(g_titleRects.textSettings), 50, y, 400, textHeight + 40);// rectangle page settings
 
     y += 3* textHeight;
     SDL_Rect_set(&(g_titleRects.textStart), 50, y, 400, textHeight+40);  // rectangle commencer
@@ -80,11 +67,11 @@ void Game_initRectangles()
     //--------------------------------------------------------------------------
     //Stat
     y = 0;
-    SDL_Rect_set(&(g_titleRects.textQuit1), 1280 - 135, 720-textHeight-40, 400, textHeight + 40);  // rectangle commencer
-    SDL_Rect_set(&(g_titleRects.textMenu1), 1280 - 110, 720 - textHeight - 120, 400, textHeight + 40);
-    SDL_Rect_set(&(g_titleRects.textRecommencer), 1280 - 255, 720 - textHeight - 80, 400, textHeight + 40);  // rectangle commencer
+    SDL_Rect_set(&(g_titleRects.textQuit1), 1280 - 135, 720-textHeight-40, 400, textHeight + 40);  // rectangle quitter
+    SDL_Rect_set(&(g_titleRects.textMenu1), 1280 - 110, 720 - textHeight - 120, 400, textHeight + 40); // rectangle menu
+    SDL_Rect_set(&(g_titleRects.textRecommencer), 1280 - 255, 720 - textHeight - 80, 400, textHeight + 40);  // rectangle recommencer (parametres de base)
 
-    SDL_Rect_set(&(g_titleRects.textBj), 50, 600, 400, textHeight + 40);  // rectangle commencer
+    SDL_Rect_set(&(g_titleRects.textBj), 50, 600, 400, textHeight + 40);  // rectangle bien joué
     //--------------------------------------------------------------------------
     // Niveau
 
@@ -92,9 +79,8 @@ void Game_initRectangles()
     int trackHeight = 500;    // hauteur de la descnete des notes
     int xTrack = 50;
 
-    //SDL_Rect_set(&(g_levelRects.logo), 0, 0, 360, 211);  // logo
-    SDL_Rect_set(&(g_levelRects.trackFill), xMid-290, 0, trackWidth, 720);  // decente de notes avec bloc de récupération
-    SDL_Rect_set(&(g_levelRects.trackMask), xMid-290, 0, trackWidth, 100);  // bloc sombre descente des notes
+    SDL_Rect_set(&(g_levelRects.trackFill), xMid-290, 0, trackWidth, 720);  // item de fond notes
+    SDL_Rect_set(&(g_levelRects.trackMask), xMid-290, 0, trackWidth, 100);  //  flou apparition notes
 
     int barH = 10;//hauteur de la progress bar
     int uiWidth = 300;
@@ -102,28 +88,27 @@ void Game_initRectangles()
 
     y = 0;
     SDL_Rect_set(&(g_levelRects.uiRect), 1280-350, y, 350, 200);  // box score 
-
-    SDL_Rect_set(&(g_levelRects.pointsA), xUI - 140, y + 30, trackWidth, trackHeight);
+    SDL_Rect_set(&(g_levelRects.pointsA), xUI - 140, y + 30, trackWidth, trackHeight);//rectangle texte points
 
     y += 67;
-    SDL_Rect_set(&(g_levelRects.points), xUI-140, y, trackWidth,trackHeight);  // les points
-    SDL_Rect_set(&(g_levelRects.textRecord), 0, y, trackWidth, trackHeight);  // les points
-    SDL_Rect_set(&(g_levelRects.recordBar), 25, y+50, uiWidth, barH);  // progress bas
+    SDL_Rect_set(&(g_levelRects.points), xUI-140, y, trackWidth,trackHeight);  // rectangle des points
+    SDL_Rect_set(&(g_levelRects.textRecord), 0, y, trackWidth, trackHeight);  // rectangle texte record
+    SDL_Rect_set(&(g_levelRects.recordBar), 25, y+50, uiWidth, barH);  // record barre
 
     y += textHeight + 67;
-    SDL_Rect_set(&(g_levelRects.progressBar), xUI, y, uiWidth, barH);  // progress bas
+    SDL_Rect_set(&(g_levelRects.progressBar), xUI, y, uiWidth, barH);  // progress barre
 
     y += 45;
-    SDL_Rect_set(&(g_levelRects.comboRect), 1280 - 350, y, 350, 200);  // box score
+    SDL_Rect_set(&(g_levelRects.comboRect), 1280 - 350, y, 350, 200);  // box combo
 
-    SDL_Rect_set(&(g_levelRects.comboA), xUI - 140, y+30, trackWidth, trackHeight);  // combo
+    SDL_Rect_set(&(g_levelRects.comboA), xUI - 140, y+30, trackWidth, trackHeight);  // rectangle affichage combo
     y += 67;
-    SDL_Rect_set(&(g_levelRects.combo), xUI - 140, y,trackWidth, trackHeight);  // combo
+    SDL_Rect_set(&(g_levelRects.combo), xUI - 140, y,trackWidth, trackHeight);  // rectangle combo
 
     y += 67;
-    SDL_Rect_set(&(g_levelRects.progressBarCombo), xUI, y, uiWidth, barH);  // progress bas
+    SDL_Rect_set(&(g_levelRects.progressBarCombo), xUI, y, uiWidth, barH);  // combo barre
 
-    SDL_Rect_set(&(g_levelRects.textPerfect), xUI - 140, 720-70, trackWidth, trackHeight);  // perfect
+    SDL_Rect_set(&(g_levelRects.textPerfect), xUI - 140, 720-70, trackWidth, trackHeight);  // rectangle affiche précision
 
 }
 
@@ -186,12 +171,6 @@ void Game_init(int sdlFlags, int imgFlags)
     g_musics[musicID].fullName = "Fight Or Flight";
     g_musics[musicID].composer = "Heatley Bros - Heatley Bros VI";
 
-    musicID ++;
-    g_musics[musicID].textPath = "../Assets/Musics/100k_0.txt";
-    g_musics[musicID].musicPath = "../Assets/Musics/100k.mp3";
-    g_musics[musicID].titleName = "<100K>";
-    g_musics[musicID].fullName = "100k";
-    g_musics[musicID].composer = "GAZO";
 
     // Crée le temps global du jeu
     g_time = Timer_create();

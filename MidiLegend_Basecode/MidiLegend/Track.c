@@ -154,7 +154,7 @@ void Track_placeNotes(Track *self, int keyCount)
     Note *notes = self->notes;
     int noteCount = self->noteCount;
 
-    // TODO : Ameliorer le placement des notes   
+    //affichage des notes en fonction de la position de la précédente
     for (int i = 0; i < noteCount; i++)
     {
         if (i == 0)
@@ -178,25 +178,7 @@ void Track_placeNotes(Track *self, int keyCount)
     }
     
 }
-
-void update_particle(Track *self)
-{
-    LevelScene* scene = self->scene;
-    for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
-    {
-        if (self->particule[i].duration > 0)
-        {
-            self->particule[i].duration -= Timer_getDelta(g_time);
-            self->particule[i].yposition += Timer_getDelta(g_time) * self->particule[i].yspeed;
-            self->particule[i].xposition += Timer_getDelta(g_time) * self->particule[i].xspeed;
-            self->particule[i].yspeed += Timer_getDelta(g_time) * 100;
-            if (self->particule[i].xspeed<0)
-                self->particule[i].xspeed += Timer_getDelta(g_time) * (-10);
-            else
-                self->particule[i].xspeed += Timer_getDelta(g_time) * 10;
-        }
-    }
-}
+//permet de charger la texture de la particules
 void render_particle(Track* self)
 {
 
@@ -204,44 +186,63 @@ void render_particle(Track* self)
     AssetManager* assets = LevelScene_getAssetManager(scene);
     Input* input = LevelScene_getInput(scene);
     SDL_Renderer* renderer = LevelScene_getRenderer(scene);
-    for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
+    for (int i = 0; i < MAX_PARTICLE_COUNT; i++)//parcours du tableau 
     {
-        SDL_Rect dst2 = { 0 };
-        dst2.w = (2+rand()%6);
+        SDL_Rect dst2 = { 0 };//définition du rectangle de la particule
+        dst2.w = (2 + rand() % 6);//taille aléatoire 
         dst2.h = dst2.w;
-        dst2.x = self->particule[i].xposition;
+        dst2.x = self->particule[i].xposition;//position équivalente au milieu de la note préssé
         dst2.y = self->particule[i].yposition;
-        if (self->particule[i].duration > 0)
+        if (self->particule[i].duration > 0)//choix de la couleur de la particule
         {
-            SDL_Rect src = { 8*self->particule[i].textureID, 0, 8, 8};
+            SDL_Rect src = { 8 * self->particule[i].textureID, 0, 8, 8 };//choix de la particule via le fichier 
             SDL_RenderCopy(renderer, assets->textures.particules, &src, &dst2);
 
         }
     }
 }
-
-void create_particle(Track *self, int keyID)
+//crétaion de la particule 
+void create_particle(Track* self, int keyID)
 {
     LevelScene* scene = self->scene;
     Note* note = self->notes;
     Input* input = LevelScene_getInput(scene);
     float validationRelPos = 1.0f - self->pastTime / self->visibleTime;
 
-    for (int i=0; i<MAX_PARTICLE_COUNT; i++)
+    for (int i = 0; i < MAX_PARTICLE_COUNT; i++)//parcours du tableau
     {
-        if (self->particule[i].duration<=0)
+        if (self->particule[i].duration <= 0)//recherche de la première particule inactive
         {
-            self->particule[i].duration = 1.5;
-            self->particule[i].xposition = 10 + (580 - ((self->keyCount - 1) * 100 + 40)) / 2 + 360 + keyID * 100;
-            self->particule[i].yposition = (int)(validationRelPos * 685)+25;
-            self->particule[i].yspeed = (rand() % 150) - 125;
-            self->particule[i].xspeed = (rand() % 100) - 50;
-            self->particule[i].textureID = keyID;
+            self->particule[i].duration = 1.5;//duré de vie de la particule
+            self->particule[i].xposition = 10 + (580 - ((self->keyCount - 1) * 100 + 40)) / 2 + 360 + keyID * 100;//position de la note préssé
+            self->particule[i].yposition = (int)(validationRelPos * 685) + 25;//position de la note préssé
+            self->particule[i].yspeed = (rand() % 150) - 125;//vitesse initiale aléatoire entre -125 et 25
+            self->particule[i].xspeed = (rand() % 100) - 50;// vitesse initiale aléatoire entre -50 et 50
+            self->particule[i].textureID = keyID;//permet d'avoir le numéro de la touche pour la couleur de la particule
             break;
         }
     }
 }
-
+//fonction update particule appelé plus loin qui permet de modifier la position, vitesse et état de la particule
+void update_particle(Track *self)
+{
+    LevelScene* scene = self->scene;
+    for (int i = 0; i < MAX_PARTICLE_COUNT; i++)//parcours du tableau de particule
+    {
+        if (self->particule[i].duration > 0)//vérification si la particule est en vie ou non
+        {
+            self->particule[i].duration -= Timer_getDelta(g_time);//réduction de sa vie
+            self->particule[i].yposition += Timer_getDelta(g_time) * self->particule[i].yspeed;//position en y
+            self->particule[i].xposition += Timer_getDelta(g_time) * self->particule[i].xspeed;//position en x
+            self->particule[i].yspeed += Timer_getDelta(g_time) * 100;//vitesse en y
+            //modification de sa vitesse en x
+            if (self->particule[i].xspeed<0)
+                self->particule[i].xspeed += Timer_getDelta(g_time) * (-10);
+            else
+                self->particule[i].xspeed += Timer_getDelta(g_time) * 10;
+        }
+    }
+}
 void Track_update(Track *self)
 {
     LevelScene *scene = self->scene;
@@ -299,27 +300,26 @@ void Track_update(Track *self)
                 if (note->type == TYPE_LONG) 
                     note->state = NOTE_HELD;
                     
-
                 if (fabsf(note->playingTime - trackTime) < 0.01)
                 {
-                    score.Type = 1;
-                    score.PerfectCount++;
+                    score.Type = 1;//type de touche perfect
+                    score.PerfectCount++;//compte de la touche (pour une page stats pas faite)
                 }
                 else if (fabsf(note->playingTime - trackTime) < 0.1)
                 {
-                    score.Type = 2;
+                    score.Type = 2;//type de touche good
                     score.GoodCount++;
                 }
                 else if (fabsf(note->playingTime - trackTime) < self->scene->difficultyLevel.Imprecision)
                 {
-                    score.Type = 3;
+                    score.Type = 3;//type de touche boof
                     score.BofCount++;
                 }
                 // L'écart entre le temps courant de la musique et le début
                 // de la note est inférieur à 0.5s
 
                 score.combo+=1+score.PerfectCount;//ajout du combo
-                score.combo = Int_clamp(score.combo, 1, 50);
+                score.combo = Int_clamp(score.combo, 1, 50);//combo ne depasse pas 50
                 if ((score.combo / 10) == 0)
                     score.points = self->scene->difficultyLevel.multiplicator * 1 + score.points;        //le "multiplicator" permet de valoriser une difficulté plus importante
                 else
@@ -335,11 +335,12 @@ void Track_update(Track *self)
                 // La note devait être jouée il y a plus de 0.2s
                 if (score.points > 0)
                 {
-                    score.points--;
+                    score.points--;//retrait d'un point
                 }
-                score.combo -= 5 ;
-                score.combo = Int_clamp(score.combo, 0, 50);
+                score.combo -= 10 ;//retrait de 10 l'équivalent d'un combo
+                score.combo = Int_clamp(score.combo, 0, 50);//que le combo ne descende pas en dessous de 0
                 note->state = NOTE_FAILED;
+                score.Type = 4;//type de touche nope
                 score.NopeCount++;
                 break;//pour prendre les notes une par une
             }

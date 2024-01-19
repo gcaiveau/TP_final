@@ -10,9 +10,12 @@ TitleScene *TitleScene_create(SDL_Renderer *renderer, bool game_statue)
 {
     TitleScene *self = (TitleScene *)calloc(1, sizeof(TitleScene));
     AssertNew(self);
-
+    //le boleen du main nous permet de savoir si l'utilasateur à jouer ou non et ainsi lui afficher une page de fin 
+    // (obligatoire à cause de la remise à zéro de la variable pageID a la fin du jeu)
     if (game_statue == true)
+    {
         self->config.pageID = 2;
+    }
 
     self->renderer = renderer;
 
@@ -33,6 +36,7 @@ TitleScene *TitleScene_create(SDL_Renderer *renderer, bool game_statue)
 
 void TitleScene_destroy(TitleScene *self)
 {
+    //détruit tout les éléments de la scène pour en afficher de nouveau, détruit également le canva.C
     if (!self) return;
 
     Mix_HaltChannel(0);
@@ -54,7 +58,6 @@ bool TitleScene_update(TitleScene *self)
     Input_update(input);
     bool quit = TitleCanvas_update(canvas);
 
-
     return quit || self->input->quitPressed;
 }
 
@@ -67,6 +70,7 @@ void TitleScene_render(TitleScene *self)
     SDL_RenderCopy(renderer, assets->textures.background, NULL, NULL);
 
 
+    //en fonction de niveau de difficulté affichage des notes
     if (self->config.leveldifficulty.difficultyLevel == 1 && self->config.pageID==1)
     {
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));

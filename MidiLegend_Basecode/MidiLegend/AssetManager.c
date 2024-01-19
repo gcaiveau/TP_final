@@ -156,7 +156,6 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     setColor(&(self->colors.marron), 222, 138, 78);
     setColor(&(self->colors.bleu_clair), 156, 209, 201);
     setColor(&(self->colors.bleu_fonce), 13, 13, 25);
-
     setColor(&(self->colors.cyan), 11, 190, 213);
     setColor(&(self->colors.rouge), 166, 18, 22);
     setColor(&(self->colors.jaune_clair), 255, 255, 220);

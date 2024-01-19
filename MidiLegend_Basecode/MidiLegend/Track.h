@@ -77,6 +77,7 @@ typedef struct Particules
     float yspeed;
     float duration;
     int textureID;
+
 } Particules;
 
 #define MAX_PARTICLE_COUNT 128

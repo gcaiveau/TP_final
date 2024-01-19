@@ -9,7 +9,7 @@
 #include "Settings.h"
 #include "Timer.h"
 
-#define MUSIC_COUNT 4
+#define MUSIC_COUNT 3
 typedef struct MusicSpec
 {
     char *textPath;

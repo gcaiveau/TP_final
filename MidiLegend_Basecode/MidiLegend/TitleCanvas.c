@@ -19,27 +19,26 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene, bool game_statue)
 
     self->scene = scene;
     
-    //initialise un espace emoire pour le texte (render, police, "texte", couleur)
+    self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
+
+    //--------------------------------------------------------------------------------------------------------
+    //---Menu Settings----//
     self->textSelectMusic = Text_create(renderer, assets->fonts.normal, u8"Musique", assets->colors.bleu_clair);
     self->textMusic = Text_create(renderer, assets->fonts.normal, u8"Nom de la musique", assets->colors.white);
     self->textStart = Text_create(renderer, assets->fonts.normal, u8"Commencer", assets->colors.bleu_clair);
-    self->textStart1 = Text_create(renderer, assets->fonts.normal, u8"Commencer", assets->colors.bleu_clair);
     self->textSelectNotes = Text_create(renderer, assets->fonts.normal, u8"Nombres de Notes", assets->colors.bleu_clair);
     self->textNbNotes = Text_create(renderer, assets->fonts.normal, u8"Notes", assets->colors.white);
     self->textSelectDifficulty = Text_create(renderer, assets->fonts.normal, u8"Niveau de difficulté", assets->colors.bleu_clair);
-    self->textSettings = Text_create(renderer, assets->fonts.normal, u8"Settings", assets->colors.bleu_clair);
     self->textMenu = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
-    self->textTitre = Text_create(renderer, assets->fonts.big, u8"Midi Legend", assets->colors.bleu_clair);
-    self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
-    self->textSelectBinding = Text_create(renderer, assets->fonts.normal, u8"Sélection des touches", assets->colors.bleu_clair);
-    self->textBinding1 = Text_create(renderer, assets->fonts.normal, u8"1", assets->colors.white);
-    self->textBinding2 = Text_create(renderer, assets->fonts.normal, u8"2", assets->colors.white);
-    self->textBinding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.white);
-    self->textBinding4 = Text_create(renderer, assets->fonts.normal, u8"4", assets->colors.white);
-    self->textBinding5 = Text_create(renderer, assets->fonts.normal, u8"5", assets->colors.white);
     self->textSelectMode = Text_create(renderer, assets->fonts.normal, u8"Mode de jeu", assets->colors.white);
     self->textMode = Text_create(renderer, assets->fonts.normal, u8"piano ou guitare", assets->colors.white);
-    
+    //--------------------------------------------------------------------------------------------------------
+    //---Menu----//    
+    self->textSettings = Text_create(renderer, assets->fonts.normal, u8"Settings", assets->colors.bleu_clair);
+    self->textStart1 = Text_create(renderer, assets->fonts.normal, u8"Commencer", assets->colors.bleu_clair);
+    self->textQuit = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
+    //--------------------------------------------------------------------------------------------------------
+//---Menu Fin----//
     self->textMenu1 = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
     self->textRecommencer = Text_create(renderer, assets->fonts.normal, u8"Recommencer", assets->colors.bleu_clair);
     self->textQuit1 = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
@@ -55,36 +54,35 @@ void TitleCanvas_destroy(TitleCanvas *self)
 {
     if (!self) return;
 
-    // libérer l'espace du texte
+    Text_destroy(self->textTitre);
+    //--------------------------------------------------------------------------------------------------------
+    //---Menu---//
+    Text_destroy(self->textStart);
+    Text_destroy(self->textQuit);    
+    Text_destroy(self->textSettings);
+    //--------------------------------------------------------------------------------------------------------
+    //---Menu Settings----//
     Text_destroy(self->textMusic);  
     Text_destroy(self->textSelectMusic);
-    Text_destroy(self->textStart);
     Text_destroy(self->textSelectNotes);
     Text_destroy(self->textNbNotes);
-    Text_destroy(self->textSelectDifficulty);
-    Text_destroy(self->textSettings);
     Text_destroy(self->textMenu);
-    Text_destroy(self->textTitre);
+    Text_destroy(self->textSelectDifficulty);
     Text_destroy(self->textStart1);
-    Text_destroy(self->textQuit);
-    Text_destroy(self->textBinding1);
-    Text_destroy(self->textBinding2);
-    Text_destroy(self->textBinding3);
-    Text_destroy(self->textBinding4);
-    Text_destroy(self->textBinding5);
-    Text_destroy(self->textSelectBinding);
     Text_destroy(self->textMode);
     Text_destroy(self->textSelectMode);
-
+    //--------------------------------------------------------------------------------------------------------
+    //---Menu fin----//
     Text_destroy(self->textMenu1);
     Text_destroy(self->textQuit1);
     Text_destroy(self->textRecommencer);
-
     Text_destroy(self->textBj);
 
-    Mix_HaltMusic();
+    Mix_HaltMusic();//couper la musique de fond
     free(self);
 }
+
+//Fonction render qui permet de choisir sur quelle page faut-il appliquer la fonction
 void TitleCanvas_render(TitleCanvas* self)
 {
     TitleScene* scene = self->scene;
@@ -113,7 +111,7 @@ void TitleCanvas_renderMain(TitleCanvas *self)
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
-
+    //Settings
     texture = Text_getTexture(self->textSettings);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textSettings.x;
@@ -121,7 +119,7 @@ void TitleCanvas_renderMain(TitleCanvas *self)
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
-
+    //Titre
     texture = Text_getTexture(self->textTitre);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textTitre.x;
@@ -129,7 +127,7 @@ void TitleCanvas_renderMain(TitleCanvas *self)
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
-
+    //Quit
     texture = Text_getTexture(self->textQuit);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textQuit.x;
@@ -138,16 +136,6 @@ void TitleCanvas_renderMain(TitleCanvas *self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-    /* DEBUG
-    // Gizmos du canvas en jaune
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textSelectMusic));
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textStart));
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textMusic));
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textNotes));
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textSelectNotes));
-    */
 }
 void TitleCanvas_renderSettings(TitleCanvas* self)
 {
@@ -203,7 +191,8 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
-
+    
+    //Retour Menu
     texture = Text_getTexture(self->textMenu);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textMenu.x;
@@ -212,6 +201,7 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //Titre
     texture = Text_getTexture(self->textTitre);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textTitre.x;
@@ -219,74 +209,6 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    // Sélection des touches
-    texture = Text_getTexture(self->textSelectBinding);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textSelectBinding.x;
-    dst.y = g_titleRects.textSelectBinding.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    // Sélection des touches
-
-
-    texture = Text_getTexture(self->textBinding1);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textBinding1.x;
-    dst.y = g_titleRects.textBinding1.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-    // Sélection des touches
-    texture = Text_getTexture(self->textBinding2);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textBinding2.x;
-    dst.y = g_titleRects.textBinding2.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    // Sélection des touches
-    texture = Text_getTexture(self->textBinding3);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textBinding3.x;
-    dst.y = g_titleRects.textBinding3.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-
-    if (config->keyCount == 4)
-    {
-        texture = Text_getTexture(self->textBinding4);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBinding4.x;
-        dst.y = g_titleRects.textBinding4.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-    }
-
-    if (config->keyCount == 5)
-    {
-        texture = Text_getTexture(self->textBinding4);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBinding4.x;
-        dst.y = g_titleRects.textBinding4.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-        texture = Text_getTexture(self->textBinding5);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBinding5.x;
-        dst.y = g_titleRects.textBinding5.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-    }
 
     // Sélection du Mode
     texture = Text_getTexture(self->textSelectMode);
@@ -315,16 +237,6 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-    /* DEBUG
-    // Gizmos du canvas en jaune
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textSelectMusic));
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textStart));
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textMusic));
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textNotes));
-    SDL_RenderDrawRect(renderer, &(g_titleRects.textSelectNotes));
-    */
 }
 void TitleCanvas_renderFin(TitleCanvas* self)
 {
@@ -336,6 +248,7 @@ void TitleCanvas_renderFin(TitleCanvas* self)
     SDL_Rect dst = { 0 };
     SDL_Texture* texture = NULL;
 
+    //Titre
     texture = Text_getTexture(self->textTitre);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textTitre.x;
@@ -344,6 +257,7 @@ void TitleCanvas_renderFin(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //selectiion quit
     texture = Text_getTexture(self->textQuit1);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textQuit1.x;
@@ -352,6 +266,7 @@ void TitleCanvas_renderFin(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //retour menu
     texture = Text_getTexture(self->textMenu1);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textMenu1.x;
@@ -360,6 +275,7 @@ void TitleCanvas_renderFin(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //rejouer
     texture = Text_getTexture(self->textRecommencer);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textRecommencer.x;
@@ -368,6 +284,7 @@ void TitleCanvas_renderFin(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //bien joué
     texture = Text_getTexture(self->textBj);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_titleRects.textBj.x;
@@ -377,7 +294,7 @@ void TitleCanvas_renderFin(TitleCanvas* self)
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 }
 
-
+//Fonction update qui permet de choisir sur quelle page faut-il appliquer la fonction
 bool TitleCanvas_update(TitleCanvas *self)
 {
     TitleScene* scene = self->scene;
@@ -395,21 +312,21 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
     Input* input = TitleScene_getInput(scene);
     LevelConfig* config = TitleScene_getLevelConfig(scene);
 
-
+    //vérifie si la touche entrer est préssé et si l'élément sélectionnné est bien le 0-> aller menu settings
     if (input->startPressed && self->selection==0)
     {
         playSwitchSound();
-        scene->config.pageID = 1;
-        self->selection = 0;
-        return false;
+        scene->config.pageID = 1;//changment id page
+        self->selection = 0;//remise de la variable selection à 0
+        return false;//retourne faux pour ne pas passer à la fenetre de jeu
     }
-
+    //vérifie si la touche entrer est préssé et si l'élément sélectionnné est bien le 2->quitter
     if (input->startPressed && self->selection == 2)
     {
         playSwitchSound();
         input->quitPressed = true;
     }
-
+    //vérifie si une des flêches est préssé pour appliqué un changement de varaible ex: nombre de notes, mdj...
     if (input->downPressed || input->upPressed)
     {
         playSwitchSound();
@@ -419,13 +336,14 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
 
         self->selection = idx;
     }
-
+    //ordre des textes avec la varaiable sélection
     Text* leftTexts[] = 
     {
         self->textSettings,
         self->textStart,
         self->textQuit,
     };
+    //changer la couleur du texte sur lequelle est sélection
     for (int i = 0; i < 3; i++)
     {
         SDL_Color colors = (i == self->selection) ?
@@ -433,7 +351,7 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
         Text_setColor(leftTexts[i], colors);
     }
 
-    return (self->selection == 1 && input->startPressed);
+    return (self->selection == 1 && input->startPressed);//si sélection est sur 1 et que entrer est préssé -> le jeu commence
 }
 bool TitleCanvas_updateSettings(TitleCanvas* self)
 {
@@ -443,7 +361,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     LevelConfig* config = TitleScene_getLevelConfig(scene);
     
 
-    if (input->startPressed && self->selection == 5)
+    if (input->startPressed && self->selection == 4)
     {
         scene->config.pageID = 0;
         self->selection = 0;
@@ -455,7 +373,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 6);
+        idx = Int_clamp(idx, 0, 5);
         playSwitchSound();
         self->selection = idx;
     }
@@ -478,7 +396,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             config->keyCount = idx;
         }
 
-        if (self->selection == 2)                       //choix difficulté
+        if (self->selection == 3)                       //choix difficulté
         {
             int idx = config->leveldifficulty.difficultyLevel;
             idx += (input->rightPressed) ? 1 : -1;
@@ -486,16 +404,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             scene->config.leveldifficulty.difficultyLevel = idx;
         }
 
-        if (self->selection == 3)                       //Key binding
-        {
-            int idx = config->bindselected;
-            idx += (input->rightPressed) ? 1 : -1;
-            idx = Int_clamp(idx, 0, config->keyCount-1);
-            config->bindselected = idx;
-            
-        }
-
-        if (self->selection == 4)                       //Key binding
+        if (self->selection == 2)                       //Key binding
         {
             int idx = config->piano;
             idx += (input->rightPressed) ? 1 : -1;
@@ -516,50 +425,29 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     Text_setString(self->textNbNotes, nbnotes);// mise a jour du texte en fonction des action sutilisateurs
    // Text_setString(self->textBinding1, key1);
     if (config->piano) 
-        Text_setString(self->textMode, u8"Piano");
+        Text_setString(self->textMode, u8"< Piano >");
     else
-        Text_setString(self->textMode, u8"Guitare");
+        Text_setString(self->textMode, u8"< Guitare >");
 
 
 
     Text* leftTexts[] = {
         self->textSelectMusic,
         self->textSelectNotes,
-        self->textSelectDifficulty,
-        self->textSelectBinding,
         self->textSelectMode,
+        self->textSelectDifficulty,
         self->textMenu,
         self->textStart1,
     };
-    Text* bidings[] = {
-        self->textBinding1,
-        self->textBinding2,
-        self->textBinding3,
-        self->textBinding4,
-        self->textBinding5 
-    }; 
 
-    if (self->selection == 3) {
-        for (int i = 0; i < 5; i++) {
-            SDL_Color colors = (i == config->bindselected) ?
-                assets->colors.marron : assets->colors.bleu_clair;
-            Text_setColor(bidings[i], colors);
-        }
-    }
-    else {
-        int i = config->bindselected;
-        SDL_Color colors =  assets->colors.bleu_clair;
-        Text_setColor(bidings[i], colors);
-        config->bindselected = 0;
-    }
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 6; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;
         
         Text_setColor(leftTexts[i], colors);
     }
-    return (self->selection == 6 && input->startPressed);
+    return (self->selection == 5 && input->startPressed);
 }
 bool TitleCanvas_updateFin(TitleCanvas* self)
 {

@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
     TitleScene *titleScene = NULL;
     LevelScene *levelScene = NULL;
-    bool game_statue = false;
+    bool game_statue = false;//boleen pour sauvegarder l'état à la fin de la partie
 
     while (true)
     {
@@ -127,15 +127,10 @@ int main(int argc, char *argv[])
         }
         if (levelScene->input->quitPressed)
             break;
-        game_statue = true;
-        //LevelScore* score = TitleScene_getTitleScore(levelScene);
-
-        //titleScene = TitleScene_create(
-        //    renderer, score
-        //);
+        game_statue = true;//inversion du boleen
         // Détruit la scène du niveau
-        levelScene = NULL;
         LevelScene_destroy(levelScene);
+        levelScene = NULL;
     }
 
 

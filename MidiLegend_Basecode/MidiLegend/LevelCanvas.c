@@ -74,6 +74,7 @@ void LevelCanvas_render(LevelCanvas *self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //Record
     texture = Text_getTexture(self->textRecord);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = 100;
@@ -82,6 +83,7 @@ void LevelCanvas_render(LevelCanvas *self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //combo
     texture = Text_getTexture(self->textcombo);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_levelRects.combo.x + (g_levelRects.combo.w - w) / 2;
@@ -90,6 +92,7 @@ void LevelCanvas_render(LevelCanvas *self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //affichage point
     texture = Text_getTexture(self->textPointsA);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_levelRects.pointsA.x + (g_levelRects.pointsA.w - w) / 2;
@@ -98,6 +101,7 @@ void LevelCanvas_render(LevelCanvas *self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //affichage combo 
     texture = Text_getTexture(self->textcomboA);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_levelRects.comboA.x + (g_levelRects.comboA.w - w) / 2;
@@ -106,6 +110,7 @@ void LevelCanvas_render(LevelCanvas *self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
+    //affichage perfect
     texture = Text_getTexture(self->textPerfect);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_levelRects.textPerfect.x + (g_levelRects.textPerfect.w - w) / 2;
@@ -161,9 +166,8 @@ void LevelCanvas_render(LevelCanvas *self)
     color = assets->colors.marron;
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
     SDL_RenderFillRect(renderer, &dst);
-    // DEBUG
-    //Gizmos du canvas en jaune
-    //SDL_RenderDrawRect(renderer, &(g_levelRects.points));
+
+       //contour des barres de progression guizmo
     SDL_SetRenderDrawColor(renderer, 222, 138, 78, 255);
     SDL_RenderDrawRect(renderer, &(g_levelRects.uiRect));
     SDL_RenderDrawRect(renderer, &(g_levelRects.progressBar));
@@ -187,10 +191,10 @@ void LevelCanvas_update(LevelCanvas* self)
     Text_setString(self->textcombo, buffer);
     sprintf(buffer, "%d", (int)score.BestScore[track->scene->musicID][track->scene->difficultyLevel.difficultyLevel-1]);
     Text_setString(self->textRecord, buffer);
-    if (score.Type == 1)
+    if (score.Type == 1)//vérification du type de précision
     {
-        sprintf(buffer, "Perfect !");
-        Text_setColor(self->textPerfect, assets->colors.green);
+        sprintf(buffer, "Perfect !");//passage dans un tableau
+        Text_setColor(self->textPerfect, assets->colors.green);//changements de couleur
         Text_setString(self->textPerfect, buffer);
     }
     else if (score.Type == 2)
