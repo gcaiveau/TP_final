@@ -33,7 +33,7 @@ typedef struct LevelScore
 
     int Type;
 
-    float BestScore;
+    float BestScore[MUSIC_COUNT][3];
 
 } LevelScore;
 

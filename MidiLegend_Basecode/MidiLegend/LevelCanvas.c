@@ -153,7 +153,7 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &dst);
 
-    float RecordRatio = (float)(scene->score.points/(float)scene->score.BestScore);
+    float RecordRatio = (float)(scene->score.points/(float)scene->score.BestScore[scene->musicID][scene->difficultyLevel.difficultyLevel - 1]);
     RecordRatio = Float_clamp(RecordRatio, 0.0f, 1.0f);
     dst.x += 2; dst.y += 2;
     dst.w -= 4; dst.h -= 4;
@@ -186,7 +186,7 @@ void LevelCanvas_update(LevelCanvas* self)
     Text_setString(self->textPoints, buffer);
     sprintf(buffer, "x %d", (int)(score.combo / 10));//affichage du combo
     Text_setString(self->textcombo, buffer);
-    sprintf(buffer, "%d", (int)score.BestScore); 
+    sprintf(buffer, "%d", (int)score.BestScore[track->scene->musicID][track->scene->difficultyLevel.difficultyLevel-1]);
     Text_setString(self->textRecord, buffer);
     if (score.Type == 1)
     {

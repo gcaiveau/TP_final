@@ -39,17 +39,22 @@ LevelScene *LevelScene_create(
         self->difficultyLevel.EasyPeasy = 0;
         break;
     }
-    int BestScore = self->musicID * 3 + self->difficultyLevel.difficultyLevel -1 ;
+
  
     FILE* file = NULL;
-    file = fopen("../BestScore.txt", "r");
-    if (file != NULL) {
-        fseek(file, BestScore, SEEK_SET);
-        int check = fscanf(file, "%f", &self->score.BestScore);
-
-        fclose(file);
-    }
+    file = fopen("BestScore.txt", "r");
     
+    if (file != NULL) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                //fseek(file, i * 3 + j, SEEK_SET);
+                int check = fscanf(file, "%f", &self->score.BestScore[i][j]);
+            }
+        }
+        fclose(file);
+        system("DEL BestScore.txt");
+    }
+
 
     self->renderer = renderer;
     self->assets = AssetManager_create(renderer);
@@ -110,18 +115,24 @@ bool LevelScene_update(LevelScene *self)
         self->trackTime = 0.0;
     }
 
-   /* int BestScore = self->musicID * 3 + self->difficultyLevel.difficultyLevel - 1;
+    if (self->score.points > self->score.BestScore[self->musicID][self->difficultyLevel.difficultyLevel -1])
+        self->score.BestScore[self->musicID][self->difficultyLevel.difficultyLevel-1] = self->score.points;
 
-    FILE* file = NULL;*/
-    if (self->score.points > self->score.BestScore) {
-        /*file = fopen("../BestScore", "r+");*/
 
-        self->score.BestScore = self->score.points;
+    FILE* file = NULL;
+    file = fopen("BestScore.txt", "w");
+    if (file == NULL) {
+        system("ECHO.> BestScore.txt");
+        file = fopen("BestScore.txt", "w");
+    }
 
-        /*fseek(file, BestScore, SEEK_SET);
-        fprintf(file, "%d", &self->score.BestScore);
-
-        fclose(file);*/
+    if (file != NULL) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                fprintf(file, "%f ", self->score.BestScore[i][j]);
+            }
+        }
+        fclose(file);
     }
 
     Track_update(self->track);
