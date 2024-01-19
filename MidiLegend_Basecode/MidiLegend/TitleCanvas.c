@@ -37,6 +37,9 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textBinding3 = Text_create(renderer, assets->fonts.normal, u8"3", assets->colors.white);
     self->textBinding4 = Text_create(renderer, assets->fonts.normal, u8"4", assets->colors.white);
     self->textBinding5 = Text_create(renderer, assets->fonts.normal, u8"5", assets->colors.white);
+    self->textSelectMode = Text_create(renderer, assets->fonts.normal, u8"Mode de jeu", assets->colors.white);
+    self->textMode = Text_create(renderer, assets->fonts.normal, u8"piano ou guitare", assets->colors.white);
+    
     playMainAudio();
     
 
@@ -65,6 +68,8 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textBinding4);
     Text_destroy(self->textBinding5);
     Text_destroy(self->textSelectBinding);
+    Text_destroy(self->textMode);
+    Text_destroy(self->textSelectMode);
 
     Mix_HaltMusic();
     free(self);
@@ -212,32 +217,32 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
 
     // Sélection des touches
 
-    
-        texture = Text_getTexture(self->textBinding1);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBinding1.x;
-        dst.y = g_titleRects.textBinding1.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-        // Sélection des touches
-        texture = Text_getTexture(self->textBinding2);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBinding2.x;
-        dst.y = g_titleRects.textBinding2.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-        // Sélection des touches
-        texture = Text_getTexture(self->textBinding3);
-        SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-        dst.x = g_titleRects.textBinding3.x;
-        dst.y = g_titleRects.textBinding3.y;
-        dst.w = w;
-        dst.h = h;
-        SDL_RenderCopy(renderer, texture, NULL, &dst);
-    
+	texture = Text_getTexture(self->textBinding1);
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	dst.x = g_titleRects.textBinding1.x;
+	dst.y = g_titleRects.textBinding1.y;
+	dst.w = w;
+	dst.h = h;
+	SDL_RenderCopy(renderer, texture, NULL, &dst);
+	// Sélection des touches
+	texture = Text_getTexture(self->textBinding2);
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	dst.x = g_titleRects.textBinding2.x;
+	dst.y = g_titleRects.textBinding2.y;
+	dst.w = w;
+	dst.h = h;
+	SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+	// Sélection des touches
+	texture = Text_getTexture(self->textBinding3);
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	dst.x = g_titleRects.textBinding3.x;
+	dst.y = g_titleRects.textBinding3.y;
+	dst.w = w;
+	dst.h = h;
+	SDL_RenderCopy(renderer, texture, NULL, &dst);
+
 
     if (config->keyCount == 4)
     {
@@ -268,6 +273,24 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
         dst.h = h;
         SDL_RenderCopy(renderer, texture, NULL, &dst);
     }
+
+    // Sélection du Mode
+    texture = Text_getTexture(self->textSelectMode);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textSelectMode.x;
+    dst.y = g_titleRects.textSelectMode.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    // Affichage du Mode
+    texture = Text_getTexture(self->textMode);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textMode.x;
+    dst.y = g_titleRects.textMode.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
 
     // Commencer
     texture = Text_getTexture(self->textStart1);
@@ -353,7 +376,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     LevelConfig* config = TitleScene_getLevelConfig(scene);
     
 
-    if (input->startPressed && self->selection == 4)
+    if (input->startPressed && self->selection == 5)
     {
         self->pageID = 0;
         self->selection = 0;
@@ -365,7 +388,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 5);
+        idx = Int_clamp(idx, 0, 6);
         playSwitchSound();
         self->selection = idx;
     }
@@ -404,17 +427,32 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
             config->bindselected = idx;
             
         }
+
+        if (self->selection == 4)                       //Key binding
+        {
+            int idx = config->piano;
+            idx += (input->rightPressed) ? 1 : -1;
+            idx = (idx + 2) % 2;
+            config->piano = idx;
+
+        }
     }
     Text_setString(self->textMusic, g_musics[config->musicID].titleName);   // mise a jour du texte en fonction des action sutilisateurs
     char nbnotes[16];
     char difficulty[16];
     char key1[16];
+    char mode[16];
     
     sprintf(nbnotes, u8"< %d >", config->keyCount);
     sprintf(difficulty, u8"< %d >", config->leveldifficulty.difficultyLevel);
     //sprintf(key1, u8"< %d >", scene->input->config.keyCodes[0]);
     Text_setString(self->textNbNotes, nbnotes);// mise a jour du texte en fonction des action sutilisateurs
    // Text_setString(self->textBinding1, key1);
+    if (config->piano) 
+        Text_setString(self->textMode, u8"Piano");
+    else
+        Text_setString(self->textMode, u8"Guitare");
+
 
 
     Text* leftTexts[] = {
@@ -422,6 +460,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         self->textSelectNotes,
         self->textSelectDifficulty,
         self->textSelectBinding,
+        self->textSelectMode,
         self->textMenu,
         self->textStart1,
     };
@@ -446,7 +485,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         Text_setColor(bidings[i], colors);
         config->bindselected = 0;
     }
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 7; i++)
     {
         SDL_Color colors = (i == self->selection) ?
             assets->colors.marron : assets->colors.bleu_clair;

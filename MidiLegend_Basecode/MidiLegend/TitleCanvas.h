@@ -35,12 +35,16 @@ typedef struct TitleCanvas
     Text* textMenu;
     Text* textTitre;
     Text* textQuit;
-    Text* textSelectBinding;
+
+    Text* textSelectBinding; //textes permettant la sélection des touches jouables
     Text* textBinding1;
     Text* textBinding2;
     Text* textBinding3;
     Text* textBinding4;
     Text* textBinding5;
+
+    Text* textMode; // texte de choix pour le mode piano ou guitare
+    Text* textSelectMode;
     /// @brief texte indiquant le niveau de difficulté
     Text* textDifficultyValue;
 

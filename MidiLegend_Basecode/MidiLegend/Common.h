@@ -75,6 +75,10 @@ typedef struct TitleRects
     SDL_Rect textBinding4;
     SDL_Rect textBinding5;
 
+    //@brief Position et dimension du texte indiquant de sélectionner le mode de jeu
+    SDL_Rect textSelectMode;
+    SDL_Rect textMode;
+
     /// @brief Position et dimensions du texte inquant la musique
     /// à sélectionner.
     SDL_Rect textSelectMusic;

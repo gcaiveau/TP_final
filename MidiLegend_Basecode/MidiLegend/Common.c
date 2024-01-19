@@ -33,6 +33,11 @@ void Game_initRectangles()
     SDL_Rect_set(&(g_titleRects.textSelectMusic), 20, y, 400, textHeight+40);   // rectangle musique
     y += 3*textHeight;
     SDL_Rect_set(&(g_titleRects.textMusic), 120, y, 350, textHeight+40);  //rectangle choix musique
+    SDL_Rect_set(&(g_titleRects.textSelectMode), 1280 - 250, y, 350, textHeight + 40);  //rectangle choix mode de jeu
+    y += 3 * textHeight;
+    SDL_Rect_set(&(g_titleRects.textMode), 1280 - 200, y, 350, textHeight + 40);  //rectangle mode de jeu sélectioné
+
+
 
     y += 80;
     SDL_Rect_set(&(g_titleRects.textSelectNotes), 20, y, 400, textHeight + 40);  //rectangle choix notes
@@ -49,14 +54,14 @@ void Game_initRectangles()
     y += 80;
     SDL_Rect_set(&(g_titleRects.textSelectBinding), 20, y, 400, textHeight + 40);  //rectangle choix touches jouables
     y += 3 * textHeight;
-    SDL_Rect_set(&(g_titleRects.textBinding1), 40, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.textBinding2), 120, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.textBinding3), 200, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.textBinding4), 280, y - 10, 60, 60);  //rectangle difficulté
-    SDL_Rect_set(&(g_titleRects.textBinding5), 360, y - 10, 60, 60);  //rectangle difficulté
+    SDL_Rect_set(&(g_titleRects.textBinding1), 40, y - 10, 60, 60);  //rectangle Binding1
+    SDL_Rect_set(&(g_titleRects.textBinding2), 120, y - 10, 60, 60);  //rectangle Binding2
+    SDL_Rect_set(&(g_titleRects.textBinding3), 200, y - 10, 60, 60);  //rectangle Binding3
+    SDL_Rect_set(&(g_titleRects.textBinding4), 280, y - 10, 60, 60);  //rectangle Binding4
+    SDL_Rect_set(&(g_titleRects.textBinding5), 360, y - 10, 60, 60);  //rectangle Binding5
 
     y += 80;
-    SDL_Rect_set(&(g_titleRects.textMenu), 1280 - 250, 720 - 3*textHeight - 40, 400, textHeight + 40);;  //rectangle choix difficulté
+    SDL_Rect_set(&(g_titleRects.textMenu), 1280 - 250, 720 - 3*textHeight - 40, 400, textHeight + 40);;  //rectangle menu
    
 
 
