@@ -475,7 +475,7 @@ bool TitleCanvas_updateFin(TitleCanvas* self)
     {
         int idx = self->selection;
         idx += (input->downPressed) ? 1 : -1;
-        idx = Int_clamp(idx, 0, 3);
+        idx = Int_clamp(idx, 0, 2);
         playSwitchSound();
         self->selection = idx;
     }
@@ -486,19 +486,6 @@ bool TitleCanvas_updateFin(TitleCanvas* self)
         self->textQuit1,
 
     };
-    //char count[16];
-    //sprintf(count, u8"< %d >", score.PerfectCount );
-    //text_setstring(self->countPerfect, count);// mise a jour du texte en fonction des action sutilisateurs
-    //sprintf(count, u8"< %d >", score.GoodCount);
-    //text_setstring(self->countGood, count);// mise a jour du texte en fonction des action sutilisateurs
-    //sprintf(count, u8"< %d >", score.BofCount);
-    //text_setstring(self->countBof, count);// mise a jour du texte en fonction des action sutilisateurs
-    //sprintf(count, u8"< %d >", score.NopeCount);
-    //text_setstring(self->countNope, count);// mise a jour du texte en fonction des action sutilisateurs
-    //int total = score.PerfectCount + score.GoodCount + score.BofCount + score.NopeCount;
-    //int sur = score.PerfectCount + score.GoodCount + score.BofCount;
-    //sprintf(count, u8"< %d / %d >", sur, total);
-    //text_setstring(self->countNope, count);// mise a jour du texte en fonction des action sutilisateurs
 
     for (int i = 0; i < 3; i++)
     {

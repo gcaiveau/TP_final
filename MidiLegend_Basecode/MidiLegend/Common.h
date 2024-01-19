@@ -45,6 +45,7 @@ typedef struct LevelRects
     SDL_Rect pointsA;
     SDL_Rect points1;
     SDL_Rect textRecord;
+    SDL_Rect textRecordA;
 
     SDL_Rect comboRect;
 

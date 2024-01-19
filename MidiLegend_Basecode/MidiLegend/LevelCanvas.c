@@ -22,6 +22,7 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
     self->textcombo = Text_create(renderer, assets->fonts.big, u8"0", assets->colors.white);
     self->textcomboA = Text_create(renderer, assets->fonts.normal, u8"Combo", assets->colors.white);
     self->textPointsA = Text_create(renderer, assets->fonts.normal, u8"Points", assets->colors.white);
+    self->textRecordA = Text_create(renderer, assets->fonts.normal, u8"Record", assets->colors.white);
     self->textPerfect = Text_create(renderer, assets->fonts.perfect, u8"0", assets->colors.green);
     self->textRecord = Text_create(renderer, assets->fonts.big, u8"0", assets->colors.white);
 
@@ -38,6 +39,7 @@ void LevelCanvas_destroy(LevelCanvas *self)
     Text_destroy(self->textcomboA);
     Text_destroy(self->textPerfect);
     Text_destroy(self->textRecord);
+    Text_destroy(self->textRecordA);
 
     free(self);
 }
@@ -115,6 +117,15 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     dst.x = g_levelRects.textPerfect.x + (g_levelRects.textPerfect.w - w) / 2;
     dst.y = g_levelRects.textPerfect.y - 23;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    //affichage record
+    texture = Text_getTexture(self->textRecordA);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_levelRects.textRecordA.x ;
+    dst.y = g_levelRects.textRecordA.y ;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);

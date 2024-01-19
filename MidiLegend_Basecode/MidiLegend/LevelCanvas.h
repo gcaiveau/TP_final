@@ -26,6 +26,7 @@ typedef struct LevelCanvas
     Text* textcomboA;
     Text* textPerfect;
     Text* textRecord;
+    Text* textRecordA;
 
 } LevelCanvas;
 

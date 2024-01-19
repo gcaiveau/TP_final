@@ -89,11 +89,12 @@ void Game_initRectangles()
     y = 0;
     SDL_Rect_set(&(g_levelRects.uiRect), 1280-350, y, 350, 200);  // box score 
     SDL_Rect_set(&(g_levelRects.pointsA), xUI - 140, y + 30, trackWidth, trackHeight);//rectangle texte points
+    SDL_Rect_set(&(g_levelRects.textRecordA), 120 , 20, trackWidth, trackHeight);
 
     y += 67;
     SDL_Rect_set(&(g_levelRects.points), xUI-140, y, trackWidth,trackHeight);  // rectangle des points
-    SDL_Rect_set(&(g_levelRects.textRecord), 0, y, trackWidth, trackHeight);  // rectangle texte record
-    SDL_Rect_set(&(g_levelRects.recordBar), 25, y+50, uiWidth, barH);  // record barre
+    SDL_Rect_set(&(g_levelRects.textRecord), 0, y+20, trackWidth, trackHeight);  // rectangle texte record
+    SDL_Rect_set(&(g_levelRects.recordBar), 25, y+70, uiWidth, barH);  // record barre
 
     y += textHeight + 67;
     SDL_Rect_set(&(g_levelRects.progressBar), xUI, y, uiWidth, barH);  // progress barre
