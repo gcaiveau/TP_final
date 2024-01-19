@@ -192,7 +192,7 @@ void LevelCanvas_update(LevelCanvas* self)
     Text_setString(self->textPoints, buffer);
     sprintf(buffer, "x %d", (int)(score.combo / 10));//affichage du combo
     Text_setString(self->textcombo, buffer);
-    sprintf(buffer, "%d", (int)score.BestScore[0][0]);
+    sprintf(buffer, "%d", (int)score.BestScore); 
     Text_setString(self->textRecord, buffer);
     if (score.Type == 1)
     {

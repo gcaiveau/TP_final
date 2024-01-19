@@ -31,7 +31,7 @@ typedef struct LevelScore
 
     int Type;
 
-    float BestScore[3][3];
+    float BestScore;
 
 } LevelScore;
 
@@ -69,6 +69,8 @@ typedef struct LevelScene
     LevelScore score;
 
     LevelDifficulty difficultyLevel;
+
+    int musicID;
 
 } LevelScene;
 
