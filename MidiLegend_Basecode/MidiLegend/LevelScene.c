@@ -42,13 +42,14 @@ LevelScene *LevelScene_create(
     int BestScore = self->musicID * 3 + self->difficultyLevel.difficultyLevel -1 ;
  
     FILE* file = NULL;
-    file = fopen("../BestScore", "r");
+    file = fopen("../BestScore.txt", "r");
     if (file != NULL) {
         fseek(file, BestScore, SEEK_SET);
-        fscanf(file, "%d", &self->score.BestScore);
-        
+        int check = fscanf(file, "%f", &self->score.BestScore);
+
         fclose(file);
     }
+    
     
     
 
@@ -111,19 +112,19 @@ bool LevelScene_update(LevelScene *self)
         self->trackTime = 0.0;
     }
 
-    /*int BestScore = self->musicID * 3 + self->difficultyLevel.difficultyLevel - 1;
+   /* int BestScore = self->musicID * 3 + self->difficultyLevel.difficultyLevel - 1;
 
-    FILE* file = NULL;
+    FILE* file = NULL;*/
     if (self->score.points > self->score.BestScore) {
-        file = fopen("../BestScore", "r+");
+        /*file = fopen("../BestScore", "r+");*/
 
         self->score.BestScore = self->score.points;
 
-        fseek(file, BestScore, SEEK_SET);
+        /*fseek(file, BestScore, SEEK_SET);
         fprintf(file, "%d", &self->score.BestScore);
 
-        fclose(file);
-    }*/
+        fclose(file);*/
+    }
 
     Track_update(self->track);
 
