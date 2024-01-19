@@ -152,7 +152,7 @@ void LevelCanvas_render(LevelCanvas *self)
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 100);
     SDL_RenderFillRect(renderer, &dst);
 
-    float RecordRatio = (float)(scene->score.points/ scene->score.BestScore);
+    float RecordRatio = (float)(scene->score.points/(float)scene->score.BestScore);
     RecordRatio = Float_clamp(RecordRatio, 0.0f, 1.0f);
     dst.x += 2; dst.y += 2;
     dst.w -= 4; dst.h -= 4;
