@@ -492,5 +492,5 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         
         Text_setColor(leftTexts[i], colors);
     }
-    return (self->selection == 5 && input->startPressed);
+    return (self->selection == 6 && input->startPressed);
 }
