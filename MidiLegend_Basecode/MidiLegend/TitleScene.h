@@ -69,7 +69,7 @@ typedef struct TitleScene
 /// @brief Crée la scène principale du jeu.
 /// @param renderer moteur de rendu.
 /// @return La scène créée.
-TitleScene *TitleScene_create(SDL_Renderer *renderer);
+TitleScene *TitleScene_create(SDL_Renderer *renderer, bool game_statue);
 
 /// @brief Détruit la scène principale.
 /// @param self la scène.

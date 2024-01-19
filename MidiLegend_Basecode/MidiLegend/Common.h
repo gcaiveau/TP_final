@@ -127,5 +127,6 @@ extern TitleRects g_titleRects;
 /// @param sdlFlags les flags pour la SDL.
 /// @param imgFlags les flags pour la SDL Image.
 void Game_init(int sdlFlags, int imgFlags);
+void Game_quit();
 
 /// @brief Quitte les librairies utilisées par le jeu.

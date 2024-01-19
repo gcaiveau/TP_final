@@ -75,6 +75,8 @@ typedef struct LevelScene
 
     int musicID;
 
+    int pageID;
+
 } LevelScene;
 
 /// @brief Crée la scène du niveau.

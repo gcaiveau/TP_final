@@ -5,6 +5,7 @@
 */
 
 #include "LevelScene.h"
+#include "Audio.h"
 
 LevelScene *LevelScene_create(
     SDL_Renderer* renderer, LevelConfig config)
@@ -14,28 +15,29 @@ LevelScene *LevelScene_create(
 
     self->difficultyLevel.difficultyLevel = config.leveldifficulty.difficultyLevel;
     self->musicID = config.musicID;
+    self->pageID = config.pageID;
 
     switch (self->difficultyLevel.difficultyLevel)
     {
     case 1:
-        self->difficultyLevel.multiplicator = 1;       //multiplicateur variant en fonction de la difficulté (plus c'est dur, plus ça rapporte)
+        self->difficultyLevel.multiplicator = 1.0f;       //multiplicateur variant en fonction de la difficulté (plus c'est dur, plus ça rapporte)
         self->difficultyLevel.NoMistakesAllowed = 0;    
-        self->difficultyLevel.Imprecision = 0.2;         //imprecision autorisée entre le moment ou la note doit etre jouee et celui ou le joueur appuie sur la touche
-        self->difficultyLevel.FallingSpeed = 0.7;        //la vitesse de chute des notes dépend de la difficulté
+        self->difficultyLevel.Imprecision = 0.2f;         //imprecision autorisée entre le moment ou la note doit etre jouee et celui ou le joueur appuie sur la touche
+        self->difficultyLevel.FallingSpeed = 0.7f;        //la vitesse de chute des notes dépend de la difficulté
         self->difficultyLevel.EasyPeasy = 1;             //simplifie le niveau en supprimant des notes trop proche
         break;
     case 2:
-        self->difficultyLevel.multiplicator = 1.2;
+        self->difficultyLevel.multiplicator = 1.2f;
         self->difficultyLevel.NoMistakesAllowed = 0;
-        self->difficultyLevel.Imprecision = 0.15;
-        self->difficultyLevel.FallingSpeed = 1;
+        self->difficultyLevel.Imprecision = 0.15f;
+        self->difficultyLevel.FallingSpeed = 1.0f;
         self->difficultyLevel.EasyPeasy = 0;
         break;
     case 3:
-        self->difficultyLevel.multiplicator = 1.5;
+        self->difficultyLevel.multiplicator = 1.5f;
         self->difficultyLevel.NoMistakesAllowed = 1;
-        self->difficultyLevel.Imprecision = 0.07;
-        self->difficultyLevel.FallingSpeed = 1.3;
+        self->difficultyLevel.Imprecision = 0.07f;
+        self->difficultyLevel.FallingSpeed = 1.3f;
         self->difficultyLevel.EasyPeasy = 0;
         break;
     }
@@ -47,12 +49,10 @@ LevelScene *LevelScene_create(
     if (file != NULL) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                //fseek(file, i * 3 + j, SEEK_SET);
-                int check = fscanf(file, "%f", &self->score.BestScore[i][j]);
+                int check = fscanf(file, "%f", &(self->score.BestScore[i][j]));
             }
         }
         fclose(file);
-        system("DEL BestScore.txt");
     }
 
 
@@ -78,6 +78,18 @@ LevelScene *LevelScene_create(
 void LevelScene_destroy(LevelScene *self)
 {
     if (!self) return;
+
+    FILE* file = NULL;
+    file = fopen("BestScore.txt", "w+");
+
+    if (file != NULL) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                fprintf(file, "%f ", self->score.BestScore[i][j]);
+            }
+        }
+        fclose(file);
+    }
 
     Mix_HaltChannel(0);
     Mix_FreeChunk(self->music);
@@ -119,25 +131,9 @@ bool LevelScene_update(LevelScene *self)
         self->score.BestScore[self->musicID][self->difficultyLevel.difficultyLevel-1] = self->score.points;
 
 
-    FILE* file = NULL;
-    file = fopen("BestScore.txt", "w");
-    if (file == NULL) {
-        system("ECHO.> BestScore.txt");
-        file = fopen("BestScore.txt", "w");
-    }
-
-    if (file != NULL) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                fprintf(file, "%f ", self->score.BestScore[i][j]);
-            }
-        }
-        fclose(file);
-    }
 
     Track_update(self->track);
-    LevelCanvas_update(self->canvas);
-    LevelConfig config;
+    LevelCanvas_update(self->canvas); 
 
     bool quit = self->input->quitPressed || self->input->menuPressed;
     if (self->input->pressf)
@@ -147,8 +143,8 @@ bool LevelScene_update(LevelScene *self)
         return quit;
     }
 
-    quit = quit || (self->trackTime > self->track->duration + 2.0f);
-    config.pageID = 2;
+    quit = quit || (self->trackTime > self->track->duration + 2.0f); 
+    self->pageID = 2;
     return quit;
 
 }

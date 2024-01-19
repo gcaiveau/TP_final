@@ -155,4 +155,4 @@ void Track_render(Track *self);
 
 void update_particle(Track* self);
 void render_particle(Track* self);
-void create_particle(Track* self);
+void create_particle(Track* self, int keyID);

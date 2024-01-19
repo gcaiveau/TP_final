@@ -302,7 +302,7 @@ bool TitleCanvas_update(TitleCanvas *self)
         return TitleCanvas_updateMain(self);
     else if (scene->config.pageID == 1)
         return TitleCanvas_updateSettings(self);
-    else if (scene->config.pageID == 2)
+    else
         return TitleCanvas_updateFin(self);
 }
 bool TitleCanvas_updateMain(TitleCanvas* self)
@@ -416,8 +416,8 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
     Text_setString(self->textMusic, g_musics[config->musicID].titleName);   // mise a jour du texte en fonction des action sutilisateurs
     char nbnotes[16];
     char difficulty[16];
-    char key1[16];
-    char mode[16];
+    //char key1[16];
+    
     
     sprintf(nbnotes, u8"< %d >", config->keyCount);
     sprintf(difficulty, u8"< %d >", config->leveldifficulty.difficultyLevel);

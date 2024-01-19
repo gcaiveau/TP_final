@@ -10,8 +10,12 @@ TitleScene *TitleScene_create(SDL_Renderer *renderer, bool game_statue)
 {
     TitleScene *self = (TitleScene *)calloc(1, sizeof(TitleScene));
     AssertNew(self);
+<<<<<<< Updated upstream
     //le boleen du main nous permet de savoir si l'utilasateur à jouer ou non et ainsi lui afficher une page de fin 
     // (obligatoire à cause de la remise à zéro de la variable pageID a la fin du jeu)
+=======
+    
+>>>>>>> Stashed changes
     if (game_statue == true)
     {
         self->config.pageID = 2;

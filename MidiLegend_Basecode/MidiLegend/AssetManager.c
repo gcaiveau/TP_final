@@ -104,17 +104,17 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     FontSpec fontSpecs[] = {
         {
             .ptr = &fonts->small,
-            .path = "../Assets/Font/The\ Fruit\ Star.ttf",
+            .path = "../Assets/Font/TheFruitStar.ttf",
             .size = 18,
         },
         {
             .ptr = &fonts->normal,
-            .path = "../Assets/Font/The\ Fruit\ Star.ttf",
+            .path = "../Assets/Font/TheFruitStar.ttf",
             .size = 36,
         },
         {
             .ptr = &fonts->big,
-            .path = "../Assets/Font/The\ Fruit\ Star.ttf",
+            .path = "../Assets/Font/TheFruitStar.ttf",
             .size = 72,
         },
         {
@@ -159,7 +159,7 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
     setColor(&(self->colors.cyan), 11, 190, 213);
     setColor(&(self->colors.rouge), 166, 18, 22);
     setColor(&(self->colors.jaune_clair), 255, 255, 220);
-    setColor(&(self->colors.jaune), 200, 222, 64, 255);
+    setColor(&(self->colors.jaune), 200, 222, 64);
     setColor(&(self->colors.violet), 145, 73, 195);
 
     return self;
