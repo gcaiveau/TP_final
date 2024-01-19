@@ -41,10 +41,6 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
             .ptr = &textures->background,
             .path = "../Assets/Images/fond_1.png"
         },
-        {
-            .ptr = &textures->logo,
-            .path = "../Assets/Images/logo.png"
-        },
 		{  // TODO : decommenter
 			.ptr = &textures->trackFill,
 			.path = "../Assets/Images/track_fill.png"
@@ -125,6 +121,11 @@ AssetManager *AssetManager_create(SDL_Renderer *renderer)
             .ptr = &fonts->perfect,
             .path = "../Assets/Font/321Perfect.ttf",
             .size = 50,
+        },
+        {
+            .ptr = &fonts->Bj,
+            .path = "../Assets/Font/The\ Fruit\ Star.ttf",
+            .size = 100,
         },
     };
     int fontSpecCount = sizeof(fontSpecs) / sizeof(FontSpec);

@@ -61,18 +61,7 @@ typedef struct TitleCanvas
     Text* textMenu1;
     Text* textQuit1;
 
-    Text* textStat;
-    Text* textPerfect;
-    Text* textGood;
-    Text* textBof;
-    Text* textNope;
-    Text* textTotal;
-
-    Text* countPerfect;
-    Text* countGood;
-    Text* countBof;
-    Text* countNope;
-    Text* countTotal;
+    Text* textBj;
 
     /// @brief Indice du paramètre sélectionné dans le menu.
     int selection;

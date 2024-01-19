@@ -62,6 +62,8 @@ typedef struct AssetManager
         TTF_Font *small;
 
         TTF_Font* perfect;
+
+        TTF_Font* Bj;
     } fonts;
 
     /// @brief Ensemble des couleurs du jeu.

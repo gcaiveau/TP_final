@@ -9,7 +9,7 @@
 #include "Settings.h"
 #include "Timer.h"
 
-#define MUSIC_COUNT 3
+#define MUSIC_COUNT 4
 typedef struct MusicSpec
 {
     char *textPath;
@@ -97,7 +97,7 @@ typedef struct TitleRects
     SDL_Rect textMenu1;
     SDL_Rect textRecommencer;
     SDL_Rect textTitre;
-
+    SDL_Rect textBj;
     /// @brief Position et dimensions du texte pour changer le nombre de corde.
     SDL_Rect textNbNotes;
 
@@ -111,18 +111,6 @@ typedef struct TitleRects
     SDL_Rect difficulte2;
     SDL_Rect difficulte3;
     SDL_Rect barre;
-
-    SDL_Rect textStat;
-    SDL_Rect textPerfect;
-    SDL_Rect textTotal;
-    SDL_Rect textBof;
-    SDL_Rect textGood;
-    SDL_Rect textNope;
-    SDL_Rect countTotal;
-    SDL_Rect countPerfect;
-    SDL_Rect countGood;
-    SDL_Rect countBof;
-    SDL_Rect countNope;
 
     /// @brief Position et dimensions du texte indiquant le niveau de difficulté.
 

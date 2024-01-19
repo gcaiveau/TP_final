@@ -43,22 +43,7 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene, bool game_statue)
     self->textMenu1 = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
     self->textRecommencer = Text_create(renderer, assets->fonts.normal, u8"Recommencer", assets->colors.bleu_clair);
     self->textQuit1 = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
-    self->textStat = Text_create(renderer, assets->fonts.big, u8"Stats", assets->colors.bleu_clair);
-
-    self->textPerfect = Text_create(renderer, assets->fonts.normal, u8"Perfect :", assets->colors.bleu_clair);
-    self->countPerfect = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
-
-    self->textGood = Text_create(renderer, assets->fonts.normal, u8"Good :", assets->colors.bleu_clair);
-    self->countGood = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
-
-    self->textBof = Text_create(renderer, assets->fonts.normal, u8"Bof :", assets->colors.bleu_clair);
-    self->countBof = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
-
-    self->textNope = Text_create(renderer, assets->fonts.normal, u8"Nope :", assets->colors.bleu_clair);
-    self->countNope = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
-
-    self->textTotal = Text_create(renderer, assets->fonts.normal, u8"Total :", assets->colors.bleu_clair);
-    self->countTotal = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
+    self->textBj = Text_create(renderer, assets->fonts.Bj, u8"Bien joué !", assets->colors.white);
 
     playMainAudio();
     
@@ -95,18 +80,7 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textQuit1);
     Text_destroy(self->textRecommencer);
 
-    Text_destroy(self->textStat);
-
-    Text_destroy(self->textTotal);
-    Text_destroy(self->textGood);
-    Text_destroy(self->textPerfect);
-    Text_destroy(self->textBof);
-    Text_destroy(self->textNope);
-    Text_destroy(self->countNope);
-    Text_destroy(self->countBof);
-    Text_destroy(self->countGood);
-    Text_destroy(self->countPerfect);
-    Text_destroy(self->countTotal);
+    Text_destroy(self->textBj);
 
     Mix_HaltMusic();
     free(self);
@@ -394,101 +368,13 @@ void TitleCanvas_renderFin(TitleCanvas* self)
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-    /*texture = Text_getTexture(self->textPerfect);
+    texture = Text_getTexture(self->textBj);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textPerfect.x;
-    dst.y = g_titleRects.textPerfect.y;
+    dst.x = g_titleRects.textBj.x;
+    dst.y = g_titleRects.textBj.y;
     dst.w = w;
     dst.h = h;
     SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->textBof);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textBof.x;
-    dst.y = g_titleRects.textBof.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->textGood);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textGood.x;
-    dst.y = g_titleRects.textGood.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->textPerfect);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textPerfect.x;
-    dst.y = g_titleRects.textPerfect.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->textNope);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textNope.x;
-    dst.y = g_titleRects.textNope.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->textTotal);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textTotal.x;
-    dst.y = g_titleRects.textTotal.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->textStat);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.textStat.x;
-    dst.y = g_titleRects.textStat.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->countBof);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.countBof.x;
-    dst.y = g_titleRects.countBof.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->countTotal);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.countTotal.x;
-    dst.y = g_titleRects.countTotal.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->countGood);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.countGood.x;
-    dst.y = g_titleRects.countGood.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->countPerfect);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.countPerfect.x;
-    dst.y = g_titleRects.countPerfect.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);
-
-    texture = Text_getTexture(self->countNope);
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = g_titleRects.countNope.x;
-    dst.y = g_titleRects.countNope.y;
-    dst.w = w;
-    dst.h = h;
-    SDL_RenderCopy(renderer, texture, NULL, &dst);*/
 }
 
 

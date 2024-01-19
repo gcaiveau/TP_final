@@ -25,7 +25,6 @@ LevelCanvas *LevelCanvas_create(LevelScene *scene)
     self->textPerfect = Text_create(renderer, assets->fonts.perfect, u8"0", assets->colors.green);
     self->textRecord = Text_create(renderer, assets->fonts.big, u8"0", assets->colors.white);
 
-
     return self;
 }
 

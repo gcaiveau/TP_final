@@ -79,28 +79,12 @@ void Game_initRectangles()
 
     //--------------------------------------------------------------------------
     //Stat
-    y = 100 ;
-    //SDL_Rect_set(&(g_titleRects.textStat), 100, y, 400, textHeight + 40);  // rectangle commencer
-    //y += 3 * textHeight + 100;
-    //SDL_Rect_set(&(g_titleRects.textTotal), 50, y, 400, textHeight + 40);  // rectangle commencer
-    //SDL_Rect_set(&(g_titleRects.countTotal), 250, y, 400, textHeight + 40);  // rectangle commencer
-    //y += 60;
-    //SDL_Rect_set(&(g_titleRects.textPerfect), 50, y, 400, textHeight + 40);  // rectangle commencer
-    //SDL_Rect_set(&(g_titleRects.countPerfect), 250, y, 400, textHeight + 40);  // rectangle commencer
-    //y += 60;
-    //SDL_Rect_set(&(g_titleRects.textGood), 50, y, 400, textHeight + 40);  // rectangle commencer
-    //SDL_Rect_set(&(g_titleRects.countGood), 250, y, 400, textHeight + 40);  // rectangle commencer
-    //y += 60;
-    //SDL_Rect_set(&(g_titleRects.textBof), 50, y, 400, textHeight + 40);  // rectangle commencer
-    //SDL_Rect_set(&(g_titleRects.countBof), 250, y, 400, textHeight + 40);  // rectangle commencer
-    //y += 60;
-    //SDL_Rect_set(&(g_titleRects.textNope), 50, y, 400, textHeight + 40);  // rectangle commencer
-    //SDL_Rect_set(&(g_titleRects.countNope), 250, y, 400, textHeight + 40);  // rectangle commencer
-
-
+    y = 0;
     SDL_Rect_set(&(g_titleRects.textQuit1), 1280 - 135, 720-textHeight-40, 400, textHeight + 40);  // rectangle commencer
     SDL_Rect_set(&(g_titleRects.textMenu1), 1280 - 110, 720 - textHeight - 120, 400, textHeight + 40);
     SDL_Rect_set(&(g_titleRects.textRecommencer), 1280 - 255, 720 - textHeight - 80, 400, textHeight + 40);  // rectangle commencer
+
+    SDL_Rect_set(&(g_titleRects.textBj), 50, 600, 400, textHeight + 40);  // rectangle commencer
     //--------------------------------------------------------------------------
     // Niveau
 
@@ -201,6 +185,13 @@ void Game_init(int sdlFlags, int imgFlags)
     g_musics[musicID].titleName = "< Fight Or Flight >";
     g_musics[musicID].fullName = "Fight Or Flight";
     g_musics[musicID].composer = "Heatley Bros - Heatley Bros VI";
+
+    musicID ++;
+    g_musics[musicID].textPath = "../Assets/Musics/100k_0.txt";
+    g_musics[musicID].musicPath = "../Assets/Musics/100k.mp3";
+    g_musics[musicID].titleName = "<100K>";
+    g_musics[musicID].fullName = "100k";
+    g_musics[musicID].composer = "GAZO";
 
     // Crée le temps global du jeu
     g_time = Timer_create();
