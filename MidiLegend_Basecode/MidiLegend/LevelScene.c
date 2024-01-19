@@ -45,10 +45,11 @@ LevelScene *LevelScene_create(
     file = fopen("../BestScore.txt", "r");
     if (file != NULL) {
         fseek(file, BestScore, SEEK_SET);
-        fscanf(file, "%d", &self->score.BestScore);
-        
+        int check = fscanf(file, "%f", &self->score.BestScore);
+
         fclose(file);
     }
+    
     
     
 

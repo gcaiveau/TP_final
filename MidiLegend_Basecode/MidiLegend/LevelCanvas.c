@@ -76,7 +76,7 @@ void LevelCanvas_render(LevelCanvas *self)
 
     texture = Text_getTexture(self->textRecord);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    dst.x = 150;
+    dst.x = 100;
     dst.y = g_levelRects.textRecord.y - 23;
     dst.w = w;
     dst.h = h;
