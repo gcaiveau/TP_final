@@ -9,7 +9,7 @@
 #include "Math.h"
 #include "Audio.h"
 
-TitleCanvas *TitleCanvas_create(TitleScene *scene)
+TitleCanvas *TitleCanvas_create(TitleScene *scene, bool game_statue)
 {
     TitleCanvas *self = (TitleCanvas *)calloc(1, sizeof(TitleCanvas));
     AssertNew(self);
@@ -40,6 +40,26 @@ TitleCanvas *TitleCanvas_create(TitleScene *scene)
     self->textSelectMode = Text_create(renderer, assets->fonts.normal, u8"Mode de jeu", assets->colors.white);
     self->textMode = Text_create(renderer, assets->fonts.normal, u8"piano ou guitare", assets->colors.white);
     
+    self->textMenu1 = Text_create(renderer, assets->fonts.normal, u8"Menu", assets->colors.bleu_clair);
+    self->textRecommencer = Text_create(renderer, assets->fonts.normal, u8"Recommencer", assets->colors.bleu_clair);
+    self->textQuit1 = Text_create(renderer, assets->fonts.normal, u8"Quitter", assets->colors.bleu_clair);
+    self->textStat = Text_create(renderer, assets->fonts.big, u8"Stats", assets->colors.bleu_clair);
+
+    self->textPerfect = Text_create(renderer, assets->fonts.normal, u8"Perfect :", assets->colors.bleu_clair);
+    self->countPerfect = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
+
+    self->textGood = Text_create(renderer, assets->fonts.normal, u8"Good :", assets->colors.bleu_clair);
+    self->countGood = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
+
+    self->textBof = Text_create(renderer, assets->fonts.normal, u8"Bof :", assets->colors.bleu_clair);
+    self->countBof = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
+
+    self->textNope = Text_create(renderer, assets->fonts.normal, u8"Nope :", assets->colors.bleu_clair);
+    self->countNope = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
+
+    self->textTotal = Text_create(renderer, assets->fonts.normal, u8"Total :", assets->colors.bleu_clair);
+    self->countTotal = Text_create(renderer, assets->fonts.normal, u8"0", assets->colors.bleu_clair);
+
     playMainAudio();
     
 
@@ -71,15 +91,35 @@ void TitleCanvas_destroy(TitleCanvas *self)
     Text_destroy(self->textMode);
     Text_destroy(self->textSelectMode);
 
+    Text_destroy(self->textMenu1);
+    Text_destroy(self->textQuit1);
+    Text_destroy(self->textRecommencer);
+
+    Text_destroy(self->textStat);
+
+    Text_destroy(self->textTotal);
+    Text_destroy(self->textGood);
+    Text_destroy(self->textPerfect);
+    Text_destroy(self->textBof);
+    Text_destroy(self->textNope);
+    Text_destroy(self->countNope);
+    Text_destroy(self->countBof);
+    Text_destroy(self->countGood);
+    Text_destroy(self->countPerfect);
+    Text_destroy(self->countTotal);
+
     Mix_HaltMusic();
     free(self);
 }
 void TitleCanvas_render(TitleCanvas* self)
 {
-    if (self->pageID == 0)
+    TitleScene* scene = self->scene;
+    if (scene->config.pageID == 0 )
         TitleCanvas_renderMain(self);
-    else if (self->pageID==1)
+    else if (scene->config.pageID == 1)
         TitleCanvas_renderSettings(self);
+    else if (scene->config.pageID == 2)
+        TitleCanvas_renderFin(self);
 
 }
 void TitleCanvas_renderMain(TitleCanvas *self)
@@ -218,35 +258,35 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     // Sélection des touches
 
 
-	texture = Text_getTexture(self->textBinding1);
-	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-	dst.x = g_titleRects.textBinding1.x;
-	dst.y = g_titleRects.textBinding1.y;
-	dst.w = w;
-	dst.h = h;
-	SDL_RenderCopy(renderer, texture, NULL, &dst);
-	// Sélection des touches
-	texture = Text_getTexture(self->textBinding2);
-	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-	dst.x = g_titleRects.textBinding2.x;
-	dst.y = g_titleRects.textBinding2.y;
-	dst.w = w;
-	dst.h = h;
-	SDL_RenderCopy(renderer, texture, NULL, &dst);
+    texture = Text_getTexture(self->textBinding1);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textBinding1.x;
+    dst.y = g_titleRects.textBinding1.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+    // Sélection des touches
+    texture = Text_getTexture(self->textBinding2);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textBinding2.x;
+    dst.y = g_titleRects.textBinding2.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
 
-	// Sélection des touches
-	texture = Text_getTexture(self->textBinding3);
-	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-	dst.x = g_titleRects.textBinding3.x;
-	dst.y = g_titleRects.textBinding3.y;
-	dst.w = w;
-	dst.h = h;
-	SDL_RenderCopy(renderer, texture, NULL, &dst);
+    // Sélection des touches
+    texture = Text_getTexture(self->textBinding3);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textBinding3.x;
+    dst.y = g_titleRects.textBinding3.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
 
 
     if (config->keyCount == 4)
     {
-         texture = Text_getTexture(self->textBinding4);
+        texture = Text_getTexture(self->textBinding4);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
         dst.x = g_titleRects.textBinding4.x;
         dst.y = g_titleRects.textBinding4.y;
@@ -256,7 +296,7 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     }
 
     if (config->keyCount == 5)
-    {   
+    {
         texture = Text_getTexture(self->textBinding4);
         SDL_QueryTexture(texture, NULL, NULL, &w, &h);
         dst.x = g_titleRects.textBinding4.x;
@@ -312,14 +352,155 @@ void TitleCanvas_renderSettings(TitleCanvas* self)
     SDL_RenderDrawRect(renderer, &(g_titleRects.textSelectNotes));
     */
 }
+void TitleCanvas_renderFin(TitleCanvas* self)
+{
+    TitleScene* scene = self->scene;
+    SDL_Renderer* renderer = TitleScene_getRenderer(scene);
+    LevelConfig* config = TitleScene_getLevelConfig(scene);
+
+    int w, h;
+    SDL_Rect dst = { 0 };
+    SDL_Texture* texture = NULL;
+
+    texture = Text_getTexture(self->textTitre);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textTitre.x;
+    dst.y = g_titleRects.textTitre.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textQuit1);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textQuit1.x;
+    dst.y = g_titleRects.textQuit1.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textMenu1);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textMenu1.x;
+    dst.y = g_titleRects.textMenu1.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textRecommencer);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textRecommencer.x;
+    dst.y = g_titleRects.textRecommencer.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    /*texture = Text_getTexture(self->textPerfect);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textPerfect.x;
+    dst.y = g_titleRects.textPerfect.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textBof);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textBof.x;
+    dst.y = g_titleRects.textBof.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textGood);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textGood.x;
+    dst.y = g_titleRects.textGood.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textPerfect);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textPerfect.x;
+    dst.y = g_titleRects.textPerfect.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textNope);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textNope.x;
+    dst.y = g_titleRects.textNope.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textTotal);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textTotal.x;
+    dst.y = g_titleRects.textTotal.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->textStat);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.textStat.x;
+    dst.y = g_titleRects.textStat.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->countBof);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.countBof.x;
+    dst.y = g_titleRects.countBof.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->countTotal);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.countTotal.x;
+    dst.y = g_titleRects.countTotal.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->countGood);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.countGood.x;
+    dst.y = g_titleRects.countGood.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->countPerfect);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.countPerfect.x;
+    dst.y = g_titleRects.countPerfect.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+
+    texture = Text_getTexture(self->countNope);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    dst.x = g_titleRects.countNope.x;
+    dst.y = g_titleRects.countNope.y;
+    dst.w = w;
+    dst.h = h;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);*/
+}
 
 
 bool TitleCanvas_update(TitleCanvas *self)
 {
-    if (self->pageID == 0)
+    TitleScene* scene = self->scene;
+    if (scene->config.pageID == 0)
         return TitleCanvas_updateMain(self);
-    else if (self->pageID == 1)
+    else if (scene->config.pageID == 1)
         return TitleCanvas_updateSettings(self);
+    else if (scene->config.pageID == 2)
+        return TitleCanvas_updateFin(self);
 }
 bool TitleCanvas_updateMain(TitleCanvas* self)
 {
@@ -332,7 +513,7 @@ bool TitleCanvas_updateMain(TitleCanvas* self)
     if (input->startPressed && self->selection==0)
     {
         playSwitchSound();
-        self->pageID = 1;
+        scene->config.pageID = 1;
         self->selection = 0;
         return false;
     }
@@ -378,7 +559,7 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
 
     if (input->startPressed && self->selection == 5)
     {
-        self->pageID = 0;
+        scene->config.pageID = 0;
         self->selection = 0;
         playSwitchSound();
         return false;
@@ -493,4 +674,65 @@ bool TitleCanvas_updateSettings(TitleCanvas* self)
         Text_setColor(leftTexts[i], colors);
     }
     return (self->selection == 6 && input->startPressed);
+}
+bool TitleCanvas_updateFin(TitleCanvas* self)
+{
+    TitleScene* scene = self->scene;
+    AssetManager* assets = TitleScene_getAssetManager(scene);
+    Input* input = TitleScene_getInput(scene);
+    LevelConfig* config = TitleScene_getLevelConfig(scene);
+    
+
+    if (input->startPressed && self->selection == 0)
+    {
+       scene->config.pageID = 0;
+        self->selection = 0;
+        playSwitchSound();
+        return false;
+    }
+
+    if (input->startPressed && self->selection == 2)
+    {
+        playSwitchSound();
+        input->quitPressed = true;
+    }
+
+    if (input->downPressed || input->upPressed)
+    {
+        int idx = self->selection;
+        idx += (input->downPressed) ? 1 : -1;
+        idx = Int_clamp(idx, 0, 3);
+        playSwitchSound();
+        self->selection = idx;
+    }
+
+    Text* leftTexts[] = {
+        self->textMenu1,
+        self->textRecommencer,
+        self->textQuit1,
+
+    };
+    //char count[16];
+    //sprintf(count, u8"< %d >", score.PerfectCount );
+    //text_setstring(self->countPerfect, count);// mise a jour du texte en fonction des action sutilisateurs
+    //sprintf(count, u8"< %d >", score.GoodCount);
+    //text_setstring(self->countGood, count);// mise a jour du texte en fonction des action sutilisateurs
+    //sprintf(count, u8"< %d >", score.BofCount);
+    //text_setstring(self->countBof, count);// mise a jour du texte en fonction des action sutilisateurs
+    //sprintf(count, u8"< %d >", score.NopeCount);
+    //text_setstring(self->countNope, count);// mise a jour du texte en fonction des action sutilisateurs
+    //int total = score.PerfectCount + score.GoodCount + score.BofCount + score.NopeCount;
+    //int sur = score.PerfectCount + score.GoodCount + score.BofCount;
+    //sprintf(count, u8"< %d / %d >", sur, total);
+    //text_setstring(self->countNope, count);// mise a jour du texte en fonction des action sutilisateurs
+
+    for (int i = 0; i < 3; i++)
+    {
+        SDL_Color colors = (i == self->selection) ?
+            assets->colors.marron : assets->colors.bleu_clair;
+
+        Text_setColor(leftTexts[i], colors);
+    }
+
+    return (self->selection == 1 && input->startPressed);
 }

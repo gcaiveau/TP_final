@@ -84,6 +84,7 @@ typedef struct TitleRects
     SDL_Rect textSelectMusic;
 
     SDL_Rect textQuit;
+    SDL_Rect textQuit1;
     /// @brief Position et dimensions du texte inquant le nom de la musique
     /// sélectionnée.
     SDL_Rect textMusic;
@@ -93,6 +94,8 @@ typedef struct TitleRects
     SDL_Rect textStart1;
     SDL_Rect textSettings;
     SDL_Rect textMenu;
+    SDL_Rect textMenu1;
+    SDL_Rect textRecommencer;
     SDL_Rect textTitre;
 
     /// @brief Position et dimensions du texte pour changer le nombre de corde.
@@ -108,6 +111,18 @@ typedef struct TitleRects
     SDL_Rect difficulte2;
     SDL_Rect difficulte3;
     SDL_Rect barre;
+
+    SDL_Rect textStat;
+    SDL_Rect textPerfect;
+    SDL_Rect textTotal;
+    SDL_Rect textBof;
+    SDL_Rect textGood;
+    SDL_Rect textNope;
+    SDL_Rect countTotal;
+    SDL_Rect countPerfect;
+    SDL_Rect countGood;
+    SDL_Rect countBof;
+    SDL_Rect countNope;
 
     /// @brief Position et dimensions du texte indiquant le niveau de difficulté.
 

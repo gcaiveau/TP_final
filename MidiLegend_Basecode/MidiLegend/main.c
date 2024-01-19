@@ -55,12 +55,14 @@ int main(int argc, char *argv[])
 
     TitleScene *titleScene = NULL;
     LevelScene *levelScene = NULL;
+    bool game_statue = false;
+
     while (true)
     {
         //......................................................................
         // Menu principal
 
-        titleScene = TitleScene_create(renderer);
+        titleScene = TitleScene_create(renderer, game_statue);
 
         // Boucle de rendu du menu principal
         while (true)
@@ -102,6 +104,7 @@ int main(int argc, char *argv[])
 
         // Boucle de rendu du niveau
         LevelScene_start(levelScene);
+        game_statue = false;
         while (true)
         {
             // Met à jour le temps
@@ -122,13 +125,17 @@ int main(int argc, char *argv[])
             // Affiche le nouveau rendu
             SDL_RenderPresent(renderer);
         }
-
         if (levelScene->input->quitPressed)
             break;
+        game_statue = true;
+        //LevelScore* score = TitleScene_getTitleScore(levelScene);
 
+        //titleScene = TitleScene_create(
+        //    renderer, score
+        //);
         // Détruit la scène du niveau
-        LevelScene_destroy(levelScene);
         levelScene = NULL;
+        LevelScene_destroy(levelScene);
     }
 
 

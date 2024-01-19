@@ -18,6 +18,7 @@
 
 /// @brief Structure représentant les élements servant au score du joueur.
 /// Peut également contenir le nombre de combo, la valeur du multiplicateur, la précision...
+
 typedef struct LevelScore
 {
     /// @brief Nombre de points du joueur.
@@ -28,12 +29,14 @@ typedef struct LevelScore
     int PerfectCount;
     int GoodCount;
     int BofCount;
+    int NopeCount;
 
     int Type;
 
     float BestScore;
 
 } LevelScore;
+
 
 /// @brief Structure représentant la scène principale du jeu (niveau).
 typedef struct LevelScene

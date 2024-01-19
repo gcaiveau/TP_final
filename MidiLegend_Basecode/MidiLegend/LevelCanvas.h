@@ -9,6 +9,7 @@
 #include "Settings.h"
 #include "Text.h"
 
+
 typedef struct LevelScene LevelScene;
 
 /// @brief Structure représentant le canvas du niveau.
@@ -25,9 +26,6 @@ typedef struct LevelCanvas
     Text* textcomboA;
     Text* textPerfect;
     Text* textRecord;
-
-    int pageID;
-    int selection;
 
 } LevelCanvas;
 

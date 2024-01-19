@@ -50,9 +50,6 @@ LevelScene *LevelScene_create(
         fclose(file);
     }
     
-    
-    
-
 
     self->renderer = renderer;
     self->assets = AssetManager_create(renderer);
@@ -97,6 +94,7 @@ bool LevelScene_update(LevelScene *self)
 {
     // Met à jour les entrées utilisateur
     Input_update(self->input);
+    
 
     self->trackTime += Timer_getDelta(g_time);
 
@@ -127,11 +125,19 @@ bool LevelScene_update(LevelScene *self)
     }
 
     Track_update(self->track);
-
     LevelCanvas_update(self->canvas);
+    LevelConfig config;
 
     bool quit = self->input->quitPressed || self->input->menuPressed;
+    if (self->input->pressf)
+    {
+        playSwitchSound();
+        quit = true;
+        return quit;
+    }
+
     quit = quit || (self->trackTime > self->track->duration + 2.0f);
+    config.pageID = 2;
     return quit;
 
 }

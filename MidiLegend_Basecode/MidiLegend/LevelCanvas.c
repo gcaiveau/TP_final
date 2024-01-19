@@ -6,6 +6,7 @@
 
 #include "LevelCanvas.h"
 #include "LevelScene.h"
+#include "TitleCanvas.h"
 #include "Math.h"
 
 LevelCanvas *LevelCanvas_create(LevelScene *scene)
@@ -177,13 +178,6 @@ void LevelCanvas_update(LevelCanvas* self)
     AssetManager* assets = LevelScene_getAssetManager(self->scene);
     Input* input = LevelScene_getInput(self->scene);
     char buffer[128] = { 0 };
-
-    if (input->pressf)
-    {
-        playSwitchSound();
-        self->pageID = 1;
-        return false;
-    }
 
     // Met à jour l'affichage du nombre de points du joueur
     sprintf(buffer, "%d", (int)score.points);

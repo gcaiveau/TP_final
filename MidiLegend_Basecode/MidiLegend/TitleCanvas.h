@@ -55,21 +55,34 @@ typedef struct TitleCanvas
 
     /// @brief Le texte de début du niveau.
     Text *textStart;
-
     Text* textStart1;
+
+    Text* textRecommencer;
+    Text* textMenu1;
+    Text* textQuit1;
+
+    Text* textStat;
+    Text* textPerfect;
+    Text* textGood;
+    Text* textBof;
+    Text* textNope;
+    Text* textTotal;
+
+    Text* countPerfect;
+    Text* countGood;
+    Text* countBof;
+    Text* countNope;
+    Text* countTotal;
 
     /// @brief Indice du paramètre sélectionné dans le menu.
     int selection;
-
-    int pageID;
 
 } TitleCanvas;
 
 /// @brief Crée le canvas du menu principal.
 /// @param scene la scène.
 /// @return Le canvas créé.
-TitleCanvas *TitleCanvas_create(TitleScene *scene);
-
+TitleCanvas *TitleCanvas_create(TitleScene *scene, bool game_statue);
 /// @brief Détruit le canvas du menu principal.
 /// @param self le canvas.
 void TitleCanvas_destroy(TitleCanvas *self);
@@ -79,9 +92,11 @@ void TitleCanvas_destroy(TitleCanvas *self);
 bool TitleCanvas_update(TitleCanvas *self);
 bool TitleCanvas_updateMain(TitleCanvas* self);
 bool TitleCanvas_updateSettings(TitleCanvas* self);
+bool TitleCanvas_updateFin(TitleCanvas* self);
 
 /// @brief Dessine le canvas du menu principal dans le moteur de rendu.
 /// @param self le canvas.
 void TitleCanvas_render(TitleCanvas *self);
 void TitleCanvas_renderMain(TitleCanvas* self);
 void TitleCanvas_renderSettings(TitleCanvas* self);
+void TitleCanvas_renderFin(TitleCanvas* self);

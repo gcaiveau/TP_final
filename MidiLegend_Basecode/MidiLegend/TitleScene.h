@@ -39,6 +39,8 @@ typedef struct LevelConfig
     LevelDifficulty leveldifficulty;
 
     int bindselected;
+
+    int pageID;
 } LevelConfig;
 
 /// @brief Structure représentant la scène principale du jeu (niveau).

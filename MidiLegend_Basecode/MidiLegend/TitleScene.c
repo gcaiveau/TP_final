@@ -6,16 +6,19 @@
 
 #include "TitleScene.h"
 
-TitleScene *TitleScene_create(SDL_Renderer *renderer)
+TitleScene *TitleScene_create(SDL_Renderer *renderer, bool game_statue)
 {
     TitleScene *self = (TitleScene *)calloc(1, sizeof(TitleScene));
     AssertNew(self);
+
+    if (game_statue == true)
+        self->config.pageID = 2;
 
     self->renderer = renderer;
 
     self->assets = AssetManager_create(renderer);
     self->input = Input_create(true);
-    self->canvas = TitleCanvas_create(self);
+    self->canvas = TitleCanvas_create(self, game_statue);
 
 
     self->config.keyCount = 3;
@@ -23,6 +26,7 @@ TitleScene *TitleScene_create(SDL_Renderer *renderer)
     self->config.bindselected = 0;
     self->config.musicID = 0;
     self->config.piano = true;
+
 
     return self;
 }
@@ -63,19 +67,19 @@ void TitleScene_render(TitleScene *self)
     SDL_RenderCopy(renderer, assets->textures.background, NULL, NULL);
 
 
-    if (self->config.leveldifficulty.difficultyLevel == 1 && self->canvas->pageID==1)
+    if (self->config.leveldifficulty.difficultyLevel == 1 && self->config.pageID==1)
     {
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
         SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte2));
         SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte3));
     }
-    else if (self->config.leveldifficulty.difficultyLevel == 2 && self->canvas->pageID == 1)
+    else if (self->config.leveldifficulty.difficultyLevel == 2 && self->config.pageID == 1)
     {
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte2));
         SDL_RenderCopy(renderer, assets->textures.difficulte, NULL, &(g_titleRects.difficulte3));
     }
-    else if (self->config.leveldifficulty.difficultyLevel == 3 && self->canvas->pageID == 1)
+    else if (self->config.leveldifficulty.difficultyLevel == 3 && self->config.pageID == 1)
     {
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte1));
         SDL_RenderCopy(renderer, assets->textures.difficulte1, NULL, &(g_titleRects.difficulte2));

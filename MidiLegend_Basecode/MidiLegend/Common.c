@@ -37,8 +37,6 @@ void Game_initRectangles()
     y += 3 * textHeight;
     SDL_Rect_set(&(g_titleRects.textMode), 1280 - 200, y, 350, textHeight + 40);  //rectangle mode de jeu sélectioné
 
-
-
     y += 80;
     SDL_Rect_set(&(g_titleRects.textSelectNotes), 20, y, 400, textHeight + 40);  //rectangle choix notes
     y += 3*textHeight;
@@ -79,7 +77,30 @@ void Game_initRectangles()
     y += 60;
     SDL_Rect_set(&(g_titleRects.textQuit), 50, y, 400, textHeight + 40);  // rectangle commencer
 
+    //--------------------------------------------------------------------------
+    //Stat
+    y = 100 ;
+    //SDL_Rect_set(&(g_titleRects.textStat), 100, y, 400, textHeight + 40);  // rectangle commencer
+    //y += 3 * textHeight + 100;
+    //SDL_Rect_set(&(g_titleRects.textTotal), 50, y, 400, textHeight + 40);  // rectangle commencer
+    //SDL_Rect_set(&(g_titleRects.countTotal), 250, y, 400, textHeight + 40);  // rectangle commencer
+    //y += 60;
+    //SDL_Rect_set(&(g_titleRects.textPerfect), 50, y, 400, textHeight + 40);  // rectangle commencer
+    //SDL_Rect_set(&(g_titleRects.countPerfect), 250, y, 400, textHeight + 40);  // rectangle commencer
+    //y += 60;
+    //SDL_Rect_set(&(g_titleRects.textGood), 50, y, 400, textHeight + 40);  // rectangle commencer
+    //SDL_Rect_set(&(g_titleRects.countGood), 250, y, 400, textHeight + 40);  // rectangle commencer
+    //y += 60;
+    //SDL_Rect_set(&(g_titleRects.textBof), 50, y, 400, textHeight + 40);  // rectangle commencer
+    //SDL_Rect_set(&(g_titleRects.countBof), 250, y, 400, textHeight + 40);  // rectangle commencer
+    //y += 60;
+    //SDL_Rect_set(&(g_titleRects.textNope), 50, y, 400, textHeight + 40);  // rectangle commencer
+    //SDL_Rect_set(&(g_titleRects.countNope), 250, y, 400, textHeight + 40);  // rectangle commencer
 
+
+    SDL_Rect_set(&(g_titleRects.textQuit1), 1280 - 135, 720-textHeight-40, 400, textHeight + 40);  // rectangle commencer
+    SDL_Rect_set(&(g_titleRects.textMenu1), 1280 - 110, 720 - textHeight - 120, 400, textHeight + 40);
+    SDL_Rect_set(&(g_titleRects.textRecommencer), 1280 - 255, 720 - textHeight - 80, 400, textHeight + 40);  // rectangle commencer
     //--------------------------------------------------------------------------
     // Niveau
 
